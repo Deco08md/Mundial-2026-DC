@@ -467,12 +467,13 @@ const FALLBACK=[
   // Grupo H — hoy (15 jun)
   {id:'f8a',date:'2026-06-15',tUTC:'00:00',home:'Spain',away:'Cape Verde',hs:0,as:0,status:'final',group:'Grupo H',venue:'Mercedes-Benz Stadium, Atlanta'},
   {id:'f8b',date:'2026-06-15',tUTC:'18:00',home:'Saudi Arabia',away:'Uruguay',hs:null,as:null,status:'upcoming',group:'Grupo H',venue:'Hard Rock Stadium, Miami'},
-  // Grupo L — Panama aquí
-  {id:'p1',date:'2026-06-17',tUTC:'23:00',home:'Panama',away:'Croatia',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'BMO Field, Toronto, Canadá'},
-  {id:'p2',date:'2026-06-22',tUTC:'00:00',home:'England',away:'Ghana',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'MetLife Stadium, New Jersey'},
-  {id:'p3',date:'2026-06-22',tUTC:'23:00',home:'Panama',away:'Ghana',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'AT&T Stadium, Dallas'},
-  {id:'p4',date:'2026-06-26',tUTC:'22:00',home:'England',away:'Croatia',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'Rose Bowl, Los Angeles'},
-  {id:'p5',date:'2026-06-26',tUTC:'22:00',home:'Panama',away:'England',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'BC Place, Vancouver'},
+  // Grupo L — verificado ESPN por fecha
+  {id:'p1',date:'2026-06-17',tUTC:'23:00',home:'Ghana',away:'Panama',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'BMO Field, Toronto, Canadá'},
+  {id:'p1b',date:'2026-06-17',tUTC:'20:00',home:'England',away:'Croatia',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'AT&T Stadium, Dallas'},
+  {id:'p2',date:'2026-06-23',tUTC:'20:00',home:'England',away:'Ghana',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'Gillette Stadium, Boston'},
+  {id:'p3',date:'2026-06-23',tUTC:'23:00',home:'Panama',away:'Croatia',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'BMO Field, Toronto, Canadá'},
+  {id:'p4',date:'2026-06-27',tUTC:'21:00',home:'Croatia',away:'Ghana',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'Lincoln Financial Field, Philadelphia'},
+  {id:'p5',date:'2026-06-27',tUTC:'21:00',home:'Panama',away:'England',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'MetLife Stadium, New Jersey'},
 ];
 
 let matches=[], myPreds=JSON.parse(localStorage.getItem('wc26p')||'{}'), myName=localStorage.getItem('wc26n')||'', selTeam=null, schedFilter='all', curSec='home', cdInterval=null;
@@ -836,9 +837,9 @@ function drawPanama(){
   const el=document.getElementById('pan');
   const pms=matches.filter(m=>(m.home||m.homeTeam)==='Panama'||(m.away||m.awayTeam)==='Panama');
   const fallPms=[
-    {id:'p1',date:'2026-06-17',tUTC:'23:00',home:'Panama',away:'Croatia',hs:null,as:null,status:'upcoming',group:'Grupo B',venue:'BMO Field, Toronto, Canadá'},
-    {id:'p2',date:'2026-06-22',tUTC:'18:00',home:'Panama',away:'Morocco',hs:null,as:null,status:'upcoming',group:'Grupo B',venue:'SoFi Stadium, Los Angeles'},
-    {id:'p3',date:'2026-06-26',tUTC:'22:00',home:'Belgium',away:'Panama',hs:null,as:null,status:'upcoming',group:'Grupo B',venue:'MetLife Stadium, New Jersey'},
+    {id:'p1',date:'2026-06-17',tUTC:'23:00',home:'Ghana',away:'Panama',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'BMO Field, Toronto, Canadá'},
+    {id:'p3',date:'2026-06-23',tUTC:'23:00',home:'Panama',away:'Croatia',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'BMO Field, Toronto, Canadá'},
+    {id:'p5',date:'2026-06-27',tUTC:'21:00',home:'Panama',away:'England',hs:null,as:null,status:'upcoming',group:'Grupo L',venue:'MetLife Stadium, New Jersey'},
   ];
   const ms=pms.length?pms:fallPms;
   const qp=qProb('Panama',GROUPS['L'].teams), wp=winProb('Panama');
@@ -856,7 +857,7 @@ function drawPanama(){
     <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--gold);font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">
       <i class="ti ti-star-filled" style="font-size:13px;" aria-hidden="true"></i> Estás en este partido
     </div>
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;margin-bottom:10px;">🇵🇦 Panamá vs Croacia 🇭🇷</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:700;margin-bottom:10px;">🇬🇭 Ghana vs Panamá 🇵🇦</div>
     <div class="ir" style="font-size:13px;"><span class="il"><i class="ti ti-building-stadium" style="font-size:12px;" aria-hidden="true"></i> Estadio</span><span>BMO Field, Toronto</span></div>
     <div class="ir" style="font-size:13px;"><span class="il"><i class="ti ti-calendar" style="font-size:12px;" aria-hidden="true"></i> Hora Panamá</span><span>${toPA('2026-06-17','23:00')}</span></div>
     <div class="ir" style="font-size:13px;"><span class="il"><i class="ti ti-clock" style="font-size:12px;" aria-hidden="true"></i> Hora Toronto</span><span>7:00 PM EDT</span></div>
