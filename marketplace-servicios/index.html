@@ -74,7 +74,7 @@ button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
 .pad{padding:16px}
 .topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:12px 12px 10px;background:var(--surface-2)}
 .topbar h1{font-size:18px;margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.iconbtn{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line)}
+.iconbtn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line)}
 .sec{padding:8px 16px 16px;display:flex;flex-direction:column;gap:12px}
 .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
 .sec-h h2{font-family:var(--f-display);font-size:18px;margin:0;letter-spacing:-.01em}
@@ -83,7 +83,7 @@ button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 18px;border-radius:12px;font-weight:700;font-size:15px;background:var(--accent);color:var(--accent-ink);width:100%}
 .btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
 .btn.danger{background:var(--danger-soft);color:var(--danger)}
-.btn.sm{padding:9px 12px;font-size:14px;width:auto;border-radius:10px}
+.btn.sm{padding:9px 14px;font-size:14px;width:auto;border-radius:10px;min-height:44px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 .pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
 .pill.ok{background:var(--accent-soft);color:var(--accent)}
@@ -93,7 +93,7 @@ button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
 .pill.new{background:var(--info-soft);color:var(--info)}
 .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;white-space:nowrap;color:var(--ink-2)}
+.chip{min-height:44px;display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;white-space:nowrap;color:var(--ink-2)}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .chip:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
 .field{display:flex;flex-direction:column;gap:6px}
@@ -243,7 +243,7 @@ textarea.input{min-height:84px;resize:vertical}
 
 /* review form */
 .starpick{display:flex;gap:6px;justify-content:center;padding:6px 0}
-.starpick button{color:var(--line)}
+.starpick button{color:var(--line);min-width:44px;min-height:44px;display:grid;place-items:center}
 .starpick button.on{color:var(--sun)}
 .starlbl{text-align:center;font-weight:700;min-height:1.4em}
 
@@ -255,7 +255,7 @@ textarea.input{min-height:84px;resize:vertical}
 .earn .rows div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
 .meter{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
 .meter em{display:block;height:100%;background:var(--accent);border-radius:4px}
-.chk{display:flex;align-items:center;gap:10px;padding:10px 14px;width:100%;font-size:14px}
+.chk{display:flex;align-items:center;gap:10px;padding:10px 14px;width:100%;font-size:14px;min-height:46px}
 .chk+.chk{border-top:1px solid var(--line)}
 .chk i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none}
 .chk.ok i{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
@@ -269,6 +269,27 @@ textarea.input{min-height:84px;resize:vertical}
 .req .acts .btn{flex:1}
 .money{font-family:var(--f-display);font-weight:700;font-size:18px;text-align:right;font-variant-numeric:tabular-nums}
 .money small{display:block;font-family:var(--f-body);font-weight:500;font-size:11.5px;color:var(--ink-2)}
+
+/* urgent, code, chat */
+.urg{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;background:#1F3FBF;color:#fff;width:100%}
+.urg .bolt{width:40px;height:40px;border-radius:12px;background:#F5B728;color:#1B1406;display:grid;place-items:center;flex:none}
+.urg div{flex:1;min-width:0}.urg small{display:block;opacity:.85;font-size:12.5px}
+.opt.urgent[aria-pressed="true"]{border-color:var(--danger);box-shadow:inset 0 0 0 1px var(--danger);background:var(--danger-soft)}
+.pill.urg-p{background:var(--danger-soft);color:var(--danger)}
+.codebox{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;border:2px dashed var(--accent);background:var(--accent-soft)}
+.codebox b.code{font-family:var(--f-display);font-size:32px;letter-spacing:.18em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.codebox span{font-size:13px;color:var(--ink-2)}
+.row-acts{display:flex;gap:8px}.row-acts .btn{flex:1}
+.chat{display:flex;flex-direction:column;gap:8px;padding:8px 16px 16px;min-height:60%}
+.msg{max-width:80%;padding:9px 12px;border-radius:16px;font-size:14.5px;line-height:1.4;overflow-wrap:anywhere}
+.msg.me{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px}
+.msg.them{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg.sys{align-self:center;max-width:92%;background:var(--sun-soft);color:var(--ink);font-size:12.5px;border-radius:10px;text-align:center}
+.msg small{display:block;font-size:11px;opacity:.7;margin-top:2px}
+.composer{position:sticky;bottom:0;display:flex;gap:8px;padding:10px 12px 12px;background:var(--surface-2);border-top:1px solid var(--line)}
+.composer .input{flex:1;min-width:0}
+.composer .btn{width:auto}
+.codein{display:flex;gap:8px}.codein .input{width:110px;letter-spacing:.2em;text-align:center;font-weight:700}.codein .btn{flex:1}
 
 /* tiers */
 .tier{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 6px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
@@ -321,7 +342,7 @@ textarea.input{min-height:84px;resize:vertical}
     <h2 class="display">Lo cuadras con gente de confianza.</h2>
     <p class="intro">Esta es la app funcionando con datos de ejemplo. Todo lo que hagas aquí afecta a los dos lados del mercado: lo que publica un profesional lo ve el cliente, y lo que reserva el cliente le llega al profesional.</p>
     <ol class="steps">
-      <li><span><b>Busca "fuga"</b> y reserva un plomero. Mira el pago protegido y el seguimiento.</span></li>
+      <li><span><b>Busca "fuga"</b> y reserva un plomero. Prueba la opción Urgente, el chat protegido y el código de llegada.</span></li>
       <li><span><b>Califica la limpieza</b> que está pendiente en Reservas: estrellas, comentario y fotos.</span></li>
       <li><span><b>Cámbiate a Profesional</b>, regístrate, sube fotos de tus trabajos y agrega referencias.</span></li>
       <li><span><b>Vuelve a Cliente</b>: tu perfil ya aparece en la búsqueda. Resérvate y acepta la solicitud del otro lado.</span></li>
@@ -338,9 +359,18 @@ textarea.input{min-height:84px;resize:vertical}
 <script>
 (function(){
 'use strict';
-const LS_KEY='cuadra-demo-v1';
+const LS_KEY='cuadra-demo-v2';
 const MARK_SVG='<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg>';
 const REPEAT_RATE=0.08;
+const URGENT_FEE=15;
+const DIAG={plomeria:['Visita de diagnóstico',20],electricidad:['Visita de diagnóstico',20],aires:['Visita de diagnóstico',20],pintura:['Visita de cotización',10]};
+function ensureDiag(p){
+  const has=p.services.find(x=>/diagn|cotizaci/i.test(x.name));
+  if(has){has.diag=true;return}
+  if(DIAG[p.cat]) p.services.push({name:DIAG[p.cat][0],price:DIAG[p.cat][1],diag:true});
+}
+const code4=()=>String(1000+Math.floor(Math.random()*9000));
+const PHONE_RX=/(\+?\d[\d\s.-]{5,}\d)|(wa\.me\/\S*)/gi;
 const TIERS=[
   {id:'bronce',name:'Bronce',min:0,minR:0,rate:0.18,payout:'en 3 días hábiles',boost:0,perk:'Comisión base'},
   {id:'plata',name:'Plata',min:10,minR:4.5,rate:0.15,payout:'en 48 horas',boost:0.25,perk:'Más arriba en búsquedas'},
@@ -498,11 +528,11 @@ function seed(){
       reviews:[R('Restaurante La Fonda',5,'El mural quedó espectacular y lo terminó en el fin de semana.','Textura decorativa',16,['Lo recomiendo'],[{h:340,t:'Mural'}])],
       refs:[]})
   ];
-  pros.forEach(p=>{p.services=p.svcs.map(([name,price])=>({name,price}));delete p.svcs});
+  pros.forEach(p=>{p.services=p.svcs.map(([name,price])=>({name,price}));delete p.svcs;ensureDiag(p);p.urgent=['p1','p3','p4','p7','p8'].includes(p.id)});
   const t1=iso(now-2*DAY), t2=iso(now+DAY);
   const bookings=[
-    {id:'b-seed1',proId:'p2',client:'self',clientName:'Andrea M.',svc:{name:'Limpieza general (3 h)',price:40},day:t1,slot:'9:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'Apartamento de 2 recámaras.',photos:[],pay:'Yappy',status:'completado',rate:0.12,repeat:false,created:now-3*DAY,hist:{pendiente:now-3*DAY,aceptado:now-3*DAY+600000,en_curso:now-2*DAY,terminado:now-2*DAY+10800000,completado:now-2*DAY+11000000}},
-    {id:'b-seed2',proId:'p4',client:'self',clientName:'Andrea M.',svc:{name:'Mantenimiento split 12k BTU',price:45},day:t2,slot:'10:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'El aire de la recámara principal gotea.',photos:[],pay:'Tarjeta',status:'aceptado',created:now-DAY,hist:{pendiente:now-DAY,aceptado:now-DAY+900000}}
+    {id:'b-seed1',proId:'p2',client:'self',clientName:'Andrea M.',svc:{name:'Limpieza general (3 h)',price:40},day:t1,slot:'9:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'Apartamento de 2 recámaras.',photos:[],pay:'Yappy',status:'completado',rate:0.12,repeat:false,code:'5310',msgs:[],created:now-3*DAY,hist:{pendiente:now-3*DAY,aceptado:now-3*DAY+600000,en_curso:now-2*DAY,terminado:now-2*DAY+10800000,completado:now-2*DAY+11000000}},
+    {id:'b-seed2',proId:'p4',client:'self',clientName:'Andrea M.',svc:{name:'Mantenimiento split 12k BTU',price:45},day:t2,slot:'10:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'El aire de la recámara principal gotea.',photos:[],pay:'Tarjeta',status:'aceptado',code:'4821',msgs:[{from:'pro',text:'Buenas, Andrea. Mañana a las 10:00 llego con el equipo para revisar el split que gotea.',ts:now-DAY+1000000}],created:now-DAY,hist:{pendiente:now-DAY,aceptado:now-DAY+900000}}
   ];
   return {v:1,pros,bookings,meId:null,client:{name:'Andrea M.',zone:'San Francisco',addr:'Calle 74, San Francisco, Torre Mar apto 8B'},baseDone:1840,waitlist:[]};
 }
@@ -582,7 +612,7 @@ function proRow(p){
     <div class="pr-main">
       <div class="pr-top"><b>${esc(p.name)}</b>${isVerified(p)?`<span class="vbadge" title="Identidad y antecedentes verificados">${ic('shield',15)}</span>`:''}${tierOf(p).id!=='bronce'?tierBadge(p):''}</div>
       <div class="pr-sub">${esc(catById(p.cat).name)} · ${esc(p.zone)}</div>
-      <div class="pr-meta">${starsInline(r)}<span class="muted">· ${p.distance} km · responde en ~${p.resp} min</span></div>
+      <div class="pr-meta">${starsInline(r)}<span class="muted">· ${p.distance} km · responde en ~${p.resp} min</span>${p.urgent?`<span class="pill urg-p">${ic('bolt',11)} Urgencias</span>`:''}</div>
     </div>
     <div class="pr-price"><span class="muted">desde</span><b>${money(p.priceFrom)}</b></div></button>`;
 }
@@ -622,12 +652,9 @@ function homeBody(){
   const done=S.baseDone+S.bookings.filter(b=>['completado','calificado'].includes(b.status)).length;
   const reviews=pros.reduce((a,p)=>a+rating(p).count,0);
   const top=[...pros].sort((a,b)=>rankScore(b)-rankScore(a)).slice(0,6);
+  const urgN=pros.filter(p=>p.urgent).length;
   return `<section class="sec" style="padding-top:16px">
-      <div class="net" aria-label="Tamaño de la red">
-        <div><b>${pros.length}</b><span>profesionales activos (${ver} verificados)</span></div>
-        <div><b>${done.toLocaleString('en-US')}</b><span>servicios completados</span></div>
-        <div><b>${reviews.toLocaleString('en-US')}</b><span>reseñas de clientes reales</span></div>
-      </div>
+      <button class="urg" data-act="open-urgent"><span class="bolt">${ic('bolt',22)}</span><div><b>¿Es urgente?</b><small>${urgN} profesionales verificados llegan hoy en 2 horas</small></div>${ic('back',18).replace('class="ic"','class="ic" style="transform:rotate(180deg)"')}</button>
     </section>
     <section class="sec">
       <div class="sec-h"><h2>Categorías</h2><span>5 activas · más pronto</span></div>
@@ -642,11 +669,19 @@ function homeBody(){
         <span class="muted" style="font-size:12.5px">${esc(p.zone)} · desde <b style="color:var(--ink)">${money(p.priceFrom)}</b></span></button>`}).join('')}</div>
     </section>
     <section class="sec">
+      <div class="net" aria-label="Tamaño de la red">
+        <div><b>${pros.length}</b><span>profesionales activos (${ver} verificados)</span></div>
+        <div><b>${done.toLocaleString('en-US')}</b><span>servicios completados</span></div>
+        <div><b>${reviews.toLocaleString('en-US')}</b><span>reseñas de clientes reales</span></div>
+      </div>
+    </section>
+    <section class="sec">
       <div class="sec-h"><h2>Por qué confiar</h2></div>
       <div class="card pad trust">
         <div><i>${ic('shield',18)}</i><span><b>Profesionales verificados</b>Cédula y récord policivo revisados antes de aparecer con el sello.</span></div>
         <div><i>${ic('wallet',18)}</i><span><b>Pago protegido y garantía</b>Pagas con Yappy o tarjeta y el dinero se libera solo cuando confirmas. Si algo falla en 30 días, lo rehacemos sin costo.</span></div>
         <div><i>${ic('star',18)}</i><span><b>Reseñas solo de clientes reales</b>Solo puede calificar quien contrató y pagó por la app, con fotos del trabajo.</span></div>
+        <div><i>${ic('check',18)}</i><span><b>Código de llegada</b>El profesional solo puede empezar cuando le das tu código de 4 dígitos en la puerta.</span></div>
       </div>
     </section>`;
 }
@@ -655,20 +690,22 @@ function searchResults(q){
   const words=nq.split(/\s+/).filter(w=>w.length>1);
   const catHits=CATS.filter(c=>c.live&&words.some(w=>norm(c.name+' '+(c.kw||'')).includes(w)));
   const res=visiblePros().map(p=>{
-    const hay=norm([p.name,catById(p.cat).name,catById(p.cat).kw,p.zone,p.bio,p.services.map(s=>s.name).join(' ')].join(' '));
+    const hay=norm([p.name,catById(p.cat).name,catById(p.cat).kw,p.zone,p.bio,p.services.map(s=>s.name).join(' '),p.urgent?'urgente urgencia urgencias emergencia hoy':''].join(' '));
     const hit=words.filter(w=>hay.includes(w)).length;
     return {p,hit};
   }).filter(x=>x.hit>0).sort((a,b)=>b.hit-a.hit||rankScore(b.p)-rankScore(a.p));
   return `<section class="sec" style="padding-top:16px">
+    ${/urgen|emergen/.test(nq)?`<button class="urg" data-act="open-urgent"><span class="bolt">${ic('bolt',22)}</span><div><b>Ver urgencias</b><small>Llegan hoy en 2 horas · +${money(URGENT_FEE)}</small></div></button>`:''}
     ${catHits.length?`<div class="chips">${catHits.map(c=>`<button class="chip" data-act="open-cat" data-id="${c.id}">Ver todo en ${esc(c.name)}</button>`).join('')}</div>`:''}
     <div class="sec-h"><h2>${res.length} resultado${res.length===1?'':'s'}</h2><span>para "${esc(q)}"</span></div>
     ${res.length?res.map(x=>proRow(x.p)).join(''):`<div class="card empty">${ic('search',28)}<b>No encontramos profesionales para "${esc(q)}"</b><span>Prueba con otra palabra, o deja tu solicitud y te avisamos cuando se una alguien.</span><button class="btn sm" data-act="waitlist" data-id="q:${esc(q)}">Avisarme</button></div>`}
   </section>`;
 }
 function vCat(p){
-  const c=catById(p.id);
+  const isUrg=p.id==='urgent';
+  const c=isUrg?{id:'urgent',name:'Urgencias · hoy en 2 horas'}:catById(p.id);
   const sort=draft.sort||'rec', onlyVer=!!draft.onlyVer;
-  let list=visiblePros().filter(x=>x.cat===c.id&&(!onlyVer||isVerified(x)));
+  let list=visiblePros().filter(x=>(isUrg?x.urgent:x.cat===c.id)&&(!onlyVer||isVerified(x)));
   const fn={rec:(a,b)=>rankScore(b)-rankScore(a),rating:(a,b)=>rating(b).avg-rating(a).avg||rating(b).count-rating(a).count,price:(a,b)=>a.priceFrom-b.priceFrom,near:(a,b)=>a.distance-b.distance}[sort];
   list.sort(fn);
   const chip=(k,l)=>`<button class="chip" data-act="sort" data-k="${k}" aria-pressed="${sort===k}">${l}</button>`;
@@ -676,6 +713,7 @@ function vCat(p){
   <section class="sec" style="padding-top:4px">
     <div class="chips">${chip('rec','Recomendados')}${chip('rating','Mejor calificados')}${chip('price','Menor precio')}${chip('near','Más cerca')}
       <button class="chip" data-act="toggle-ver" aria-pressed="${onlyVer}">${ic('shield',14).replace('class="ic"','class="ic" style="display:inline;vertical-align:-2px"')} Solo verificados</button></div>
+    ${isUrg?`<div class="note warn">${ic('bolt',18)}<span>Llegan en máximo 2 horas. El recargo de urgencia es de ${money(URGENT_FEE)} y lo verás antes de pagar.</span></div>`:''}
     <div class="sec-h"><span>${list.length} profesional${list.length===1?'':'es'} en Ciudad de Panamá</span></div>
     ${list.length?list.map(proRow).join(''):`<div class="card empty"><b>Sin resultados con este filtro</b><button class="btn sm ghost" data-act="toggle-ver">Quitar filtro</button></div>`}
   </section>`;
@@ -708,7 +746,7 @@ function vPro(p){
   ${mine?`<section class="sec"><div class="note">${ic('eye',18)}<span>Así ven tu perfil los clientes. Si te reservas aquí, la solicitud te llega en la vista Profesional.</span></div></section>`:''}
   <section class="sec">
     <div class="sec-h"><h2>Servicios y precios</h2><span>precio base</span></div>
-    <div class="card">${pro.services.map((s,i)=>`<div class="svc"><div><b>${esc(s.name)}</b><small>Materiales aparte si aplica</small></div><b class="price">${money(s.price)}</b><button class="btn sm" data-act="book" data-id="${pro.id}" data-svc="${i}">Reservar</button></div>`).join('')}</div>
+    <div class="card">${pro.services.map((s,i)=>`<div class="svc"><div><b>${esc(s.name)}</b><small>${s.diag?'Se descuenta del trabajo si lo contratas':'Materiales aparte si aplica'}</small></div><b class="price">${money(s.price)}</b><button class="btn sm" data-act="book" data-id="${pro.id}" data-svc="${i}">Reservar</button></div>`).join('')}</div>
   </section>
   <section class="sec">
     <div class="sec-h"><h2>Trabajos realizados</h2><span>${pro.portfolio.length} foto${pro.portfolio.length===1?'':'s'}</span></div>
@@ -747,19 +785,22 @@ function slotTaken(dayIso,slot,proId){
 function vBook(p){
   const pro=proById(p.id);
   if(!pro) return topbar('Reservar')+`<div class="empty">Perfil no disponible.</div>`;
-  if(!draft.book||draft.book.proId!==pro.id) draft.book={proId:pro.id,svc:Number(p.svc)||0,day:'',slot:'',addr:S.client.addr,desc:'',photos:[],pay:'Yappy',err:''};
+  if(!draft.book||draft.book.proId!==pro.id) draft.book={proId:pro.id,svc:Number(p.svc)||0,day:'',slot:'',urgent:!!(p.urgent&&pro.urgent),addr:S.client.addr,desc:'',photos:[],pay:'Yappy',err:''};
   const b=draft.book; const s=pro.services[b.svc]||pro.services[0];
-  if(b.day&&b.slot&&slotTaken(b.day,b.slot,pro.id)) b.slot='';
+  if(b.urgent){b.day=iso(Date.now());b.slot='Urgente'}
+  if(!b.urgent&&b.day&&b.slot&&slotTaken(b.day,b.slot,pro.id)) b.slot='';
+  const fee=b.urgent?URGENT_FEE:0, total=(+s.price)+fee;
   return `${topbar('Reservar')}
   <section class="sec" style="padding-top:4px">
     <div style="display:flex;gap:12px;align-items:center">${avatar(pro,46)}<div><b>${esc(pro.name)}</b><div class="muted" style="font-size:13px">${esc(catById(pro.cat).name)} · ${starsInline(rating(pro))}</div></div></div>
   </section>
   <section class="sec"><span class="lbl">1 · Servicio</span>
-    ${pro.services.map((x,i)=>`<button class="opt" data-act="bk-set" data-k="svc" data-v="${i}" aria-pressed="${b.svc===i}"><span class="radio"></span><div><b>${esc(x.name)}</b></div><b>${money(x.price)}</b></button>`).join('')}
+    ${pro.services.map((x,i)=>`<button class="opt" data-act="bk-set" data-k="svc" data-v="${i}" aria-pressed="${b.svc===i}"><span class="radio"></span><div><b>${esc(x.name)}</b>${x.diag?'<small>Para cuando no sabes qué tiene. Se descuenta del trabajo.</small>':''}</div><b>${money(x.price)}</b></button>`).join('')}
   </section>
-  <section class="sec"><span class="lbl">2 · Día y hora</span>
-    <div class="chips">${nextDays().map(d=>`<button class="day" data-act="bk-set" data-k="day" data-v="${d.iso}" aria-pressed="${b.day===d.iso}">${d.dow}<b>${d.d}</b></button>`).join('')}</div>
-    ${b.day?`<div class="chips">${SLOTS.map(sl=>{const t=slotTaken(b.day,sl,pro.id);return `<button class="chip" data-act="bk-set" data-k="slot" data-v="${sl}" aria-pressed="${b.slot===sl}" ${t?'disabled':''}>${sl}</button>`}).join('')}</div>`:`<span class="hint">Elige un día para ver los horarios disponibles.</span>`}
+  <section class="sec"><span class="lbl">2 · ¿Cuándo?</span>
+    ${pro.urgent?`<button class="opt urgent" id="bk-urgent" data-act="bk-set" data-k="urgent" data-v="1" aria-pressed="${!!b.urgent}"><span class="radio"></span><div><b>${ic('bolt',14).replace('class="ic"','class="ic" style="display:inline;vertical-align:-2px"')} Urgente: hoy en 2 horas</b><small>Recargo de ${money(URGENT_FEE)} · llega en máximo 2 horas</small></div><b>+${money(URGENT_FEE)}</b></button>`:`<span class="hint">Este profesional no atiende urgencias. Para algo urgente, usa "¿Es urgente?" en el inicio.</span>`}
+    ${b.urgent?'':`<div class="chips">${nextDays().map(d=>`<button class="day" data-act="bk-set" data-k="day" data-v="${d.iso}" aria-pressed="${b.day===d.iso}">${d.dow}<b>${d.d}</b></button>`).join('')}</div>
+    ${b.day?`<div class="chips">${SLOTS.map(sl=>{const t=slotTaken(b.day,sl,pro.id);return `<button class="chip" data-act="bk-set" data-k="slot" data-v="${sl}" aria-pressed="${b.slot===sl}" ${t?'disabled':''}>${sl}</button>`}).join('')}</div>`:`<span class="hint">Elige un día para ver los horarios disponibles.</span>`}`}
   </section>
   <section class="sec"><span class="lbl">3 · Dirección y detalles</span>
     <div class="field"><label for="bk-addr">Dirección</label><input class="input" id="bk-addr" data-bind="book.addr" value="${esc(b.addr)}" placeholder="Calle, edificio, apartamento"></div>
@@ -772,13 +813,14 @@ function vBook(p){
     ${[['Yappy','Paga desde tu banca móvil'],['Tarjeta','Visa o Mastercard, crédito o débito']].map(([k,d])=>`<button class="opt" data-act="bk-set" data-k="pay" data-v="${k}" aria-pressed="${b.pay===k}"><span class="radio"></span><div><b>${k}</b><small>${d}</small></div></button>`).join('')}
     <div class="card sum">
       <div><span>${esc(s.name)}</span><span>${money(s.price)}</span></div>
+      ${fee?`<div><span>Recargo de urgencia</span><span>${money(fee)}</span></div>`:''}
       <div class="muted"><span>Cargo por servicio</span><span>$0</span></div>
-      <div class="tot"><span>Total</span><span>${money(s.price)}</span></div>
+      <div class="tot"><span>Total</span><span>${money(total)}</span></div>
     </div>
     <div class="note">${ic('shield',18)}<span><b>Pago protegido.</b> Cobramos ahora y retenemos el dinero. Se libera al profesional solo cuando confirmes que el trabajo quedó bien.</span></div>
     ${b.err?`<div class="err" role="alert">${esc(b.err)}</div>`:''}
   </section>
-  <div class="cta"><button class="btn" id="bk-submit" data-act="bk-submit">Confirmar y pagar ${money(s.price)}</button></div>`;
+  <div class="cta"><button class="btn" id="bk-submit" data-act="bk-submit">Confirmar y pagar ${money(total)}</button></div>`;
 }
 function vBookings(){
   const list=myBookings().sort((a,b)=>b.created-a.created);
@@ -800,11 +842,14 @@ function vBk(p){
     actions=mine?`<div class="note warn">${ic('clock',18)}<span>Este profesional eres tú. Cámbiate a la vista <b>Profesional</b> para aceptar la solicitud.</span></div>`:`<div class="note">${ic('clock',18)}<span>Le avisamos a ${esc(pro.name.split(' ')[0])}. Normalmente responde en ~${pro.resp} min.</span></div>`;
     actions+=`<button class="btn danger" data-act="cl-cancel" data-id="${b.id}">Cancelar solicitud</button>`;
   } else if(b.status==='aceptado'||b.status==='en_curso'){
-    actions=mine?`<div class="note warn">${ic('clock',18)}<span>Avanza el trabajo desde la vista <b>Profesional</b>.</span></div>`:
-      `<div class="note">${ic('phone',18)}<span>Contacto por WhatsApp: <b>+507 6${String(hueOf(pro.name)).padStart(3,'0')}-${String(pro.jobs).padStart(4,'0').slice(0,4)}</b>. El número real se muestra solo con reserva confirmada.</span></div>
-       <button class="btn ghost" data-act="demo-adv" data-id="${b.id}">Simular siguiente paso del profesional (demo)</button>`;
+    const first=esc(pro.name.split(' ')[0]);
+    actions=(b.status==='aceptado'&&b.code?`<div class="codebox" id="arrival-code"><b class="code">${esc(b.code)}</b><span><b>Código de llegada.</b> Dáselo a ${first} en la puerta. Sin este código no puede iniciar el trabajo.</span></div>`:'')+
+      `<div class="row-acts"><button class="btn" data-act="open-chat" data-id="${b.id}">${ic('quote',18)} Chat${b.msgs&&b.msgs.length?` (${b.msgs.length})`:''}</button><button class="btn ghost" data-act="masked-call" data-id="${b.id}">${ic('phone',18)} Llamar</button></div>`+
+      (mine?`<div class="note warn">${ic('clock',18)}<span>Avanza el trabajo desde la vista <b>Profesional</b>.</span></div>`:
+       `<button class="btn ghost" data-act="demo-adv" data-id="${b.id}">Simular siguiente paso del profesional (demo)</button>`);
   } else if(b.status==='terminado'){
     actions=`<div class="note warn">${ic('alert',18)}<span>${esc(pro.name.split(' ')[0])} marcó el trabajo como terminado. Revisa y confirma para liberar el pago.</span></div>
+      <button class="btn ghost" data-act="open-chat" data-id="${b.id}">${ic('quote',18)} Chat</button>
       <button class="btn" data-act="cl-confirm" data-id="${b.id}">Todo quedó bien, liberar pago</button>
       <button class="btn ghost" data-act="cl-issue" data-id="${b.id}">Reportar un problema</button>`;
   } else if(b.status==='completado'){
@@ -821,7 +866,7 @@ function vBk(p){
     ${actions}
     <div class="card kv">
       <div><span>Servicio</span><b>${esc(b.svc.name)}</b></div>
-      <div><span>Fecha</span><b>${fmtDay(b.day)} · ${esc(b.slot)}</b></div>
+      <div><span>Fecha</span><b>${fmtDay(b.day)} · ${b.urgent?'Urgente, máximo 2 horas':esc(b.slot)}</b></div>
       <div><span>Dirección</span><b>${esc(b.addr)}</b></div>
       ${b.desc?`<div><span>Detalle</span><b>${esc(b.desc)}</b></div>`:''}
       <div><span>Pago</span><b>${money(b.svc.price)} · ${esc(b.pay)}</b></div>
@@ -830,6 +875,20 @@ function vBk(p){
     </div>
     ${b.photos.length?`<div class="gallery">${b.photos.map((ph,j)=>photoBtn(ph,'bk:'+b.id+':'+j)).join('')}</div>`:''}
   </section>`;
+}
+function vChat(p){
+  const b=S.bookings.find(x=>x.id===p.id); const pro=b&&proById(b.proId);
+  if(!b||!pro) return topbar('Chat')+`<div class="empty">Conversación no encontrada.</div>`;
+  b.msgs=b.msgs||[];
+  const asPro=p.as==='pro';
+  const other=asPro?b.clientName:pro.name;
+  const t=ts=>new Date(ts).toLocaleTimeString('es-PA',{hour:'2-digit',minute:'2-digit'});
+  return `${topbar(other.split(' ')[0]+' · '+b.svc.name)}
+  <div class="chat" id="chat-list">
+    <div class="msg sys">Chat protegido de Cuadra. Los números de teléfono se ocultan para que tu garantía y tu pago sigan cubiertos.</div>
+    ${b.msgs.map(m=>m.from==='system'?`<div class="msg sys">${esc(m.text)}</div>`:`<div class="msg ${(m.from==='pro')===asPro?'me':'them'}">${esc(m.text)}<small>${t(m.ts)}</small></div>`).join('')}
+  </div>
+  <div class="composer"><input class="input" id="chat-input" data-bind="chat" value="${esc(draft.chat||'')}" placeholder="Escribe un mensaje" aria-label="Mensaje" autocomplete="off"><button class="btn" id="chat-send" data-act="chat-send" data-id="${b.id}" data-as="${asPro?'pro':'client'}">Enviar</button></div>`;
 }
 const TAGS=['Puntual','Limpio','Buen precio','Profesional','Lo recomiendo'];
 const STAR_LBL=['','Muy malo','Malo','Regular','Bueno','Excelente'];
@@ -873,41 +932,23 @@ function vAccount(){
 
 /* ---------------- pro views ---------------- */
 function obDefaults(){
-  const cat='plomeria';
-  return {name:'',phone:'',cat,zone:'Betania',priceFrom:25,years:5,bio:'',svcs:DEFAULT_SVCS[cat].map(([n,p])=>({name:n,price:p})),cedula:[],consent:false,err:''};
+  return {name:'',phone:'',cat:'plomeria',zone:'Betania',consent:false,err:''};
 }
 function vOnboard(){
   if(!draft.ob) draft.ob=obDefaults();
   const o=draft.ob;
   return `${topbar('Únete como profesional',{noBack:true})}
   <section class="sec" style="padding-top:4px">
-    <div class="note">${ic('wallet',18)}<span>Crear tu perfil es gratis. Cuadra cobra ${pct(TIERS[0].rate)} del primer trabajo con cada cliente y solo ${pct(REPEAT_RATE)} cuando ese cliente te vuelve a contratar por la app. Al subir de nivel, tu comisión baja.</span></div>
-    <div class="field"><label for="ob-name">Nombre completo o de tu negocio</label><input class="input" id="ob-name" data-bind="ob.name" value="${esc(o.name)}" placeholder="Ej: Carlos Méndez"></div>
-    <div class="field"><label for="ob-phone">WhatsApp</label><input class="input" id="ob-phone" data-bind="ob.phone" value="${esc(o.phone)}" inputmode="tel" placeholder="6000-0000"></div>
+    <div class="note">${ic('wallet',18)}<span>Gratis y en menos de un minuto. Cuadra cobra ${pct(TIERS[0].rate)} del primer trabajo con cada cliente y solo ${pct(REPEAT_RATE)} cuando ese cliente te vuelve a contratar. Al subir de nivel, tu comisión baja.</span></div>
+    <span class="lbl">Paso 1 de 2 · Lo básico</span>
+    <div class="field"><label for="ob-name">Nombre completo o de tu negocio</label><input class="input" id="ob-name" data-bind="ob.name" value="${esc(o.name)}" placeholder="Ej: Carlos Méndez" autocomplete="name"></div>
+    <div class="field"><label for="ob-phone">WhatsApp</label><input class="input" id="ob-phone" data-bind="ob.phone" value="${esc(o.phone)}" inputmode="tel" placeholder="6000-0000" autocomplete="tel"></div>
     <div class="row2">
-      <div class="field"><label for="ob-cat">Categoría</label><select class="input" id="ob-cat" data-bind="ob.cat" data-rerender="cat">${CATS.filter(c=>c.live).map(c=>`<option value="${c.id}" ${o.cat===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>
-      <div class="field"><label for="ob-zone">Zona</label><select class="input" id="ob-zone" data-bind="ob.zone">${ZONES.map(z=>`<option ${o.zone===z?'selected':''}>${esc(z)}</option>`).join('')}</select></div>
+      <div class="field"><label for="ob-cat">¿Qué haces?</label><select class="input" id="ob-cat" data-bind="ob.cat">${CATS.filter(c=>c.live).map(c=>`<option value="${c.id}" ${o.cat===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="ob-zone">Tu zona</label><select class="input" id="ob-zone" data-bind="ob.zone">${ZONES.map(z=>`<option ${o.zone===z?'selected':''}>${esc(z)}</option>`).join('')}</select></div>
     </div>
-    <div class="row2">
-      <div class="field"><label for="ob-years">Años de experiencia</label><input class="input" id="ob-years" type="number" min="0" max="60" data-bind="ob.years" value="${esc(o.years)}"></div>
-      <div class="field"><label for="ob-wa">Responde en</label><select class="input" id="ob-wa" data-bind="ob.resp">${[['10','~10 min'],['30','~30 min'],['60','~1 hora']].map(([v,l])=>`<option value="${v}" ${String(o.resp||30)===v?'selected':''}>${l}</option>`).join('')}</select></div>
-    </div>
-    <div class="field"><label for="ob-bio">Cuéntale a los clientes sobre tu trabajo</label><textarea class="input" id="ob-bio" data-bind="ob.bio" placeholder="Experiencia, especialidades, zonas donde trabajas, garantía que ofreces">${esc(o.bio)}</textarea><span class="hint">${(o.bio||'').trim().length}/60 caracteres mínimos para un perfil completo</span></div>
-  </section>
-  <section class="sec">
-    <span class="lbl">Tus servicios y precios base</span>
-    ${o.svcs.map((s,i)=>`<div class="row2" style="grid-template-columns:1fr 92px"><input class="input" aria-label="Servicio ${i+1}" data-bind="ob.svcs.${i}.name" value="${esc(s.name)}"><input class="input" aria-label="Precio servicio ${i+1}" type="number" min="1" data-bind="ob.svcs.${i}.price" value="${esc(s.price)}"></div>`).join('')}
-    <span class="hint">Sugerimos precios típicos de tu categoría en Ciudad de Panamá. Ajústalos a tu tarifa.</span>
-  </section>
-  <section class="sec">
-    <span class="lbl">Verificación</span>
-    <div class="card pad" style="display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;gap:12px;align-items:center">
-        ${o.cedula.length?`<div style="width:72px">${photo(o.cedula[0])}</div><div style="flex:1"><b>Cédula cargada</b><div class="hint">La revisamos en menos de 24 h</div></div><button class="btn sm ghost" data-act="rm-draft-photo" data-path="ob.cedula" data-i="0">Quitar</button>`:
-        `<label class="addph" for="up-ced" style="width:72px;position:relative">${ic('camera',20)}Cédula<input type="file" id="up-ced" accept="image/*" data-upload="ob.cedula"></label><div style="flex:1"><b>Foto de tu cédula</b><div class="hint">Opcional ahora, necesaria para el sello de verificado</div></div>`}
-      </div>
-      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><input type="checkbox" id="ob-consent" data-bind="ob.consent" ${o.consent?'checked':''} style="margin-top:3px;width:18px;height:18px;accent-color:var(--accent)"><span>Autorizo a Cuadra a consultar mi récord policivo y acepto los términos para profesionales.</span></label>
-    </div>
+    <label style="display:flex;gap:12px;align-items:flex-start;font-size:14px;min-height:44px;padding:4px 0"><input type="checkbox" id="ob-consent" data-bind="ob.consent" ${o.consent?'checked':''} style="margin-top:2px;width:22px;height:22px;flex:none;accent-color:var(--accent)"><span>Autorizo a Cuadra a consultar mi récord policivo y acepto los términos para profesionales.</span></label>
+    <span class="hint">Paso 2, desde tu panel: tus precios (ya te sugerimos los típicos de tu categoría), fotos de trabajos, cédula y referencias.</span>
     ${o.err?`<div class="err" role="alert">${esc(o.err)}</div>`:''}
   </section>
   <div class="cta"><button class="btn" id="ob-submit" data-act="ob-submit">Crear mi perfil</button></div>`;
@@ -960,16 +1001,17 @@ function vProReqs(){
     const rt=rateOf(b), net=b.svc.price*(1-rt), rep=b.rate!=null?b.repeat:isRepeat(b);
     let acts='';
     if(b.status==='pendiente') acts=`<div class="acts"><button class="btn ghost" data-act="pro-adv" data-id="${b.id}" data-to="rechazado">Rechazar</button><button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="aceptado">Aceptar</button></div>`;
-    else if(b.status==='aceptado') acts=`<button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="en_curso">Iniciar trabajo</button>`;
+    else if(b.status==='aceptado') acts=`<span class="lbl">Código de llegada del cliente</span><div class="codein"><input class="input" id="code-${b.id}" data-bind="codes.${b.id}" inputmode="numeric" maxlength="4" placeholder="0000" aria-label="Código de llegada" value="${esc((draft.codes||{})[b.id]||'')}"><button class="btn" data-act="pro-start" data-id="${b.id}">Iniciar trabajo</button></div>${b.client==='self'?'<span class="hint">El cliente ve el código en su reserva.</span>':`<span class="hint">Demo: ${esc(b.clientName.split(' ')[0])} te dará el código ${esc(b.code)} en la puerta.</span>`}${draft.codeErr===b.id?'<div class="err" role="alert">Código incorrecto. Pídeselo al cliente: lo ve en su reserva.</div>':''}`;
     else if(b.status==='en_curso') acts=`<button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="terminado">Marcar como terminado</button>`;
     else if(b.status==='terminado') acts=b.client==='self'?`<div class="hint">Esperando que el cliente confirme. Si te reservaste tú mismo, confírmalo en la vista Cliente → Reservas.</div>`:`<div class="hint">Esperando que el cliente confirme. </div><button class="btn ghost" data-act="demo-client-confirm" data-id="${b.id}">Simular confirmación del cliente (demo)</button>`;
+    if(['aceptado','en_curso','terminado'].includes(b.status)) acts+=`<button class="btn ghost" data-act="open-chat-pro" data-id="${b.id}">${ic('quote',18)} Chat con ${esc(b.clientName.split(' ')[0])}${b.msgs&&b.msgs.length?` (${b.msgs.length})`:''}</button>`;
     return `<div class="card req">
       <div class="req-h"><div><b>${esc(b.svc.name)}</b><small>${esc(b.clientName)} · ${fmtDay(b.day)} ${esc(b.slot)}</small><small>${ic('pin',12).replace('class="ic"','class="ic" style="display:inline;vertical-align:-1px"')} ${esc(b.addr)}</small></div>
       <div class="money">${money(net)}<small>neto de ${money(b.svc.price)}</small></div></div>
       <div>${rep?`<span class="pill warn">${ic('check',12)} Cliente que repite · comisión ${pct(rt)}</span>`:`<span class="pill">Primer trabajo con este cliente · comisión ${pct(rt)}</span>`}</div>
       ${b.desc?`<p>"${esc(b.desc)}"</p>`:''}
       ${b.photos.length?`<div class="revph">${b.photos.map((ph,j)=>photoBtn(ph,'bk:'+b.id+':'+j)).join('')}</div>`:''}
-      ${statusPill(b,true)}
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${statusPill(b,true)}${b.urgent?`<span class="pill urg-p">${ic('bolt',11)} Urgente · llegar en 2 h</span>`:''}</div>
       ${acts}
     </div>`;
   };
@@ -984,6 +1026,15 @@ function vProProfile(){
   <section class="sec" style="padding-top:4px">
     <div class="card pad" style="display:flex;gap:12px;align-items:center">${avatar(p,52)}<div style="min-width:0"><b>${esc(p.name)}</b><div class="muted" style="font-size:13px">${esc(catById(p.cat).name)} · ${esc(p.zone)}</div><div style="margin-top:4px">${isVerified(p)?`<span class="pill ok">${ic('shield',12)} Verificado</span>`:`<span class="pill warn">Verificación pendiente</span>`}</div></div></div>
     ${p.ver.id!==true?`<div class="card pad" style="display:flex;gap:12px;align-items:center"><label class="addph" for="up-ced2" style="width:64px;position:relative">${ic('camera',20)}Cédula<input type="file" id="up-ced2" accept="image/*" data-upload="me.cedula"></label><div><b>Sube tu cédula</b><div class="hint">Necesaria para el sello de verificado.</div></div></div>`:''}
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Tus servicios y precios</h2><span>precio base</span></div>
+    ${(()=>{if(draft.svcFor!==p.id){draft.svcs=p.services.map(x=>({...x}));draft.years=p.years;draft.urgent=!!p.urgent;draft.svcFor=p.id}
+      return `<div class="card pad" style="display:flex;flex-direction:column;gap:10px">
+      ${draft.svcs.map((x,i)=>`<div class="row2" style="grid-template-columns:1fr 92px"><input class="input" aria-label="Servicio ${i+1}" id="sv-n-${i}" data-bind="svcs.${i}.name" value="${esc(x.name)}"><input class="input" aria-label="Precio servicio ${i+1}" id="sv-p-${i}" type="number" min="1" data-bind="svcs.${i}.price" value="${esc(x.price)}"></div>`).join('')}
+      <div class="field"><label for="pp-years">Años de experiencia</label><input class="input" id="pp-years" type="number" min="0" max="60" data-bind="years" value="${esc(draft.years)}"></div>
+      <label style="display:flex;gap:12px;align-items:center;font-size:14px;min-height:44px"><input type="checkbox" id="pp-urgent" data-bind="urgent" ${draft.urgent?'checked':''} style="width:22px;height:22px;flex:none;accent-color:var(--accent)"><span><b>Atiendo urgencias</b> (llegar en 2 horas, recargo de ${money(URGENT_FEE)} para el trabajo)</span></label>
+      <button class="btn ghost" id="save-svcs" data-act="save-svcs">Guardar servicios</button></div>`})()}
   </section>
   <section class="sec">
     <div class="sec-h"><h2>Fotos de tus trabajos</h2><span>${p.portfolio.length}/12</span></div>
@@ -1013,7 +1064,7 @@ function vProProfile(){
 }
 
 /* ---------------- router ---------------- */
-const VIEWS={home:vHome,cat:vCat,pro:vPro,book:vBook,bookings:vBookings,bk:vBk,review:vReview,account:vAccount,'pro-home':vProHome,'pro-reqs':vProReqs,'pro-profile':vProProfile};
+const VIEWS={chat:vChat,home:vHome,cat:vCat,pro:vPro,book:vBook,bookings:vBookings,bk:vBk,review:vReview,account:vAccount,'pro-home':vProHome,'pro-reqs':vProReqs,'pro-profile':vProProfile};
 const TAB_OF={home:'home',cat:'home',pro:'home',book:'home',bookings:'bookings',bk:'bookings',review:'bookings',account:'account','pro-home':'pro-home','pro-reqs':'pro-reqs','pro-profile':'pro-profile'};
 const $screen=document.getElementById('screen'), $tab=document.getElementById('tabbar'), $phone=document.getElementById('phone');
 function render(scrollTop){
@@ -1025,7 +1076,7 @@ function render(scrollTop){
   document.getElementById('mode-pro').setAttribute('aria-pressed',mode==='pro');
 }
 function renderTabs(){
-  const t=TAB_OF[cur.v];
+  const t=cur.v==='chat'?(mode==='client'?'bookings':'pro-reqs'):TAB_OF[cur.v];
   let tabs;
   if(mode==='client'){
     const n=myBookings().filter(b=>['terminado','completado'].includes(b.status)).length;
@@ -1129,21 +1180,51 @@ const A={
     if(!ph) return;
     openSheet(`${photo(ph,true)}${ph.t?`<p>${esc(ph.t)}</p>`:''}<button class="btn ghost" data-act="close-sheet">Cerrar</button>`);
   },
-  book:d=>{draft.book=null;go('book',{id:d.id,svc:d.svc})},
-  'bk-set':d=>{const b=draft.book;b.err='';if(d.k==='svc')b.svc=+d.v;else b[d.k]=d.v;if(d.k==='day')b.slot='';render(false)},
+  book:d=>{draft.book=null;const fromUrg=stack.some(x=>x.v==='cat'&&x.p.id==='urgent');go('book',{id:d.id,svc:d.svc,urgent:fromUrg})},
+  'bk-set':d=>{const b=draft.book;b.err='';
+    if(d.k==='svc')b.svc=+d.v;
+    else if(d.k==='urgent'){b.urgent=!b.urgent;b.day='';b.slot=''}
+    else b[d.k]=d.v;
+    if(d.k==='day'){b.slot='';b.urgent=false}
+    render(false)},
   'bk-submit':()=>{
     const b=draft.book; const pro=proById(b.proId);
     if(!b.day||!b.slot){b.err='Elige el día y la hora del servicio.';render(false);return}
     if(!b.addr.trim()){b.err='Escribe la dirección donde se hará el servicio.';render(false);return}
-    if(slotTaken(b.day,b.slot,pro.id)){b.err='Ese horario ya no está disponible. Elige otro.';b.slot='';render(false);return}
+    if(!b.urgent&&slotTaken(b.day,b.slot,pro.id)){b.err='Ese horario ya no está disponible. Elige otro.';b.slot='';render(false);return}
     const s=pro.services[b.svc];
-    const bk={id:uid('b'),proId:pro.id,client:'self',clientName:S.client.name,svc:{name:s.name,price:+s.price},day:b.day,slot:b.slot,addr:b.addr.trim(),desc:b.desc.trim(),photos:b.photos,pay:b.pay,status:'pendiente',created:Date.now(),hist:{pendiente:Date.now()}};
+    const bk={id:uid('b'),proId:pro.id,client:'self',clientName:S.client.name,svc:{name:s.name+(b.urgent?' · urgente':''),price:(+s.price)+(b.urgent?URGENT_FEE:0)},urgent:!!b.urgent,code:code4(),msgs:[],day:b.day,slot:b.slot,addr:b.addr.trim(),desc:b.desc.trim(),photos:b.photos,pay:b.pay,status:'pendiente',created:Date.now(),hist:{pendiente:Date.now()}};
     S.bookings.push(bk); save(); draft.book=null;
     scheduleAutoAccept(bk);
     stack=[{v:'bookings',p:{}}]; cur={v:'bk',p:{id:bk.id}}; render(true);
-    toast('Solicitud enviada. Pago retenido de forma segura.');
+    toast(bk.urgent?'Urgencia enviada. Te confirmamos en minutos.':'Solicitud enviada. Pago retenido de forma segura.');
   },
   'open-bk':d=>go('bk',{id:d.id}),
+  'open-urgent':()=>{draft.sort='rec';draft.onlyVer=false;go('cat',{id:'urgent'})},
+  'open-chat':d=>{draft.chat='';go('chat',{id:d.id,as:'client'})},
+  'open-chat-pro':d=>{draft.chat='';go('chat',{id:d.id,as:'pro'})},
+  'masked-call':()=>openSheet(`<h3>Llamada protegida</h3><p>Te conectamos a través de un número de Cuadra. Ninguno de los dos ve el número del otro y la llamada queda asociada a tu reserva y a tu garantía.</p><p class="hint">En el prototipo la llamada no se realiza.</p><button class="btn ghost" data-act="close-sheet">Entendido</button>`),
+  'chat-send':d=>{
+    const b=S.bookings.find(x=>x.id===d.id); if(!b) return;
+    const raw=String(draft.chat||'').trim(); if(!raw) return;
+    PHONE_RX.lastIndex=0;
+    const masked=raw.replace(PHONE_RX,'•••• ••••');
+    b.msgs=b.msgs||[];
+    b.msgs.push({from:d.as,text:masked,ts:Date.now()});
+    if(masked!==raw) b.msgs.push({from:'system',text:'Ocultamos un número de teléfono. Coordinen por este chat o con la llamada protegida para que el pago y la garantía sigan cubiertos.',ts:Date.now()});
+    draft.chat=''; save(); render(false);
+    const list=document.getElementById('screen'); if(list) list.scrollTop=list.scrollHeight;
+    const pro=proById(b.proId);
+    if(d.as==='client'&&b.proId!==S.meId&&!b.msgs.some(m=>m.from==='pro'&&m.auto)){
+      setTimeout(()=>{b.msgs.push({from:'pro',text:'¡Recibido! Cualquier cambio te aviso por aquí.',ts:Date.now(),auto:true});save();if(cur.v==='chat'&&cur.p.id===b.id){render(false);$screen.scrollTop=$screen.scrollHeight}},1400);
+    }
+  },
+  'pro-start':d=>{
+    const b=S.bookings.find(x=>x.id===d.id); if(!b) return;
+    const v=String((draft.codes||{})[b.id]||'').trim();
+    if(v!==b.code){draft.codeErr=b.id;render(false);return}
+    draft.codeErr=null; advance(b.id,'en_curso'); toast('Código correcto. Trabajo iniciado.'); render(false);
+  },
   'cl-cancel':d=>{advance(d.id,'cancelado');toast('Solicitud cancelada. No se hizo ningún cobro.');render(false)},
   'demo-adv':d=>{const b=S.bookings.find(x=>x.id===d.id);if(b&&NEXT[b.status]){advance(b.id,NEXT[b.status]);render(false)}},
   'cl-confirm':d=>{advance(d.id,'completado');toast('Pago liberado. ¡Gracias por confirmar!');render(false)},
@@ -1166,23 +1247,23 @@ const A={
   'ob-submit':()=>{
     const o=draft.ob;
     const name=o.name.trim(), phone=o.phone.trim();
-    const svcs=o.svcs.filter(s=>String(s.name).trim()&&+s.price>0).map(s=>({name:String(s.name).trim(),price:+s.price}));
+    const svcs=DEFAULT_SVCS[o.cat].map(([n,pr])=>({name:n,price:pr}));
     if(name.length<3){o.err='Escribe tu nombre o el de tu negocio.';render(false);return}
     if(phone.replace(/\D/g,'').length<7){o.err='Escribe un número de WhatsApp válido.';render(false);return}
-    if(!svcs.length){o.err='Agrega al menos un servicio con su precio.';render(false);return}
     if(!o.consent){o.err='Necesitamos tu autorización para revisar antecedentes.';render(false);return}
     const id=uid('me');
-    const p={id,name,phone,cat:o.cat,zone:o.zone,years:Math.max(0,+o.years||0),bio:o.bio.trim(),services:svcs,priceFrom:Math.min(...svcs.map(s=>s.price)),
-      reviews:[],refs:[],portfolio:[],hist:{5:0,4:0,3:0,2:0,1:0},ver:{id:o.cedula.length>0,bg:'pendiente',ins:false},resp:+(o.resp||30),distance:1.4,jobs:0,isNew:true};
+    const p={id,name,phone,cat:o.cat,zone:o.zone,years:0,bio:'',services:svcs,priceFrom:Math.min(...svcs.map(s=>s.price)),urgent:false,
+      reviews:[],refs:[],portfolio:[],hist:{5:0,4:0,3:0,2:0,1:0},ver:{id:false,bg:'pendiente',ins:false},resp:30,distance:1.4,jobs:0,isNew:true};
+    ensureDiag(p);
     S.pros.push(p); S.meId=id;
     const zoneAddr=['Vía Porras, San Francisco, PH Bay View apto 12C','Calle 50, Obarrio, Edificio Plaza 2000 piso 7'];
     const descs={plomeria:['El fregadero de la cocina no drena.','Fuga en la ducha del baño principal.'],electricidad:['Se va la luz de la cocina cuando uso el microondas.','Quiero instalar dos lámparas en la sala.'],limpieza:['Apartamento de 2 recámaras, limpieza general.','Necesito limpieza antes de entregar el apartamento.'],aires:['El aire de la sala gotea y no enfría bien.','Mantenimiento de 2 splits de 12k.'],pintura:['Pintar una recámara de 3x4 m.','Mancha de humedad en la pared del baño.']}[o.cat];
     [['Ricardo T.',1,'10:00'],['María José P.',2,'15:00'],['Ricardo T.',6,'8:00']].forEach(([cn,dd,sl],i)=>{
       const sv=svcs[Math.min(i,svcs.length-1)];
-      S.bookings.push({id:uid('b'),proId:id,client:'other',clientName:cn,svc:{name:sv.name,price:sv.price},day:iso(Date.now()+dd*DAY),slot:sl,addr:zoneAddr[i%2],desc:descs[i]||'Me quedó muy bien lo anterior, necesito otro servicio.',photos:[],pay:i===1?'Tarjeta':'Yappy',status:'pendiente',created:Date.now()-i*60000,hist:{pendiente:Date.now()-i*60000}});
+      S.bookings.push({id:uid('b'),proId:id,client:'other',clientName:cn,svc:{name:sv.name,price:sv.price},day:iso(Date.now()+dd*DAY),slot:sl,addr:zoneAddr[i%2],desc:descs[i]||'Me quedó muy bien lo anterior, necesito otro servicio.',photos:[],pay:i===1?'Tarjeta':'Yappy',status:'pendiente',code:code4(),msgs:[],created:Date.now()-i*60000,hist:{pendiente:Date.now()-i*60000}});
     });
     save(); draft.ob=null; stack=[]; cur={v:'pro-home',p:{}}; render(true);
-    toast('Perfil creado. Ya apareces en las búsquedas. Tienes 3 solicitudes.');
+    toast('Perfil creado. Ya tienes 3 solicitudes. Completa tu perfil para salir más arriba.');
   },
   'pro-adv':d=>{
     const b=S.bookings.find(x=>x.id===d.id); if(!b) return;
@@ -1195,6 +1276,10 @@ const A={
   'demo-bg':()=>{const p=me();p.ver.bg=true;save();toast(isVerified(p)?'Antecedentes aprobados. Ya tienes el sello de verificado.':'Antecedentes aprobados. Sube tu cédula para obtener el sello.');render(false)},
   'view-as-client':()=>{const id=S.meId;mode='client';stack=[{v:'home',p:{}}];cur={v:'pro',p:{id}};render(true)},
   'rm-pf':d=>{me().portfolio.splice(+d.i,1);save();render(false)},
+  'save-svcs':()=>{const p=me();
+    const svcs=draft.svcs.filter(x=>String(x.name).trim()&&+x.price>0).map(x=>({name:String(x.name).trim(),price:+x.price,diag:!!x.diag}));
+    if(!svcs.length){toast('Deja al menos un servicio con precio.');return}
+    p.services=svcs;p.priceFrom=Math.min(...(svcs.filter(x=>!x.diag).length?svcs.filter(x=>!x.diag):svcs).map(x=>x.price));p.years=Math.max(0,+draft.years||0);p.urgent=!!draft.urgent;draft.svcFor=null;save();toast('Servicios guardados');render(false)},
   'save-bio':()=>{const p=me();p.bio=(draft.bio||'').trim();save();toast('Descripción guardada');render(false)},
   'add-ref':()=>{
     const r=draft.ref;
@@ -1218,18 +1303,16 @@ document.addEventListener('click',e=>{
 document.addEventListener('input',e=>{
   const el=e.target;
   if(el.id==='q'){draft.q=el.value;document.getElementById('home-body').innerHTML=homeBody();return}
-  if(el.dataset&&el.dataset.bind&&el.type!=='checkbox'&&el.tagName!=='SELECT'){setPath(draft,el.dataset.bind,el.value);
-    if(el.id==='ob-bio'){const h=el.parentElement.querySelector('.hint');if(h)h.textContent=el.value.trim().length+'/60 caracteres mínimos para un perfil completo'}}
+  if(el.dataset&&el.dataset.bind&&el.type!=='checkbox'&&el.tagName!=='SELECT'){setPath(draft,el.dataset.bind,el.value)}
 });
 document.addEventListener('change',e=>{
   const el=e.target;
   if(el.dataset&&el.dataset.upload){handleUpload(el);return}
-  if(el.dataset&&el.dataset.bind){
+  if(el.dataset&&el.dataset.bind&&el.isConnected&&(el.type==='checkbox'||el.tagName==='SELECT')){
     setPath(draft,el.dataset.bind,el.type==='checkbox'?el.checked:el.value);
-    if(el.dataset.rerender==='cat'){draft.ob.svcs=DEFAULT_SVCS[el.value].map(([n,p])=>({name:n,price:p}));render(false)}
   }
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();if(e.key==='Enter'&&e.target.id==='chat-input'){e.preventDefault();document.getElementById('chat-send').click()}});
 
 S.bookings.forEach(scheduleAutoAccept);
 render(true);
