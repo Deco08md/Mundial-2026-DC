@@ -1,4 +1,4 @@
-<title>Resuelve Panamá</title>
+<title>Cuadra</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -6,24 +6,27 @@
 <style>
 /* Layout: brief panel on the left, a working phone app on the right; on phones the app fills the screen under a compact control bar. */
 :root{
-  --bg:#E9EEE7; --surface:#FFFFFF; --surface-2:#F3F6F1; --ink:#13201A; --ink-2:#4B5C53; --line:#D9E1D5;
-  --accent:#0D7556; --accent-ink:#FFFFFF; --accent-soft:#DCEFE6;
-  --sun:#D98F1E; --sun-soft:#FBEBD0; --danger:#B93D29; --danger-soft:#F7E0DA; --info:#2B66A6; --info-soft:#DDE8F4;
-  --frame:#18231E; --shadow:0 20px 50px -20px rgba(19,32,26,.35);
+  --bg:#ECEEF5; --surface:#FFFFFF; --surface-2:#F5F6FB; --ink:#131833; --ink-2:#535B78; --line:#DCE0EC;
+  --accent:#1F3FBF; --accent-ink:#FFFFFF; --accent-soft:#E4E9FB; --accent-deep:#162E8F;
+  --brand2:#F5B728; --brand2-ink:#1B1406;
+  --sun:#D99A0B; --sun-soft:#FDF1D3; --danger:#C0392B; --danger-soft:#F9E1DE; --info:#1F3FBF; --info-soft:#E4E9FB;
+  --frame:#131833; --shadow:0 20px 50px -20px rgba(19,24,51,.4);
   --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
   --r:14px; --bar:56px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0D1310; --surface:#161F1B; --surface-2:#1D2823; --ink:#E6EDE8; --ink-2:#9BAEA4; --line:#2A3832;
-  --accent:#41C195; --accent-ink:#04261A; --accent-soft:#16392D;
-  --sun:#F0B14E; --sun-soft:#3A2D15; --danger:#EF7B65; --danger-soft:#3C1E18; --info:#82B2E6; --info-soft:#182B3F;
-  --frame:#040706; --shadow:0 20px 50px -20px rgba(0,0,0,.7); color-scheme:dark }}
+  --bg:#0C0F1E; --surface:#161A30; --surface-2:#1B2038; --ink:#E9ECF7; --ink-2:#A2A9C4; --line:#2A3152;
+  --accent:#8EA3FF; --accent-ink:#0A1240; --accent-soft:#1F2752; --accent-deep:#1F3FBF;
+  --brand2:#F5B728; --brand2-ink:#1B1406;
+  --sun:#F5B728; --sun-soft:#3A2E12; --danger:#F08070; --danger-soft:#3D1E1A; --info:#8EA3FF; --info-soft:#1F2752;
+  --frame:#04050B; --shadow:0 20px 50px -20px rgba(0,0,0,.7); color-scheme:dark }}
 :root[data-theme="dark"]{
-  --bg:#0D1310; --surface:#161F1B; --surface-2:#1D2823; --ink:#E6EDE8; --ink-2:#9BAEA4; --line:#2A3832;
-  --accent:#41C195; --accent-ink:#04261A; --accent-soft:#16392D;
-  --sun:#F0B14E; --sun-soft:#3A2D15; --danger:#EF7B65; --danger-soft:#3C1E18; --info:#82B2E6; --info-soft:#182B3F;
-  --frame:#040706; --shadow:0 20px 50px -20px rgba(0,0,0,.7); color-scheme:dark }
+  --bg:#0C0F1E; --surface:#161A30; --surface-2:#1B2038; --ink:#E9ECF7; --ink-2:#A2A9C4; --line:#2A3152;
+  --accent:#8EA3FF; --accent-ink:#0A1240; --accent-soft:#1F2752; --accent-deep:#1F3FBF;
+  --brand2:#F5B728; --brand2-ink:#1B1406;
+  --sun:#F5B728; --sun-soft:#3A2E12; --danger:#F08070; --danger-soft:#3D1E1A; --info:#8EA3FF; --info-soft:#1F2752;
+  --frame:#04050B; --shadow:0 20px 50px -20px rgba(0,0,0,.7); color-scheme:dark }
 
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -40,17 +43,19 @@ button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
   padding-block:32px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 .panel{display:flex;flex-direction:column;gap:20px;min-width:0}
 .brand{display:flex;align-items:center;gap:10px}
-.logo{width:38px;height:38px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:20px}
-.brand b{font-family:var(--f-display);font-size:22px;letter-spacing:-.02em}
+.logo{width:40px;height:40px;border-radius:11px;background:#1F3FBF;display:grid;place-items:center}
+.logo svg{width:26px;height:26px}
+.wordmark{font-family:var(--f-display);font-weight:800;letter-spacing:-.03em}
+.brand b{font-family:var(--f-display);font-weight:800;font-size:24px;letter-spacing:-.03em}
 .brand small{display:block;color:var(--ink-2);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .panel h2{font-size:30px;line-height:1.08;margin:0}
 .panel p{margin:0;color:var(--ink-2);max-width:60ch}
 .seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px}
 .seg button{padding:8px 16px;border-radius:999px;font-weight:600;font-size:14px;color:var(--ink-2)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button[aria-pressed="true"]{background:#1F3FBF;color:#FFFFFF}
 .steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:s}
 .steps li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:14px;color:var(--ink-2)}
-.steps li::before{counter-increment:s;content:counter(s);width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:12px}
+.steps li::before{counter-increment:s;content:counter(s);width:24px;height:24px;border-radius:7px;background:var(--brand2);color:var(--brand2-ink);display:grid;place-items:center;font-weight:700;font-size:12px}
 .steps b{color:var(--ink);font-weight:600}
 .panel-foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
 .linkbtn{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
@@ -62,6 +67,7 @@ button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
 .tabbar{display:flex;border-top:1px solid var(--line);background:var(--surface);padding:6px 6px 10px}
 .tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--ink-2);padding:6px 0;position:relative}
 .tabbar button[aria-current="page"]{color:var(--accent)}
+.tabbar button[aria-current="page"]::after{content:"";position:absolute;top:-7px;left:calc(50% - 14px);width:28px;height:3px;border-radius:2px;background:var(--brand2)}
 .tabbar .dot{position:absolute;top:2px;left:calc(50% + 6px);min-width:17px;height:17px;border-radius:9px;background:var(--danger);color:#fff;font-size:10px;display:grid;place-items:center;padding:0 4px}
 
 /* ---------- app primitives ---------- */
@@ -101,9 +107,15 @@ textarea.input{min-height:84px;resize:vertical}
 .empty{padding:28px 20px;text-align:center;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:8px}
 
 /* home */
-.h-home{padding:18px 16px 14px;display:flex;flex-direction:column;gap:12px;background:var(--accent);color:var(--accent-ink);border-radius:0 0 26px 26px}
+.h-home{position:relative;overflow:hidden;padding:16px 16px 16px;display:flex;flex-direction:column;gap:12px;background:#1F3FBF;color:#FFFFFF;border-radius:0 0 26px 26px}
+.h-home::before{content:"";position:absolute;width:150px;height:150px;right:-70px;top:-70px;border:16px solid rgba(255,255,255,.1);border-radius:6px;pointer-events:none}
+.h-home > *{position:relative}
+.h-home .h-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.h-home .wm{display:flex;align-items:center;gap:7px;font-size:21px}
+.h-home .wm svg{width:22px;height:22px}
+.h-home h1 em{font-style:normal;color:#F5B728}
 .h-home h1{font-size:27px;line-height:1.1;margin:0}
-.loc{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;opacity:.9}
+.loc{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;opacity:.92;background:rgba(255,255,255,.12);padding:5px 10px;border-radius:999px}
 .search{display:flex;align-items:center;gap:10px;background:var(--surface);color:var(--ink-2);border-radius:14px;padding:0 12px}
 .search input{flex:1;min-width:0;border:0;background:none;padding:13px 0;color:var(--ink);outline:none;font-size:15px}
 .net{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -138,7 +150,7 @@ textarea.input{min-height:84px;resize:vertical}
 .vbadge{color:var(--accent);display:inline-flex}
 .rt{display:inline-flex;align-items:center;gap:3px;color:var(--ink)}
 .rt svg{color:var(--sun)}
-.avatar{flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;color:#fff;background:linear-gradient(140deg,hsl(var(--h) 55% 48%),hsl(calc(var(--h) + 35) 55% 34%));overflow:hidden}
+.avatar{flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;color:#fff;background:linear-gradient(140deg,hsl(calc(200 + var(--h) / 6) 62% 50%),hsl(calc(215 + var(--h) / 6) 65% 32%));overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
 
 /* pro profile */
@@ -236,7 +248,8 @@ textarea.input{min-height:84px;resize:vertical}
 .starlbl{text-align:center;font-weight:700;min-height:1.4em}
 
 /* pro dashboard */
-.earn{padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--ink);color:var(--bg);border-radius:18px;border:0}
+.earn{position:relative;overflow:hidden;padding:16px;display:flex;flex-direction:column;gap:10px;background:#1F3FBF;color:#FFFFFF;border-radius:18px;border:0}
+.earn::after{content:"";position:absolute;right:-30px;bottom:-30px;width:90px;height:90px;border:12px solid rgba(245,183,40,.6);border-left:0;border-top:0}
 .earn .big{font-family:var(--f-display);font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
 .earn .rows{display:flex;flex-direction:column;gap:4px;font-size:13px;opacity:.85}
 .earn .rows div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
@@ -256,6 +269,19 @@ textarea.input{min-height:84px;resize:vertical}
 .req .acts .btn{flex:1}
 .money{font-family:var(--f-display);font-weight:700;font-size:18px;text-align:right;font-variant-numeric:tabular-nums}
 .money small{display:block;font-family:var(--f-body);font-weight:500;font-size:11.5px;color:var(--ink-2)}
+
+/* tiers */
+.tier{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 6px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap}
+.tier i{width:8px;height:8px;border-radius:2px;display:block}
+.tier.oro{background:#FDF1D3;color:#7A5300}.tier.oro i{background:#F5B728}
+.tier.plata{background:#E8EBF3;color:#46506E}.tier.plata i{background:#9AA3BD}
+.tier.bronce{background:#F6E6DA;color:#7A4520}.tier.bronce i{background:#C27A47}
+.lvls{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.lvl{border:1px solid var(--line);border-radius:12px;padding:10px 8px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink-2);background:var(--surface)}
+.lvl b{font-family:var(--f-display);font-size:20px;color:var(--ink);font-variant-numeric:tabular-nums}
+.lvl.cur{border:2px solid var(--accent);background:var(--accent-soft)}
+.repeat{display:flex;gap:10px;align-items:center;padding:12px;border-radius:12px;background:var(--sun-soft);font-size:13px}
+.repeat b.big{font-family:var(--f-display);font-size:24px;color:var(--ink)}
 
 /* sheet + toast */
 .sheet-wrap{position:absolute;inset:0;z-index:30;background:rgba(10,18,14,.45);display:flex;align-items:flex-end}
@@ -286,19 +312,20 @@ textarea.input{min-height:84px;resize:vertical}
 <div class="stage">
   <aside class="panel">
     <div class="panel-top">
-      <div class="brand"><span class="logo">R</span><div><b>Resuelve</b><small>Prototipo navegable · Panamá</small></div></div>
+      <div class="brand"><span class="logo"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg></span><div><b>cuadra</b><small>Prototipo navegable · Panamá</small></div></div>
       <div class="seg" role="group" aria-label="Cambiar vista">
         <button id="mode-client" data-act="mode" data-m="client" aria-pressed="true">Cliente</button>
         <button id="mode-pro" data-act="mode" data-m="pro" aria-pressed="false">Profesional</button>
       </div>
     </div>
-    <h2 class="display">Un marketplace de servicios donde la confianza se ve.</h2>
+    <h2 class="display">Lo cuadras con gente de confianza.</h2>
     <p class="intro">Esta es la app funcionando con datos de ejemplo. Todo lo que hagas aquí afecta a los dos lados del mercado: lo que publica un profesional lo ve el cliente, y lo que reserva el cliente le llega al profesional.</p>
     <ol class="steps">
       <li><span><b>Busca "fuga"</b> y reserva un plomero. Mira el pago protegido y el seguimiento.</span></li>
       <li><span><b>Califica la limpieza</b> que está pendiente en Reservas: estrellas, comentario y fotos.</span></li>
       <li><span><b>Cámbiate a Profesional</b>, regístrate, sube fotos de tus trabajos y agrega referencias.</span></li>
       <li><span><b>Vuelve a Cliente</b>: tu perfil ya aparece en la búsqueda. Resérvate y acepta la solicitud del otro lado.</span></li>
+      <li><span><b>Mira tu nivel y tu comisión</b>: completa el trabajo de Ricardo y verás que su segunda solicitud baja a 8%. Sube a Plata u Oro y baja tu comisión.</span></li>
     </ol>
     <div class="panel-foot"><span>Los datos se guardan solo en este navegador.</span><button class="linkbtn" data-act="reset-ask">Reiniciar demo</button></div>
   </aside>
@@ -311,8 +338,14 @@ textarea.input{min-height:84px;resize:vertical}
 <script>
 (function(){
 'use strict';
-const LS_KEY='resuelve-demo-v1';
-const COMMISSION=0.18;
+const LS_KEY='cuadra-demo-v1';
+const MARK_SVG='<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg>';
+const REPEAT_RATE=0.08;
+const TIERS=[
+  {id:'bronce',name:'Bronce',min:0,minR:0,rate:0.18,payout:'en 3 días hábiles',boost:0,perk:'Comisión base'},
+  {id:'plata',name:'Plata',min:10,minR:4.5,rate:0.15,payout:'en 48 horas',boost:0.25,perk:'Más arriba en búsquedas'},
+  {id:'oro',name:'Oro',min:50,minR:4.7,rate:0.12,payout:'el mismo día',boost:0.5,needVer:true,perk:'Primero en búsquedas'}
+];
 const DAY=86400000;
 
 const ICONS={
@@ -468,7 +501,7 @@ function seed(){
   pros.forEach(p=>{p.services=p.svcs.map(([name,price])=>({name,price}));delete p.svcs});
   const t1=iso(now-2*DAY), t2=iso(now+DAY);
   const bookings=[
-    {id:'b-seed1',proId:'p2',client:'self',clientName:'Andrea M.',svc:{name:'Limpieza general (3 h)',price:40},day:t1,slot:'9:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'Apartamento de 2 recámaras.',photos:[],pay:'Yappy',status:'completado',created:now-3*DAY,hist:{pendiente:now-3*DAY,aceptado:now-3*DAY+600000,en_curso:now-2*DAY,terminado:now-2*DAY+10800000,completado:now-2*DAY+11000000}},
+    {id:'b-seed1',proId:'p2',client:'self',clientName:'Andrea M.',svc:{name:'Limpieza general (3 h)',price:40},day:t1,slot:'9:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'Apartamento de 2 recámaras.',photos:[],pay:'Yappy',status:'completado',rate:0.12,repeat:false,created:now-3*DAY,hist:{pendiente:now-3*DAY,aceptado:now-3*DAY+600000,en_curso:now-2*DAY,terminado:now-2*DAY+10800000,completado:now-2*DAY+11000000}},
     {id:'b-seed2',proId:'p4',client:'self',clientName:'Andrea M.',svc:{name:'Mantenimiento split 12k BTU',price:45},day:t2,slot:'10:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'El aire de la recámara principal gotea.',photos:[],pay:'Tarjeta',status:'aceptado',created:now-DAY,hist:{pendiente:now-DAY,aceptado:now-DAY+900000}}
   ];
   return {v:1,pros,bookings,meId:null,client:{name:'Andrea M.',zone:'San Francisco',addr:'Calle 74, San Francisco, Torre Mar apto 8B'},baseDone:1840,waitlist:[]};
@@ -493,6 +526,21 @@ function rating(p){
   return {avg:count?sum/count:0,count,dist};
 }
 const isVerified=p=>p.ver.id===true&&p.ver.bg===true;
+function tierOf(p){
+  const r=rating(p); let t=TIERS[0];
+  for(const x of TIERS){ if(x.min===0) continue; if(p.jobs>=x.min&&r.count>0&&r.avg>=x.minR&&(!x.needVer||isVerified(p))) t=x; }
+  return t;
+}
+function nextTier(p){const i=TIERS.indexOf(tierOf(p));return TIERS[i+1]||null}
+const tierBadge=p=>{const t=tierOf(p);return `<span class="tier ${t.id}" title="Nivel ${t.name}"><i></i>${t.name}</span>`};
+const clientKey=b=>b.client==='self'?'self':'n:'+b.clientName;
+const PAID=['completado','calificado'];
+function isRepeat(b){
+  const mine=b.hist&&b.hist.completado||Infinity;
+  return S.bookings.some(o=>o.id!==b.id&&o.proId===b.proId&&clientKey(o)===clientKey(b)&&PAID.includes(o.status)&&(o.hist&&o.hist.completado||0)<mine);
+}
+function rateOf(b){ if(b.rate!=null) return b.rate; const p=proById(b.proId); return isRepeat(b)?REPEAT_RATE:tierOf(p).rate; }
+const pct=r=>Math.round(r*100)+'%';
 function checklist(p){
   return [
     {k:'id',label:'Verificar cédula',ok:p.ver.id===true},
@@ -507,7 +555,7 @@ const completeness=p=>{const c=checklist(p);return c.filter(x=>x.ok).length/c.le
 function rankScore(p){
   const r=rating(p);
   const avg=r.count?r.avg:4.6; // cold-start boost: new pros get visibility until their first reviews
-  return avg*Math.log10(r.count+12)*(isVerified(p)?1.12:1)+completeness(p)*0.6-p.distance*0.04;
+  return avg*Math.log10(r.count+12)*(isVerified(p)?1.12:1)+completeness(p)*0.6+tierOf(p).boost-p.distance*0.04;
 }
 const visiblePros=()=>S.pros.filter(p=>catById(p.cat).live);
 const myBookings=()=>S.bookings.filter(b=>b.client==='self');
@@ -532,7 +580,7 @@ function proRow(p){
   const r=rating(p);
   return `<button class="pro-row" data-act="open-pro" data-id="${p.id}">${avatar(p,52)}
     <div class="pr-main">
-      <div class="pr-top"><b>${esc(p.name)}</b>${isVerified(p)?`<span class="vbadge" title="Identidad y antecedentes verificados">${ic('shield',15)}</span>`:''}</div>
+      <div class="pr-top"><b>${esc(p.name)}</b>${isVerified(p)?`<span class="vbadge" title="Identidad y antecedentes verificados">${ic('shield',15)}</span>`:''}${tierOf(p).id!=='bronce'?tierBadge(p):''}</div>
       <div class="pr-sub">${esc(catById(p.cat).name)} · ${esc(p.zone)}</div>
       <div class="pr-meta">${starsInline(r)}<span class="muted">· ${p.distance} km · responde en ~${p.resp} min</span></div>
     </div>
@@ -560,8 +608,8 @@ function statusPill(b,forPro){
 /* ---------------- client views ---------------- */
 function vHome(){
   return `<header class="h-home">
-      <div class="loc">${ic('pin',16)}<span>${esc(S.client.zone)}, Ciudad de Panamá</span></div>
-      <h1 class="display">¿Qué necesitas resolver hoy?</h1>
+      <div class="h-row"><span class="wm wordmark">${MARK_SVG}cuadra</span><span class="loc">${ic('pin',14)}<span>${esc(S.client.zone)}</span></span></div>
+      <h1 class="display">¿Qué necesitas <em>cuadrar</em> hoy?</h1>
       <label class="search">${ic('search',18)}<input id="q" type="search" placeholder="Ej: fuga en el baño, A/C, limpieza" value="${esc(draft.q||'')}" autocomplete="off" aria-label="Buscar servicio o profesional"></label>
     </header>
     <div id="home-body">${homeBody()}</div>`;
@@ -590,14 +638,14 @@ function homeBody(){
       <div class="sec-h"><h2>Mejor calificados cerca de ti</h2></div>
       <div class="hscroll">${top.map(p=>{const r=rating(p);return `<button class="card pro-card" data-act="open-pro" data-id="${p.id}">
         <div style="display:flex;gap:10px;align-items:center">${avatar(p,42)}<div style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}</b><span class="muted" style="font-size:12.5px">${esc(catById(p.cat).name)}</span></div></div>
-        <div class="pr-meta">${starsInline(r)}${isVerified(p)?`<span class="vbadge">${ic('shield',15)}</span>`:''}</div>
+        <div class="pr-meta">${starsInline(r)}${isVerified(p)?`<span class="vbadge">${ic('shield',15)}</span>`:''}${tierOf(p).id!=='bronce'?tierBadge(p):''}</div>
         <span class="muted" style="font-size:12.5px">${esc(p.zone)} · desde <b style="color:var(--ink)">${money(p.priceFrom)}</b></span></button>`}).join('')}</div>
     </section>
     <section class="sec">
       <div class="sec-h"><h2>Por qué confiar</h2></div>
       <div class="card pad trust">
         <div><i>${ic('shield',18)}</i><span><b>Profesionales verificados</b>Cédula y récord policivo revisados antes de aparecer con el sello.</span></div>
-        <div><i>${ic('wallet',18)}</i><span><b>Pago protegido</b>Pagas con Yappy o tarjeta; el dinero se libera solo cuando confirmas que quedó bien.</span></div>
+        <div><i>${ic('wallet',18)}</i><span><b>Pago protegido y garantía</b>Pagas con Yappy o tarjeta y el dinero se libera solo cuando confirmas. Si algo falla en 30 días, lo rehacemos sin costo.</span></div>
         <div><i>${ic('star',18)}</i><span><b>Reseñas solo de clientes reales</b>Solo puede calificar quien contrató y pagó por la app, con fotos del trabajo.</span></div>
       </div>
     </section>`;
@@ -649,13 +697,14 @@ function vPro(p){
     ${avatar(pro,84)}
     <h2 class="display">${esc(pro.name)}</h2>
     <div class="muted" style="font-size:14px">${esc(c.name)} · ${esc(pro.zone)} · ${pro.years} año${pro.years==1?'':'s'} de experiencia</div>
-    <div class="ver">${vb}</div>
+    <div class="ver">${tierBadge(pro)}${vb}</div>
     <div class="p-stats">
       <div><b>${r.count?r.avg.toFixed(1):'—'}</b><span>${r.count} reseña${r.count===1?'':'s'}</span></div>
       <div><b>${pro.jobs}</b><span>trabajos</span></div>
       <div><b>~${pro.resp}m</b><span>responde</span></div>
     </div>
   </div>
+  ${!mine&&S.bookings.some(b=>b.client==='self'&&b.proId===pro.id&&PAID.includes(b.status))?`<section class="sec"><div class="note">${ic('check',18)}<span><b>Ya trabajaste con ${esc(pro.name.split(' ')[0])}.</b> Vuelve a reservar por Cuadra para mantener la garantía de 30 días y tu historial de servicios.</span></div></section>`:''}
   ${mine?`<section class="sec"><div class="note">${ic('eye',18)}<span>Así ven tu perfil los clientes. Si te reservas aquí, la solicitud te llega en la vista Profesional.</span></div></section>`:''}
   <section class="sec">
     <div class="sec-h"><h2>Servicios y precios</h2><span>precio base</span></div>
@@ -776,7 +825,8 @@ function vBk(p){
       <div><span>Dirección</span><b>${esc(b.addr)}</b></div>
       ${b.desc?`<div><span>Detalle</span><b>${esc(b.desc)}</b></div>`:''}
       <div><span>Pago</span><b>${money(b.svc.price)} · ${esc(b.pay)}</b></div>
-      <div><span>Estado del pago</span><b>${b.status==='completado'||b.status==='calificado'?'Liberado al profesional':cancelled?'Sin cobro':'Retenido por Resuelve'}</b></div>
+      <div><span>Estado del pago</span><b>${b.status==='completado'||b.status==='calificado'?'Liberado al profesional':cancelled?'Sin cobro':'Retenido por Cuadra'}</b></div>
+      ${cancelled?'':`<div><span>Garantía Cuadra</span><b>30 días · lo rehacemos sin costo</b></div>`}
     </div>
     ${b.photos.length?`<div class="gallery">${b.photos.map((ph,j)=>photoBtn(ph,'bk:'+b.id+':'+j)).join('')}</div>`:''}
   </section>`;
@@ -831,7 +881,7 @@ function vOnboard(){
   const o=draft.ob;
   return `${topbar('Únete como profesional',{noBack:true})}
   <section class="sec" style="padding-top:4px">
-    <div class="note">${ic('wallet',18)}<span>Crear tu perfil es gratis. Resuelve cobra ${Math.round(COMMISSION*100)}% solo de los trabajos que cobras por la app. Recibes tu dinero al confirmar el cliente.</span></div>
+    <div class="note">${ic('wallet',18)}<span>Crear tu perfil es gratis. Cuadra cobra ${pct(TIERS[0].rate)} del primer trabajo con cada cliente y solo ${pct(REPEAT_RATE)} cuando ese cliente te vuelve a contratar por la app. Al subir de nivel, tu comisión baja.</span></div>
     <div class="field"><label for="ob-name">Nombre completo o de tu negocio</label><input class="input" id="ob-name" data-bind="ob.name" value="${esc(o.name)}" placeholder="Ej: Carlos Méndez"></div>
     <div class="field"><label for="ob-phone">WhatsApp</label><input class="input" id="ob-phone" data-bind="ob.phone" value="${esc(o.phone)}" inputmode="tel" placeholder="6000-0000"></div>
     <div class="row2">
@@ -856,7 +906,7 @@ function vOnboard(){
         ${o.cedula.length?`<div style="width:72px">${photo(o.cedula[0])}</div><div style="flex:1"><b>Cédula cargada</b><div class="hint">La revisamos en menos de 24 h</div></div><button class="btn sm ghost" data-act="rm-draft-photo" data-path="ob.cedula" data-i="0">Quitar</button>`:
         `<label class="addph" for="up-ced" style="width:72px;position:relative">${ic('camera',20)}Cédula<input type="file" id="up-ced" accept="image/*" data-upload="ob.cedula"></label><div style="flex:1"><b>Foto de tu cédula</b><div class="hint">Opcional ahora, necesaria para el sello de verificado</div></div>`}
       </div>
-      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><input type="checkbox" id="ob-consent" data-bind="ob.consent" ${o.consent?'checked':''} style="margin-top:3px;width:18px;height:18px;accent-color:var(--accent)"><span>Autorizo a Resuelve a consultar mi récord policivo y acepto los términos para profesionales.</span></label>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><input type="checkbox" id="ob-consent" data-bind="ob.consent" ${o.consent?'checked':''} style="margin-top:3px;width:18px;height:18px;accent-color:var(--accent)"><span>Autorizo a Cuadra a consultar mi récord policivo y acepto los términos para profesionales.</span></label>
     </div>
     ${o.err?`<div class="err" role="alert">${esc(o.err)}</div>`:''}
   </section>
@@ -867,8 +917,11 @@ function vProHome(){
   const bs=proBookings();
   const paid=bs.filter(b=>['completado','calificado'].includes(b.status));
   const held=bs.filter(b=>['aceptado','en_curso','terminado'].includes(b.status));
-  const gross=paid.reduce((a,b)=>a+b.svc.price,0), fee=gross*COMMISSION, net=gross-fee;
-  const heldNet=held.reduce((a,b)=>a+b.svc.price*(1-COMMISSION),0);
+  const gross=paid.reduce((a,b)=>a+b.svc.price,0), fee=paid.reduce((a,b)=>a+b.svc.price*rateOf(b),0), net=gross-fee;
+  const heldNet=held.reduce((a,b)=>a+b.svc.price*(1-rateOf(b)),0);
+  const effRate=gross?fee/gross:0;
+  const t=tierOf(p), nt=nextTier(p);
+  const repeatCount=paid.filter(b=>b.repeat).length;
   const pend=bs.filter(b=>b.status==='pendiente').length;
   const r=rating(p); const cl=checklist(p); const pc=Math.round(completeness(p)*100);
   return `${topbar('Hola, '+p.name.split(' ')[0],{noBack:true,right:`<button class="iconbtn" data-act="view-as-client" aria-label="Ver mi perfil como cliente">${ic('eye')}</button>`})}
@@ -876,13 +929,21 @@ function vProHome(){
     <div class="card earn">
       <span style="font-size:13px;opacity:.8">Neto cobrado este mes</span>
       <span class="big">${money(net)}</span>
-      <div class="rows"><div><span>Ingresos brutos</span><span>${money(gross)}</span></div><div><span>Comisión Resuelve (${Math.round(COMMISSION*100)}%)</span><span>−${money(fee)}</span></div><div><span>Por liberar (trabajos en curso)</span><span>${money(heldNet)}</span></div></div>
+      <div class="rows"><div><span>Ingresos brutos</span><span>${money(gross)}</span></div><div><span>Comisión Cuadra (${gross?pct(effRate)+' efectiva':pct(t.rate)})</span><span>−${money(fee)}</span></div><div><span>Por liberar (trabajos en curso)</span><span>${money(heldNet)}</span></div></div>
     </div>
     <div class="p-stats" style="margin:0">
       <div><b>${r.count?r.avg.toFixed(1):'—'}</b><span>calificación</span></div>
       <div><b>${paid.length}</b><span>trabajos cobrados</span></div>
       <button data-act="ptab" data-v="pro-reqs" style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 6px;display:flex;flex-direction:column;align-items:center"><b style="font-family:var(--f-display);font-size:19px;color:${pend?'var(--danger)':'inherit'}">${pend}</b><span style="font-size:11.5px;color:var(--ink-2)">por responder</span></button>
     </div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Tu nivel: ${t.name}</h2>${tierBadge(p)}</div>
+    <div class="lvls">${TIERS.map(x=>`<div class="lvl${x===t?' cur':''}"><span class="tier ${x.id}"><i></i>${x.name}</span><b>${pct(x.rate)}</b><span>comisión primer trabajo</span><span>Pago ${x.payout}</span><span>${x.perk}</span></div>`).join('')}</div>
+    <div class="repeat"><b class="big">${pct(REPEAT_RATE)}</b><span><b>Clientes que te repiten.</b> Cuando un cliente te vuelve a contratar por Cuadra pagas solo ${pct(REPEAT_RATE)}, en cualquier nivel.${repeatCount?` Llevas ${repeatCount} trabajo${repeatCount===1?'':'s'} repetido${repeatCount===1?'':'s'}.`:''}</span></div>
+    ${nt?(()=>{const r=rating(p);const need=[];if(p.jobs<nt.min)need.push(`${nt.min-p.jobs} trabajo${nt.min-p.jobs===1?'':'s'} más`);if(!r.count||r.avg<nt.minR)need.push(`calificación de ${nt.minR} o más`);if(nt.needVer&&!isVerified(p))need.push('sello de verificado');
+      const prog=Math.min(100,Math.round(p.jobs/nt.min*100));
+      return `<div class="card pad" style="display:flex;flex-direction:column;gap:8px"><b>Para subir a ${nt.name}</b><div class="meter"><em style="width:${prog}%"></em></div><span class="hint">${p.jobs}/${nt.min} trabajos completados por Cuadra. Te falta: ${need.length?need.join(', '):'nada, se actualiza con tu próximo trabajo'}.</span><button class="btn ghost sm" style="align-self:flex-start" data-act="demo-jobs">Simular 10 trabajos con 5 estrellas (demo)</button></div>`})():`<div class="hint">Estás en el nivel más alto. Mantén tu calificación sobre ${t.minR} para conservarlo.</div>`}
   </section>
   <section class="sec">
     <div class="sec-h"><h2>Perfil ${pc}% completo</h2><span>${isVerified(p)?'Verificado':'Sin sello aún'}</span></div>
@@ -896,7 +957,7 @@ function vProReqs(){
   const bs=proBookings().sort((a,b)=>b.created-a.created);
   const groups=[['Nuevas',bs.filter(b=>b.status==='pendiente')],['Agenda',bs.filter(b=>['aceptado','en_curso','terminado'].includes(b.status))],['Cobrados',bs.filter(b=>['completado','calificado'].includes(b.status))],['Rechazadas o canceladas',bs.filter(b=>['rechazado','cancelado'].includes(b.status))]];
   const card=b=>{
-    const net=b.svc.price*(1-COMMISSION);
+    const rt=rateOf(b), net=b.svc.price*(1-rt), rep=b.rate!=null?b.repeat:isRepeat(b);
     let acts='';
     if(b.status==='pendiente') acts=`<div class="acts"><button class="btn ghost" data-act="pro-adv" data-id="${b.id}" data-to="rechazado">Rechazar</button><button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="aceptado">Aceptar</button></div>`;
     else if(b.status==='aceptado') acts=`<button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="en_curso">Iniciar trabajo</button>`;
@@ -905,6 +966,7 @@ function vProReqs(){
     return `<div class="card req">
       <div class="req-h"><div><b>${esc(b.svc.name)}</b><small>${esc(b.clientName)} · ${fmtDay(b.day)} ${esc(b.slot)}</small><small>${ic('pin',12).replace('class="ic"','class="ic" style="display:inline;vertical-align:-1px"')} ${esc(b.addr)}</small></div>
       <div class="money">${money(net)}<small>neto de ${money(b.svc.price)}</small></div></div>
+      <div>${rep?`<span class="pill warn">${ic('check',12)} Cliente que repite · comisión ${pct(rt)}</span>`:`<span class="pill">Primer trabajo con este cliente · comisión ${pct(rt)}</span>`}</div>
       ${b.desc?`<p>"${esc(b.desc)}"</p>`:''}
       ${b.photos.length?`<div class="revph">${b.photos.map((ph,j)=>photoBtn(ph,'bk:'+b.id+':'+j)).join('')}</div>`:''}
       ${statusPill(b,true)}
@@ -995,8 +1057,8 @@ function closeSheet(){const s=document.getElementById('sheet');if(s)s.remove()}
 /* ---------------- state transitions ---------------- */
 function advance(id,to){
   const b=S.bookings.find(x=>x.id===id); if(!b) return;
+  if(to==='completado'){b.repeat=isRepeat(b);b.rate=rateOf(b);const p=proById(b.proId); if(p) p.jobs++}
   b.status=to; b.hist=b.hist||{}; b.hist[to]=Date.now();
-  if(to==='completado'){const p=proById(b.proId); if(p) p.jobs++}
   save();
 }
 const timers={};
@@ -1115,12 +1177,12 @@ const A={
     S.pros.push(p); S.meId=id;
     const zoneAddr=['Vía Porras, San Francisco, PH Bay View apto 12C','Calle 50, Obarrio, Edificio Plaza 2000 piso 7'];
     const descs={plomeria:['El fregadero de la cocina no drena.','Fuga en la ducha del baño principal.'],electricidad:['Se va la luz de la cocina cuando uso el microondas.','Quiero instalar dos lámparas en la sala.'],limpieza:['Apartamento de 2 recámaras, limpieza general.','Necesito limpieza antes de entregar el apartamento.'],aires:['El aire de la sala gotea y no enfría bien.','Mantenimiento de 2 splits de 12k.'],pintura:['Pintar una recámara de 3x4 m.','Mancha de humedad en la pared del baño.']}[o.cat];
-    [['Ricardo T.',1,'10:00'],['María José P.',2,'15:00']].forEach(([cn,dd,sl],i)=>{
+    [['Ricardo T.',1,'10:00'],['María José P.',2,'15:00'],['Ricardo T.',6,'8:00']].forEach(([cn,dd,sl],i)=>{
       const sv=svcs[Math.min(i,svcs.length-1)];
-      S.bookings.push({id:uid('b'),proId:id,client:'other',clientName:cn,svc:{name:sv.name,price:sv.price},day:iso(Date.now()+dd*DAY),slot:sl,addr:zoneAddr[i],desc:descs[i],photos:[],pay:i?'Tarjeta':'Yappy',status:'pendiente',created:Date.now()-i*60000,hist:{pendiente:Date.now()-i*60000}});
+      S.bookings.push({id:uid('b'),proId:id,client:'other',clientName:cn,svc:{name:sv.name,price:sv.price},day:iso(Date.now()+dd*DAY),slot:sl,addr:zoneAddr[i%2],desc:descs[i]||'Me quedó muy bien lo anterior, necesito otro servicio.',photos:[],pay:i===1?'Tarjeta':'Yappy',status:'pendiente',created:Date.now()-i*60000,hist:{pendiente:Date.now()-i*60000}});
     });
     save(); draft.ob=null; stack=[]; cur={v:'pro-home',p:{}}; render(true);
-    toast('Perfil creado. Ya apareces en las búsquedas. Tienes 2 solicitudes.');
+    toast('Perfil creado. Ya apareces en las búsquedas. Tienes 3 solicitudes.');
   },
   'pro-adv':d=>{
     const b=S.bookings.find(x=>x.id===d.id); if(!b) return;
@@ -1128,7 +1190,8 @@ const A={
     toast({aceptado:'Solicitud aceptada. El cliente ya fue notificado.',rechazado:'Solicitud rechazada. No se cobró al cliente.',en_curso:'Trabajo iniciado.',terminado:'Le pedimos al cliente que confirme para liberar tu pago.'}[d.to]||'Actualizado');
     render(false);
   },
-  'demo-client-confirm':d=>{advance(d.id,'completado');const b=S.bookings.find(x=>x.id===d.id);toast('Pago liberado: '+money(b.svc.price*(1-COMMISSION))+' neto');render(false)},
+  'demo-client-confirm':d=>{advance(d.id,'completado');const b=S.bookings.find(x=>x.id===d.id);toast('Pago liberado: '+money(b.svc.price*(1-b.rate))+' neto ('+pct(b.rate)+' de comisión)');render(false)},
+  'demo-jobs':()=>{const p=me();p.jobs+=10;p.hist[5]+=9;p.hist[4]+=1;save();const t=tierOf(p);toast(t.id==='bronce'?'Sumaste 10 trabajos.':'Subiste a nivel '+t.name+': tu comisión baja a '+pct(t.rate));render(false)},
   'demo-bg':()=>{const p=me();p.ver.bg=true;save();toast(isVerified(p)?'Antecedentes aprobados. Ya tienes el sello de verificado.':'Antecedentes aprobados. Sube tu cédula para obtener el sello.');render(false)},
   'view-as-client':()=>{const id=S.meId;mode='client';stack=[{v:'home',p:{}}];cur={v:'pro',p:{id}};render(true)},
   'rm-pf':d=>{me().portfolio.splice(+d.i,1);save();render(false)},
@@ -1170,6 +1233,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
 
 S.bookings.forEach(scheduleAutoAccept);
 render(true);
-window.__resuelve={get state(){return S},get cur(){return cur},get mode(){return mode}};
+window.__cuadra={get state(){return S},get cur(){return cur},get mode(){return mode}};
 })();
 </script>
