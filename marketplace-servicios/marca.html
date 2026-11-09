@@ -1,0 +1,256 @@
+<title>Opciones de marca</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Baloo+2:wght@700;800&family=Manrope:wght@500;700;800&family=Rubik:wght@700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a brand board. Criteria strip, then one wide card per name (mark tile + wordmark + reasoning), then the five icons side by side as they'd sit on a phone. */
+:root{
+  --bg:#F2F1EE; --surface:#FFFFFF; --ink:#18191C; --ink-2:#5B5F66; --line:#E0DED8; --accent:#1F3FBF; --pick:#E9F0FF;
+  --f-body:"Figtree","Segoe UI",system-ui,sans-serif; --f-head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121316;--surface:#1B1D21;--ink:#ECECEE;--ink-2:#A3A7AF;--line:#2D3036;--accent:#8EA6FF;--pick:#1C2440;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121316;--surface:#1B1D21;--ink:#ECECEE;--ink-2:#A3A7AF;--line:#2D3036;--accent:#8EA6FF;--pick:#1C2440;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-block:40px 64px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:28px}
+h1{font-family:var(--f-head);font-weight:800;font-size:clamp(30px,5vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.lede{margin:0;color:var(--ink-2);max-width:64ch;font-size:16px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.criteria{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.criteria div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:13.5px;color:var(--ink-2)}
+.criteria b{display:block;color:var(--ink);font-size:14px}
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:20px;display:grid;grid-template-columns:300px minmax(0,1fr);overflow:hidden}
+.opt.pick{border:2px solid var(--accent)}
+.tile{background:var(--b);color:var(--bf);display:flex;flex-direction:column;justify-content:space-between;padding:22px;gap:28px;min-height:300px}
+.tile .num{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.lockup{display:flex;align-items:center;gap:14px}
+.lockup svg{flex:none}
+.word{font-size:40px;line-height:1;letter-spacing:-.02em}
+.tile .tag{font-size:15px;font-weight:600;opacity:.92;max-width:26ch}
+.body{padding:22px 24px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.body-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.body h2{font-family:var(--f-head);font-size:24px;margin:0;letter-spacing:-.01em}
+.badge{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--pick);color:var(--accent);white-space:nowrap}
+.badge.alt{background:var(--bg);color:var(--ink-2)}
+.body p{margin:0;max-width:68ch}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cols h3{margin:0 0 4px;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.cols ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:3px;font-size:14px}
+.scores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.sc{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--ink-2)}
+.dots{display:flex;gap:3px}
+.dots i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.dots i.on{background:var(--ink)}
+.mini{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chipc{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2)}
+.chipc span{width:16px;height:16px;border-radius:5px;border:1px solid var(--line)}
+.icons{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.icons h2,.rec h2{font-family:var(--f-head);font-size:22px;margin:0}
+.homescreen{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;max-width:560px}
+.app{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px;font-weight:600}
+.app .ico{width:100%;max-width:84px;aspect-ratio:1;border-radius:24%;background:var(--b);color:var(--bf);display:grid;place-items:center;box-shadow:0 6px 16px -8px rgba(0,0,0,.4)}
+.app .ico svg{width:58%;height:58%}
+.rec{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.rec p{margin:0;max-width:72ch}
+.rec ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:72ch}
+.foot{font-size:13px;color:var(--ink-2);max-width:72ch}
+@media (max-width:820px){
+  .opt{grid-template-columns:1fr}
+  .tile{min-height:0}
+  .criteria{grid-template-columns:1fr 1fr}
+  .scores{grid-template-columns:1fr 1fr}
+}
+@media (max-width:520px){
+  .cols{grid-template-columns:1fr}
+  .word{font-size:34px}
+  .homescreen{gap:8px}
+  .app{font-size:11px}
+}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Marketplace de servicios · Panamá · exploración de marca</span>
+    <h1>Cinco nombres para la plataforma de profesionales recomendados</h1>
+    <p class="lede">Buscamos un nombre que comunique el punto donde se encuentran una necesidad y la persona correcta para resolverla, con la confianza de una recomendación. Cada opción trae su símbolo, su tono y sus riesgos.</p>
+  </header>
+
+  <section class="criteria" aria-label="Criterios de evaluación">
+    <div><b>Confianza</b>¿Le abrirías la puerta de tu casa a esta marca?</div>
+    <div><b>Memorable</b>¿Se recuerda y se puede decir en voz alta?</div>
+    <div><b>Voz local</b>¿Suena a Panamá sin sonar improvisada?</div>
+    <div><b>Escala regional</b>¿Funciona en Costa Rica, Colombia o Guatemala?</div>
+  </section>
+
+  <!-- 1 CUADRA -->
+  <article class="opt pick" style="--b:#1F3FBF;--bf:#FFFFFF">
+    <div class="tile">
+      <span class="num">Opción 1</span>
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg>
+        <span class="word" style="font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800">cuadra</span>
+      </div>
+      <span class="tag">Lo cuadras con gente de confianza.</span>
+    </div>
+    <div class="body">
+      <div class="body-h"><h2>Cuadra</h2><span class="badge">Recomendada</span></div>
+      <p>En Panamá "cuadrar" es ponerse de acuerdo: "¿cuadramos para el sábado?". También es la cuadra, el vecindario donde vive la gente que te recomienda a alguien. El símbolo son dos esquinas, una del cliente y otra del profesional, que juntas forman un cuadro, con el punto de encuentro en el centro.</p>
+      <div class="cols">
+        <div><h3>A favor</h3><ul><li>Puede volverse verbo: "lo cuadré por Cuadra".</li><li>Corta, sin tilde, fácil de escribir en un dominio.</li><li>"Cuadrar" se usa en Venezuela, Colombia, Cuba, Puerto Rico y República Dominicana.</li></ul></div>
+        <div><h3>Riesgos</h3><ul><li>En México "cuadra" suena más a establo que a acuerdo.</li><li>Por sí sola no dice "confianza"; eso lo tiene que cargar el lema.</li><li>Las dos esquinas pueden recordar el ícono de "recortar" de las apps de fotos. Por eso hay una segunda dirección de símbolo, abajo.</li></ul></div>
+      </div>
+      <div class="scores">
+        <div class="sc">Confianza<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <div class="sc">Memorable<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Voz local<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Escala regional<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+      </div>
+      <div class="mini"><span class="chipc"><span style="background:#1F3FBF"></span>Azul cobalto</span><span class="chipc"><span style="background:#F5B728"></span>Amarillo taxi</span><span class="chipc"><span style="background:#FFFFFF"></span>Blanco</span></div>
+    </div>
+  </article>
+
+  <!-- 2 LLAVE -->
+  <article class="opt" style="--b:#0D5C46;--bf:#FFFFFF">
+    <div class="tile">
+      <span class="num">Opción 2</span>
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 33 20 22l12 11v13H8z" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linejoin="round"/><path d="M32 38h24M48 38v8M56 38v6" fill="none" stroke="#D9A441" stroke-width="6" stroke-linecap="round"/></svg>
+        <span class="word" style="font-family:'Fraunces',Georgia,serif;font-weight:700">Llave</span>
+      </div>
+      <span class="tag">Gente de confianza para tu casa.</span>
+    </div>
+    <div class="body">
+      <div class="body-h"><h2>Llave</h2><span class="badge alt">Alternativa fuerte</span></div>
+      <p>Tiene tres significados a la vez: la llave de tu casa, que solo le das a alguien de confianza; la llave inglesa del plomero; y "mi llave", el amigo de siempre. El símbolo es una llave cuya cabeza tiene forma de casa.</p>
+      <div class="cols">
+        <div><h3>A favor</h3><ul><li>Es la metáfora de confianza más directa de las cinco.</li><li>Se entiende igual en toda Latinoamérica.</li><li>Se presta para planes: "Llave Hogar", "Llave Empresas".</li></ul></div>
+        <div><h3>Riesgos</h3><ul><li>Palabra común: más difícil registrarla como marca y conseguir el dominio.</li><li>Se confunde fácil con cerrajeros y seguridad.</li></ul></div>
+      </div>
+      <div class="scores">
+        <div class="sc">Confianza<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Memorable<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="sc">Voz local<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <div class="sc">Escala regional<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+      </div>
+      <div class="mini"><span class="chipc"><span style="background:#0D5C46"></span>Verde botella</span><span class="chipc"><span style="background:#D9A441"></span>Latón</span><span class="chipc"><span style="background:#FFFFFF"></span>Blanco</span></div>
+    </div>
+  </article>
+
+  <!-- 3 RECOMENDAO -->
+  <article class="opt" style="--b:#E2482F;--bf:#FFF6EE">
+    <div class="tile">
+      <span class="num">Opción 3</span>
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 10h30v18H18l-8 7v-7H6z" fill="none" stroke="#FFF6EE" stroke-width="4.5" stroke-linejoin="round"/><path d="M24 24h34v22h-6v8l-9-8H24z" fill="#FFF6EE"/><path d="m33 35 5 5 10-10" fill="none" stroke="#E2482F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="word" style="font-family:'Baloo 2',system-ui,sans-serif;font-weight:800;font-size:29px">recomendao</span>
+      </div>
+      <span class="tag">El que todo el mundo te recomienda.</span>
+    </div>
+    <div class="body">
+      <div class="body-h"><h2>Recomendao</h2><span class="badge alt">La más panameña</span></div>
+      <p>Es la frase exacta que la gente usa hoy: "¿tienes un plomero recomendao?". La marca captura el comportamiento actual, el boca a boca, y lo pasa a una app. El símbolo son dos globos de conversación: alguien recomienda y el otro recibe una opción ya verificada.</p>
+      <div class="cols">
+        <div><h3>A favor</h3><ul><li>Se entiende al instante y saca una sonrisa.</li><li>La promesa está en el nombre: aquí solo hay gente recomendada.</li></ul></div>
+        <div><h3>Riesgos</h3><ul><li>Lo informal resta seriedad ante empresas, PH y gobierno.</li><li>Difícil de llevar a otros países; no suena a empresa grande.</li></ul></div>
+      </div>
+      <div class="scores">
+        <div class="sc">Confianza<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></div>
+        <div class="sc">Memorable<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Voz local<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Escala regional<div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="mini"><span class="chipc"><span style="background:#E2482F"></span>Rojo tomate</span><span class="chipc"><span style="background:#FFF6EE"></span>Crema</span></div>
+    </div>
+  </article>
+
+  <!-- 4 CONFIO -->
+  <article class="opt" style="--b:#13294B;--bf:#FFFFFF">
+    <div class="tile">
+      <span class="num">Opción 4</span>
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="32" r="16" fill="none" stroke="#FFFFFF" stroke-width="5"/><circle cx="40" cy="32" r="16" fill="none" stroke="#FFFFFF" stroke-width="5"/><path d="M32 18.14A16 16 0 0 1 32 45.86A16 16 0 0 1 32 18.14Z" fill="#2BB3A3"/></svg>
+        <span class="word" style="font-family:'Manrope',system-ui,sans-serif;font-weight:800">confío</span>
+      </div>
+      <span class="tag">Profesionales que ya se ganaron la confianza de otros.</span>
+    </div>
+    <div class="body">
+      <div class="body-h"><h2>Confío</h2><span class="badge alt">La más seria</span></div>
+      <p>Dice la promesa sin rodeos. El símbolo son dos círculos, uno para cada parte, y el espacio donde se cruzan es la marca: ahí la necesidad y la solución coinciden.</p>
+      <div class="cols">
+        <div><h3>A favor</h3><ul><li>Se lleva bien con bancos, aseguradoras y marcas como Mastercard.</li><li>Se entiende en toda la región.</li></ul></div>
+        <div><h3>Riesgos</h3><ul><li>La tilde complica el dominio y las búsquedas.</li><li>Es un nombre muy usado por fintechs y aseguradoras; probable conflicto de marca.</li><li>El tono es frío: suena más a banco que a vecino.</li><li>Dos círculos cruzados recuerdan al logo de Mastercard, justo el patrocinador que se busca. Habría que cambiar el símbolo.</li></ul></div>
+      </div>
+      <div class="scores">
+        <div class="sc">Confianza<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Memorable<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <div class="sc">Voz local<div class="dots"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></div>
+        <div class="sc">Escala regional<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+      </div>
+      <div class="mini"><span class="chipc"><span style="background:#13294B"></span>Azul marino</span><span class="chipc"><span style="background:#2BB3A3"></span>Turquesa</span><span class="chipc"><span style="background:#FFFFFF"></span>Blanco</span></div>
+    </div>
+  </article>
+
+  <!-- 5 FREN -->
+  <article class="opt" style="--b:#FF7A1A;--bf:#1B1206">
+    <div class="tile">
+      <span class="num">Opción 5</span>
+      <div class="lockup">
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="26" width="24" height="20" rx="8" fill="#1B1206"/><rect x="34" y="26" width="24" height="20" rx="8" fill="none" stroke="#1B1206" stroke-width="5"/><path d="M32 8v8M22 12l4 6M42 12l-4 6" stroke="#1B1206" stroke-width="4" stroke-linecap="round"/></svg>
+        <span class="word" style="font-family:'Rubik',system-ui,sans-serif;font-weight:800">fren</span>
+      </div>
+      <span class="tag">Pídeselo a un fren.</span>
+    </div>
+    <div class="body">
+      <div class="body-h"><h2>Fren</h2><span class="badge alt">La más atrevida</span></div>
+      <p>"Fren" es como se dice amigo en Panamá. La marca te promete el amigo que conoce a alguien bueno para cada cosa. El símbolo es un choque de puños entre cliente y profesional.</p>
+      <div class="cols">
+        <div><h3>A favor</h3><ul><li>Cuatro letras, muy recordable y con mucha personalidad.</li><li>Da mucho juego en redes y para activaciones en eventos.</li></ul></div>
+        <div><h3>Riesgos</h3><ul><li>Fuera de Panamá casi nadie la entiende.</li><li>Puede sonar demasiado casual para servicios de cuidado de personas.</li><li>En tamaño de ícono el choque de puños se ve como dos rectángulos; el símbolo necesita más trabajo.</li></ul></div>
+      </div>
+      <div class="scores">
+        <div class="sc">Confianza<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></div>
+        <div class="sc">Memorable<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Voz local<div class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <div class="sc">Escala regional<div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+      </div>
+      <div class="mini"><span class="chipc"><span style="background:#FF7A1A"></span>Naranja</span><span class="chipc"><span style="background:#1B1206"></span>Casi negro</span></div>
+    </div>
+  </article>
+
+  <section class="icons">
+    <h2>Así se verían en el teléfono</h2>
+    <div class="homescreen">
+      <div class="app"><span class="ico" style="--b:#1F3FBF;--bf:#fff"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg></span>Cuadra</div>
+      <div class="app"><span class="ico" style="--b:#0D5C46;--bf:#fff"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 33 20 22l12 11v13H8z" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linejoin="round"/><path d="M32 38h24M48 38v8M56 38v6" fill="none" stroke="#D9A441" stroke-width="6" stroke-linecap="round"/></svg></span>Llave</div>
+      <div class="app"><span class="ico" style="--b:#E2482F;--bf:#FFF6EE"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M6 10h30v18H18l-8 7v-7H6z" fill="none" stroke="#FFF6EE" stroke-width="4.5" stroke-linejoin="round"/><path d="M24 24h34v22h-6v8l-9-8H24z" fill="#FFF6EE"/><path d="m33 35 5 5 10-10" fill="none" stroke="#E2482F" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Recomendao</div>
+      <div class="app"><span class="ico" style="--b:#13294B;--bf:#fff"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="32" r="16" fill="none" stroke="#FFFFFF" stroke-width="5"/><circle cx="40" cy="32" r="16" fill="none" stroke="#FFFFFF" stroke-width="5"/><path d="M32 18.14A16 16 0 0 1 32 45.86A16 16 0 0 1 32 18.14Z" fill="#2BB3A3"/></svg></span>Confío</div>
+      <div class="app"><span class="ico" style="--b:#FF7A1A;--bf:#1B1206"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="26" width="24" height="20" rx="8" fill="#1B1206"/><rect x="34" y="26" width="24" height="20" rx="8" fill="none" stroke="#1B1206" stroke-width="5"/><path d="M32 8v8M22 12l4 6M42 12l-4 6" stroke="#1B1206" stroke-width="4" stroke-linecap="round"/></svg></span>Fren</div>
+    </div>
+  </section>
+
+
+  <section class="icons" aria-label="Dos direcciones para Cuadra">
+    <h2>Cuadra: dos direcciones de símbolo</h2>
+    <p class="lede" style="font-size:15px">A: dos esquinas que se juntan, más geométrico y corporativo. B: un pin de ubicación partido en dos mitades, una del cliente y otra del profesional; habla de tu cuadra, de lo cercano y del punto de encuentro.</p>
+    <div class="homescreen" style="grid-template-columns:repeat(4,minmax(0,1fr));max-width:460px">
+      <div class="app"><span class="ico" style="--b:#1F3FBF;--bf:#fff"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg></span>A · Esquinas</div>
+      <div class="app"><span class="ico" style="--b:#FFFFFF;--bf:#1F3FBF;border:1px solid var(--line)"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#1F3FBF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg></span>A · Fondo claro</div>
+      <div class="app"><span class="ico" style="--b:#1F3FBF;--bf:#fff"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M30 58 15.5 39A19 19 0 0 1 30 7.1z" fill="#FFFFFF"/><path d="M34 58 48.5 39A19 19 0 0 0 34 7.1z" fill="#F5B728"/><circle cx="32" cy="26" r="6" fill="#1F3FBF"/></svg></span>B · Pin</div>
+      <div class="app"><span class="ico" style="--b:#FFFFFF;--bf:#1F3FBF;border:1px solid var(--line)"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M30 58 15.5 39A19 19 0 0 1 30 7.1z" fill="#1F3FBF"/><path d="M34 58 48.5 39A19 19 0 0 0 34 7.1z" fill="#F5B728"/><circle cx="32" cy="26" r="6" fill="#FFFFFF"/></svg></span>B · Fondo claro</div>
+    </div>
+  </section>
+
+  <section class="rec">
+    <span class="eyebrow">Recomendación</span>
+    <h2>Cuadra como nombre, con Llave de respaldo</h2>
+    <p>Cuadra es la única de las cinco que puede volverse verbo, y una marca que la gente usa como verbo se mercadea sola. Ya trae el encuentro entre dos partes en el significado y en el símbolo. La confianza, que el nombre no dice, la pone el producto: sello de verificado, pago protegido y reseñas con fotos. Si al validar el nombre aparece un conflicto de marca o de dominio, Llave es la opción que mejor comunica confianza.</p>
+    <ol>
+      <li>Buscar Cuadra y Llave en DIGERPI (registro de marcas de Panamá), en la clase 35 (marketplace) y la clase 37 (servicios de reparación e instalación).</li>
+      <li>Revisar si están libres los dominios .com y .pa y los usuarios en Instagram y TikTok.</li>
+      <li>Probar los dos nombres con 20 personas del público objetivo: mostrar el ícono y preguntar qué creen que hace la app.</li>
+      <li>Con el nombre elegido, encargar el logo final a un diseñador. Estos símbolos son de exploración, no para producción.</li>
+    </ol>
+  </section>
+  <p class="foot">Los puntajes son criterio propio para comparar las opciones, no resultados de una encuesta. No se ha verificado si las marcas o los dominios están disponibles.</p>
+</div>
