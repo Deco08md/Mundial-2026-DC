@@ -1,0 +1,168 @@
+<title>Cuadra vs competencia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one reading column; summary first, then the feature matrix, task measurements, our own findings, and the prioritized change list. */
+:root{
+  --bg:#F5F6FB; --surface:#FFFFFF; --ink:#131833; --ink-2:#535B78; --line:#DCE0EC;
+  --accent:#1F3FBF; --accent-soft:#E4E9FB; --brand2:#F5B728;
+  --ok:#137A4B; --ok-soft:#DDF3E7; --mid:#8A5A00; --mid-soft:#FDF1D3; --bad:#B0302A; --bad-soft:#F9E1DE;
+  --f-d:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif; --f-b:"Figtree","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0C0F1E;--surface:#161A30;--ink:#E9ECF7;--ink-2:#A2A9C4;--line:#2A3152;--accent:#8EA3FF;--accent-soft:#1F2752;--ok:#5FD39A;--ok-soft:#163327;--mid:#F5C25A;--mid-soft:#3A2E12;--bad:#F08070;--bad-soft:#3D1E1A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0C0F1E;--surface:#161A30;--ink:#E9ECF7;--ink-2:#A2A9C4;--line:#2A3152;--accent:#8EA3FF;--accent-soft:#1F2752;--ok:#5FD39A;--ok-soft:#163327;--mid:#F5C25A;--mid-soft:#3A2E12;--bad:#F08070;--bad-soft:#3D1E1A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding-block:40px 72px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:34px}
+h1{font-family:var(--f-d);font-weight:800;font-size:clamp(28px,4.6vw,42px);line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h2{font-family:var(--f-d);font-weight:700;font-size:23px;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h3{font-size:15px;margin:0}
+p{margin:0;max-width:70ch}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.lede{color:var(--ink-2);font-size:16.5px}
+section{display:flex;flex-direction:column;gap:14px}
+.verdict{background:var(--accent);color:#fff;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.verdict h2{color:#fff}
+.verdict ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:75ch}
+.verdict b{color:var(--brand2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.card .tag{font-size:12px;font-weight:700;color:var(--ink-2)}
+.card p{font-size:14.5px;color:var(--ink-2)}
+.card .threat{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px}
+.t-hi{background:var(--bad-soft);color:var(--bad)}.t-mid{background:var(--mid-soft);color:var(--mid)}.t-lo{background:var(--ok-soft);color:var(--ok)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13.5px}
+th,td{padding:9px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);background:var(--bg);position:sticky;top:0}
+tbody th{font-weight:600;width:190px}
+td.us,th.us{background:var(--accent-soft)}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.y,.n,.p{display:inline-block;font-weight:700;font-size:12px;padding:1px 7px;border-radius:6px;margin-right:4px}
+.y{background:var(--ok-soft);color:var(--ok)}.n{background:var(--bad-soft);color:var(--bad)}.p{background:var(--mid-soft);color:var(--mid)}
+td small{display:block;color:var(--ink-2);font-size:12px;line-height:1.35;margin-top:2px}
+.num{font-variant-numeric:tabular-nums;font-weight:700}
+.legend{font-size:13px;color:var(--ink-2)}
+.prio{display:flex;flex-direction:column;gap:10px}
+.pr{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.pr .k{width:44px;height:44px;border-radius:10px;background:var(--brand2);color:#1B1406;font-family:var(--f-d);font-weight:800;font-size:20px;display:grid;place-items:center}
+.pr p{font-size:14.5px;color:var(--ink-2)}
+.pr .meta{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.chip{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.dont{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:16px}
+.dont ul{margin:6px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.foot{font-size:13px;color:var(--ink-2)}
+.foot a{color:var(--accent)}
+@media (max-width:560px){.pr{grid-template-columns:44px minmax(0,1fr)}.pr .meta{grid-column:2;flex-direction:row;align-items:center}}
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:12px">
+    <span class="eyebrow">Cuadra · comparativo de navegabilidad y funciones · noviembre 2026</span>
+    <h1>Cuadra frente a 6 plataformas de servicios del hogar</h1>
+    <p class="lede">Tres competidores de Panamá (NEXO, Vale24, ManoRapido) y tres referentes internacionales (TaskRabbit, Thumbtack, Urban Company). Los sitios se abrieron en un navegador real con pantalla de celular, y el prototipo de Cuadra se midió con pruebas automáticas de toques, campos y tamaño de botones.</p>
+  </header>
+
+  <section class="verdict">
+    <span class="eyebrow" style="color:#C9D3FF">Conclusión</span>
+    <h2>Cuadra ya es la más simple para reservar. Le faltan cuatro cosas que la competencia ya tiene.</h2>
+    <ul>
+      <li><b>Ventaja medida:</b> reservar un plomero toma 5 toques y una búsqueda, sin crear cuenta para explorar. NEXO pide cuenta en el primer toque, Vale24 la pide al reservar y ManoRapido te hace esperar cotizaciones de 24 a 48 horas.</li>
+      <li><b>Diferencial que nadie más tiene:</b> referencias verificadas por llamada, reseñas con fotos, la opción de elegir al profesional y pago protegido, todo junto.</li>
+      <li><b>Hueco más grave:</b> no hay opción de urgencia. NEXO está construido alrededor de emergencias 24/7 con tiempos de respuesta garantizados.</li>
+      <li><b>Contradicción interna:</b> el detalle de la reserva muestra el WhatsApp del profesional, que es exactamente la puerta de la fuga que queremos cerrar.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Los competidores en Panamá</h2>
+    <div class="cards">
+      <div class="card"><span class="threat t-hi">Amenaza alta</span><h3>NEXO</h3><span class="tag">nexohogarcontrol.com · Costa del Este</span>
+        <p>Vende suscripciones de emergencia: Essential $9.99, Total $19.99 y Premium $39.99 al mes (más ITBMS). Prometen respuesta de 90 minutos a 4 horas, botón SOS, asignación automática del técnico, rastreo en tiempo real y un código de 4 dígitos para iniciar el trabajo. Tienen alianzas con seguros, banca y telecom, el mismo canal de patrocinio que buscas tú. Punto débil: piden cuenta antes de ver cualquier cosa y hay una carencia de 72 horas al contratar.</p></div>
+      <div class="card"><span class="threat t-mid">Amenaza media</span><h3>Vale24</h3><span class="tag">vale24.com</span>
+        <p>Marketplace con 16 categorías muy dispersas: incluye servicios médicos, alquileres y cursos. Publica precio fijo por servicio y pide login al presionar "Continuar". En su portada se ven datos de prueba ("Emu Test", "Temizlik · Free", proveedores con 0 reseñas) mientras afirma "5,068 servicios completados". Un administrador recibe la reserva y asigna al proveedor.</p></div>
+      <div class="card"><span class="threat t-lo">Amenaza baja</span><h3>ManoRapido</h3><span class="tag">manorapido.com/pa</span>
+        <p>Directorio pensado para buscadores, con páginas por ciudad en 19 países. Muestra rangos de precio ("Plomería B/.30 – B/.80 por hora") y un botón de "Solicitar cotización", pero ningún perfil ni reseña visible. Respuesta en 24 a 48 horas. Sirve para captar tráfico de Google, no como producto.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Funciones, una por una</h2>
+    <p class="legend"><span class="y">Sí</span> lo tiene · <span class="p">Parcial</span> lo tiene a medias o solo lo menciona · <span class="n">No</span> no lo tiene o no es visible. Panamá: observado en sus sitios. Internacionales: observado en sus sitios más funciones públicas conocidas (Probable).</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Función</th><th class="us">Cuadra</th><th>NEXO</th><th>Vale24</th><th>ManoRapido</th><th>TaskRabbit</th><th>Thumbtack</th><th>Urban Company</th></tr></thead>
+      <tbody>
+        <tr><th>Ver profesionales y precios sin crear cuenta</th><td class="us"><span class="y">Sí</span></td><td><span class="n">No</span><small>Login en el primer toque</small></td><td><span class="p">Parcial</span><small>Ves, pero para reservar pide login</small></td><td><span class="p">Parcial</span><small>Solo rangos</small></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Buscar por el problema ("fuga", "no enfría")</th><td class="us"><span class="y">Sí</span><small>Con sinónimos</small></td><td><span class="n">No</span></td><td><span class="p">Parcial</span><small>Buscador básico</small></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Precio antes de reservar</th><td class="us"><span class="y">Sí</span><small>Precio base por servicio</small></td><td><span class="p">Parcial</span><small>Plan mensual o propuestas</small></td><td><span class="y">Sí</span><small>Precio fijo</small></td><td><span class="p">Parcial</span><small>Rango por hora</small></td><td><span class="y">Sí</span><small>Tarifa por hora</small></td><td><span class="p">Parcial</span><small>Estimados</small></td><td><span class="y">Sí</span><small>Precio fijo por tarea</small></td></tr>
+        <tr><th>El cliente elige al profesional</th><td class="us"><span class="y">Sí</span></td><td><span class="p">Parcial</span><small>SOS asigna; proyectos comparan</small></td><td><span class="n">No</span><small>Asigna un administrador</small></td><td><span class="p">Parcial</span><small>Por cotizaciones</small></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="n">No</span><small>Asignado</small></td></tr>
+        <tr><th>Verificación visible</th><td class="us"><span class="y">Sí</span><small>Cédula, antecedentes, seguro</small></td><td><span class="y">Sí</span></td><td><span class="p">Parcial</span><small>Solo como texto</small></td><td><span class="p">Parcial</span><small>Solo como texto</small></td><td><span class="y">Sí</span></td><td><span class="p">Parcial</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Reseñas con fotos</th><td class="us"><span class="y">Sí</span></td><td><span class="p">Parcial</span></td><td><span class="p">Parcial</span><small>Casi vacías</small></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="p">Parcial</span><small>Calificación numérica</small></td></tr>
+        <tr><th>Referencias verificadas por llamada</th><td class="us"><span class="y">Sí</span><small>Solo Cuadra</small></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td></tr>
+        <tr><th>Pago protegido y garantía</th><td class="us"><span class="y">Sí</span><small>Pago retenido + 30 días</small></td><td><span class="y">Sí</span><small>Mano de obra cubierta</small></td><td><span class="p">Parcial</span><small>Política de reembolso</small></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Urgencias o servicio el mismo día</th><td class="us"><span class="n">No</span></td><td><span class="y">Sí</span><small>SOS 24/7, 90 min a 4 h</small></td><td><span class="n">No</span></td><td><span class="n">No</span><small>24 a 48 h</small></td><td><span class="y">Sí</span><small>Mismo día</small></td><td><span class="n">No</span></td><td><span class="y">Sí</span><small>InstaHelp</small></td></tr>
+        <tr><th>Chat dentro de la app</th><td class="us"><span class="n">No</span><small>Muestra el WhatsApp del profesional</small></td><td><span class="p">Parcial</span><small>Chat de soporte</small></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Seguridad a la llegada</th><td class="us"><span class="p">Parcial</span><small>Estados del trabajo</small></td><td><span class="y">Sí</span><small>Rastreo + código de 4 dígitos</small></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="p">Parcial</span></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Niveles del profesional</th><td class="us"><span class="y">Sí</span><small>Bronce, Plata, Oro</small></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="p">Parcial</span></td><td><span class="y">Sí</span><small>Top Pro</small></td><td><span class="n">No</span></td></tr>
+        <tr><th>Planes o suscripción</th><td class="us"><span class="n">No</span></td><td><span class="y">Sí</span><small>$9.99 a $39.99 al mes</small></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="p">Parcial</span></td></tr>
+        <tr><th>Versión en inglés</th><td class="us"><span class="n">No</span></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td><td><span class="n">No</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td><td><span class="y">Sí</span></td></tr>
+        <tr><th>Canal con empresas y aliados</th><td class="us"><span class="n">No</span><small>Está en el plan</small></td><td><span class="y">Sí</span><small>Seguros, banca, telecom</small></td><td><span class="p">Parcial</span><small>Airbnb y comercios</small></td><td><span class="n">No</span></td><td><span class="p">Parcial</span></td><td><span class="n">No</span></td><td><span class="p">Parcial</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Misma tarea en cada plataforma: "Tengo una fuga, quiero un plomero"</h2>
+    <p class="legend">Cuadra: medido con pruebas automáticas en el prototipo. Panamá: recorrido real en sus sitios. Internacionales: Probable, según sus flujos públicos.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Plataforma</th><th>Toques hasta confirmar</th><th>Cuándo pide cuenta</th><th>Cuándo ves al profesional</th><th>Tiempo hasta tener a alguien</th><th>Categorías al entrar</th></tr></thead>
+      <tbody>
+        <tr><th class="us">Cuadra</th><td class="us"><span class="num">5</span> + 1 búsqueda<small>Sin login en el prototipo; la versión real necesita verificación por WhatsApp al pagar (+2)</small></td><td class="us">Al pagar (propuesto)</td><td class="us">Desde la búsqueda</td><td class="us">Confirmación en minutos; agenda desde hoy</td><td class="us"><span class="num">5</span> activas + 3 pronto</td></tr>
+        <tr><th>NEXO</th><td>No se puede sin cuenta</td><td>En el primer toque ("Solicitar servicio" lleva al login)</td><td>Después de registrarte</td><td>90 min a 4 h con plan, más 72 h de carencia</td><td>4 de emergencia + marketplace</td></tr>
+        <tr><th>Vale24</th><td><span class="num">3</span> + registro<small>Categoría, servicio, Continuar y login</small></td><td>Al reservar</td><td>Lista por servicio; asigna el administrador</td><td>No publicado</td><td><span class="num">16</span>, dispersas</td></tr>
+        <tr><th>ManoRapido</th><td><span class="num">3</span> + formulario de cotización</td><td>No aplica</td><td>Nunca en el sitio</td><td>24 a 48 h</td><td><span class="num">17</span> servicios y 21 ciudades</td></tr>
+        <tr><th>TaskRabbit</th><td>~<span class="num">7</span></td><td>Al confirmar</td><td>Después de describir la tarea</td><td>Mismo día</td><td>~8 grupos</td></tr>
+        <tr><th>Thumbtack</th><td>~<span class="num">8</span><small>Código postal + 4 a 6 preguntas</small></td><td>Al contactar</td><td>Antes de las preguntas</td><td>Según cada profesional</td><td>Cientos, con buscador</td></tr>
+        <tr><th>Urban Company</th><td>~<span class="num">6</span></td><td>Al pagar (código por SMS)</td><td>No eliges; precio fijo por tarea</td><td>Por horario; InstaHelp inmediato</td><td>~10 grupos</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Lo que encontramos en nuestro propio prototipo</h2>
+    <div class="cards">
+      <div class="card"><span class="tag">Bien</span><h3>Reserva corta y sin muros</h3><p>5 toques desde la búsqueda hasta confirmar, con dirección y pago ya preseleccionados. Calificar un servicio toma 5 toques. Aceptar una solicitud del lado del profesional, 2.</p></div>
+      <div class="card"><span class="tag">Bien</span><h3>Pantallas livianas</h3><p>La pantalla de inicio tiene 18 elementos tocables y 183 palabras. La reserva cabe en una sola pantalla con 4 pasos numerados.</p></div>
+      <div class="card"><span class="tag">Corregir</span><h3>Registro del profesional largo</h3><p>Muestra 14 campos aunque solo 2 son obligatorios, más la autorización. Un plomero desde el celular abandona ese formulario.</p></div>
+      <div class="card"><span class="tag">Corregir</span><h3>Botones pequeños</h3><p>Volver, Reservar, las estrellas y las etiquetas miden 37 a 38 px. Lo recomendado es 44 px, sobre todo para dedos con guantes o manos ocupadas.</p></div>
+      <div class="card"><span class="tag">Corregir</span><h3>El WhatsApp del profesional</h3><p>El detalle de la reserva lo muestra. Es la puerta de la fuga que la comisión de 8% a clientes que repiten intenta cerrar.</p></div>
+      <div class="card"><span class="tag">Revisar</span><h3>Números de la red al inicio</h3><p>"10 profesionales, 1,841 servicios" impresiona a un inversionista, pero el cliente quiere resolver. Esos números van mejor debajo de las categorías.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Qué cambiar, en orden</h2>
+    <div class="prio">
+      <div class="pr"><span class="k">1</span><div><h3>Botón "Urgente: hoy en 2 horas"</h3><p>Primera opción en el selector de día, con recargo visible (por ejemplo +$15) y solo con profesionales que aceptan urgencias. Es el hueco que NEXO llena con su plan de emergencias y no cuesta casi nada construirlo.</p></div><div class="meta"><span class="chip t-hi">Impacto alto</span><span class="chip t-lo">Esfuerzo bajo</span></div></div>
+      <div class="pr"><span class="k">2</span><div><h3>Chat dentro de la app y número oculto</h3><p>Quitar el WhatsApp del detalle de la reserva. Poner un chat y una llamada con número enmascarado. Sin esto, la comisión de 8% a clientes que repiten pelea sola contra la fuga.</p></div><div class="meta"><span class="chip t-hi">Impacto alto</span><span class="chip t-mid">Esfuerzo medio</span></div></div>
+      <div class="pr"><span class="k">3</span><div><h3>Registro del profesional en 2 pasos</h3><p>Paso 1: nombre, WhatsApp, categoría y zona, y el perfil ya está creado. Paso 2: completar el perfil desde el panel, donde ya existe la lista de pendientes. De 14 campos a 4.</p></div><div class="meta"><span class="chip t-hi">Impacto alto</span><span class="chip t-lo">Esfuerzo bajo</span></div></div>
+      <div class="pr"><span class="k">4</span><div><h3>Código de llegada de 4 dígitos</h3><p>El cliente le da el código al profesional en la puerta y así arranca el trabajo. Es confianza visible, barata de construir, y de paso deja registrado el inicio real del servicio.</p></div><div class="meta"><span class="chip t-mid">Impacto medio</span><span class="chip t-lo">Esfuerzo bajo</span></div></div>
+      <div class="pr"><span class="k">5</span><div><h3>"Visita de diagnóstico" con precio fijo en todas las categorías</h3><p>Como hace Urban Company: cuando el cliente no sabe qué tiene, reserva un diagnóstico por $20 que se descuenta del trabajo. Le quita al cliente el miedo a cotizar.</p></div><div class="meta"><span class="chip t-mid">Impacto medio</span><span class="chip t-lo">Esfuerzo bajo</span></div></div>
+      <div class="pr"><span class="k">6</span><div><h3>Botones de 44 px y números de la red más abajo</h3><p>Pulido de usabilidad que se hace en una tarde.</p></div><div class="meta"><span class="chip t-lo">Impacto bajo</span><span class="chip t-lo">Esfuerzo bajo</span></div></div>
+      <div class="pr"><span class="k">7</span><div><h3>Más adelante: inglés y plan de mantenimiento de aires</h3><p>El inglés abre Costa del Este, Punta Pacífica y la comunidad de expatriados. El plan de aires da ingresos recurrentes sin meterse a competir con NEXO en emergencias por suscripción.</p></div><div class="meta"><span class="chip t-mid">Fase 2</span></div></div>
+    </div>
+    <div class="dont">
+      <h3>Lo que no copiaría, para no perder simplicidad</h3>
+      <ul>
+        <li>16 categorías como Vale24. Cada categoría vacía resta confianza a las llenas.</li>
+        <li>Exigir cuenta antes de explorar, como NEXO.</li>
+        <li>Cuestionarios largos antes de ver profesionales, como Thumbtack.</li>
+        <li>Rastreo en mapa en tiempo real en la primera versión: es caro. Estados del trabajo, hora estimada y código de llegada cubren el 80% del valor.</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="foot">Método: los sitios de NEXO, Vale24, ManoRapido, TaskRabbit, Thumbtack y Urban Company se abrieron el 9 de noviembre de 2026 en un navegador Chromium con pantalla de iPhone (390 px). El prototipo de Cuadra se midió con Playwright. No se probaron las apps nativas de los competidores, ni la experiencia después de iniciar sesión en NEXO y Vale24. Fuentes: <a href="https://nexohogarcontrol.com/precios">NEXO · planes</a>, <a href="https://vale24.com/">Vale24</a>, <a href="https://www.manorapido.com/pa/ciudad-de-panama/plomeria">ManoRapido · plomería</a>, <a href="https://www.taskrabbit.com/services/handyman/plumbing">TaskRabbit</a>, <a href="https://www.thumbtack.com/k/plumbers/near-me/">Thumbtack</a>, <a href="https://www.urbancompany.com/">Urban Company</a>.</p>
+</div>
