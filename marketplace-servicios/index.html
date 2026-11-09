@@ -1,0 +1,1175 @@
+<title>Resuelve Panamá</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: brief panel on the left, a working phone app on the right; on phones the app fills the screen under a compact control bar. */
+:root{
+  --bg:#E9EEE7; --surface:#FFFFFF; --surface-2:#F3F6F1; --ink:#13201A; --ink-2:#4B5C53; --line:#D9E1D5;
+  --accent:#0D7556; --accent-ink:#FFFFFF; --accent-soft:#DCEFE6;
+  --sun:#D98F1E; --sun-soft:#FBEBD0; --danger:#B93D29; --danger-soft:#F7E0DA; --info:#2B66A6; --info-soft:#DDE8F4;
+  --frame:#18231E; --shadow:0 20px 50px -20px rgba(19,32,26,.35);
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r:14px; --bar:56px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1310; --surface:#161F1B; --surface-2:#1D2823; --ink:#E6EDE8; --ink-2:#9BAEA4; --line:#2A3832;
+  --accent:#41C195; --accent-ink:#04261A; --accent-soft:#16392D;
+  --sun:#F0B14E; --sun-soft:#3A2D15; --danger:#EF7B65; --danger-soft:#3C1E18; --info:#82B2E6; --info-soft:#182B3F;
+  --frame:#040706; --shadow:0 20px 50px -20px rgba(0,0,0,.7); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0D1310; --surface:#161F1B; --surface-2:#1D2823; --ink:#E6EDE8; --ink-2:#9BAEA4; --line:#2A3832;
+  --accent:#41C195; --accent-ink:#04261A; --accent-soft:#16392D;
+  --sun:#F0B14E; --sun-soft:#3A2D15; --danger:#EF7B65; --danger-soft:#3C1E18; --info:#82B2E6; --info-soft:#182B3F;
+  --frame:#040706; --shadow:0 20px 50px -20px rgba(0,0,0,.7); color-scheme:dark }
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0;text-align:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.display{font-family:var(--f-display);font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.muted{color:var(--ink-2)}
+.ic{flex:none;display:block}
+
+/* ---------- stage ---------- */
+.stage{min-height:100%;display:grid;grid-template-columns:minmax(0,380px) auto;gap:56px;justify-content:center;align-items:center;
+  padding-block:32px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.panel{display:flex;flex-direction:column;gap:20px;min-width:0}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:38px;height:38px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:20px}
+.brand b{font-family:var(--f-display);font-size:22px;letter-spacing:-.02em}
+.brand small{display:block;color:var(--ink-2);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.panel h2{font-size:30px;line-height:1.08;margin:0}
+.panel p{margin:0;color:var(--ink-2);max-width:60ch}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px}
+.seg button{padding:8px 16px;border-radius:999px;font-weight:600;font-size:14px;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:26px 1fr;gap:10px;font-size:14px;color:var(--ink-2)}
+.steps li::before{counter-increment:s;content:counter(s);width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:12px}
+.steps b{color:var(--ink);font-weight:600}
+.panel-foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--ink-2)}
+.linkbtn{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- phone ---------- */
+.phone{position:relative;width:390px;height:min(800px, calc(100vh - 64px));min-height:620px;background:var(--surface-2);border-radius:44px;
+  border:10px solid var(--frame);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+#screen{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;scroll-behavior:auto}
+.tabbar{display:flex;border-top:1px solid var(--line);background:var(--surface);padding:6px 6px 10px}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--ink-2);padding:6px 0;position:relative}
+.tabbar button[aria-current="page"]{color:var(--accent)}
+.tabbar .dot{position:absolute;top:2px;left:calc(50% + 6px);min-width:17px;height:17px;border-radius:9px;background:var(--danger);color:#fff;font-size:10px;display:grid;place-items:center;padding:0 4px}
+
+/* ---------- app primitives ---------- */
+.pad{padding:16px}
+.topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:12px 12px 10px;background:var(--surface-2)}
+.topbar h1{font-size:18px;margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.iconbtn{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line)}
+.sec{padding:8px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.sec-h h2{font-family:var(--f-display);font-size:18px;margin:0;letter-spacing:-.01em}
+.sec-h span{font-size:13px;color:var(--ink-2)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 18px;border-radius:12px;font-weight:700;font-size:15px;background:var(--accent);color:var(--accent-ink);width:100%}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn.danger{background:var(--danger-soft);color:var(--danger)}
+.btn.sm{padding:9px 12px;font-size:14px;width:auto;border-radius:10px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;background:var(--surface-2);color:var(--ink-2);white-space:nowrap}
+.pill.ok{background:var(--accent-soft);color:var(--accent)}
+.pill.warn{background:var(--sun-soft);color:var(--sun)}
+.pill.bad{background:var(--danger-soft);color:var(--danger)}
+.pill.info{background:var(--info-soft);color:var(--info)}
+.pill.new{background:var(--info-soft);color:var(--info)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:13px;font-weight:600;white-space:nowrap;color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.lbl{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2)}
+.input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-size:15px}
+textarea.input{min-height:84px;resize:vertical}
+.input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:12.5px;color:var(--ink-2)}
+.err{font-size:13px;color:var(--danger);font-weight:600}
+.empty{padding:28px 20px;text-align:center;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:8px}
+
+/* home */
+.h-home{padding:18px 16px 14px;display:flex;flex-direction:column;gap:12px;background:var(--accent);color:var(--accent-ink);border-radius:0 0 26px 26px}
+.h-home h1{font-size:27px;line-height:1.1;margin:0}
+.loc{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;opacity:.9}
+.search{display:flex;align-items:center;gap:10px;background:var(--surface);color:var(--ink-2);border-radius:14px;padding:0 12px}
+.search input{flex:1;min-width:0;border:0;background:none;padding:13px 0;color:var(--ink);outline:none;font-size:15px}
+.net{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.net div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.net b{font-family:var(--f-display);font-size:20px;font-variant-numeric:tabular-nums}
+.net span{font-size:11.5px;color:var(--ink-2);line-height:1.25}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cat{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px 10px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:12px;font-weight:600;text-align:center;line-height:1.15;position:relative}
+.cat .cat-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:hsl(var(--h) 60% 50% / .14);color:hsl(var(--h) 65% 38%)}
+:root[data-theme="dark"] .cat .cat-ic{color:hsl(var(--h) 70% 68%)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cat .cat-ic{color:hsl(var(--h) 70% 68%)}}
+.cat.soon{opacity:.62}
+.cat .soon-tag{position:absolute;top:5px;right:5px;font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.hscroll{display:flex;gap:10px;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}
+.hscroll::-webkit-scrollbar{display:none}
+.pro-card{flex:none;width:200px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.pro-card b{font-size:15px}
+.trust{display:grid;gap:10px}
+.trust div{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start;font-size:13.5px;color:var(--ink-2)}
+.trust i{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.trust b{display:block;color:var(--ink);font-size:14px}
+
+/* pro rows */
+.pro-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+.pr-main{min-width:0;display:flex;flex-direction:column;gap:2px}
+.pr-top{display:flex;align-items:center;gap:6px;min-width:0}
+.pr-top b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pr-sub{font-size:13px;color:var(--ink-2)}
+.pr-meta{font-size:12.5px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.pr-price{display:flex;flex-direction:column;align-items:flex-end;font-size:11px}
+.pr-price b{font-size:17px;font-family:var(--f-display)}
+.vbadge{color:var(--accent);display:inline-flex}
+.rt{display:inline-flex;align-items:center;gap:3px;color:var(--ink)}
+.rt svg{color:var(--sun)}
+.avatar{flex:none;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;color:#fff;background:linear-gradient(140deg,hsl(var(--h) 55% 48%),hsl(calc(var(--h) + 35) 55% 34%));overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+
+/* pro profile */
+.p-hero{padding:4px 16px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.p-hero h2{font-size:24px;margin:4px 0 0}
+.p-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;margin-top:6px}
+.p-stats div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 6px;display:flex;flex-direction:column;align-items:center}
+.p-stats b{font-family:var(--f-display);font-size:19px;font-variant-numeric:tabular-nums}
+.p-stats span{font-size:11.5px;color:var(--ink-2)}
+.ver{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.svc{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.svc+.svc{border-top:1px solid var(--line)}
+.svc div{flex:1;min-width:0}
+.svc small{display:block;color:var(--ink-2);font-size:12.5px}
+.svc b.price{font-family:var(--f-display);font-size:17px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ph{position:relative;aspect-ratio:1;max-width:100%;border-radius:10px;overflow:hidden;display:flex;align-items:flex-end;padding:6px;color:#fff;
+  background:radial-gradient(circle at 25% 20%,hsl(calc(var(--h) + 20) 60% 72% / .9),transparent 55%),linear-gradient(140deg,hsl(var(--h) 45% 55%),hsl(calc(var(--h) + 30) 50% 32%))}
+.ph svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-62%);opacity:.55}
+.ph span{position:relative;font-size:10px;font-weight:600;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph-btn{display:block;width:100%}
+.ph .rm{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center}
+.addph{aspect-ratio:1;border-radius:10px;border:1.5px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;font-weight:600;color:var(--ink-2);cursor:pointer;background:var(--surface)}
+.addph input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.bars{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px}
+.bars .big{display:flex;flex-direction:column;align-items:center}
+.bars .big b{font-family:var(--f-display);font-size:38px;line-height:1}
+.bar{display:grid;grid-template-columns:12px 1fr 34px;gap:8px;align-items:center;font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.bar i{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden;display:block}
+.bar i em{display:block;height:100%;background:var(--sun);border-radius:3px}
+.rev{padding:14px;display:flex;flex-direction:column;gap:8px}
+.rev+.rev{border-top:1px solid var(--line)}
+.rev-h{display:flex;align-items:center;gap:10px}
+.rev-h div{flex:1;min-width:0}
+.rev-h small{display:block;font-size:12px;color:var(--ink-2)}
+.rev p{margin:0;font-size:14px}
+.stars{display:inline-flex;gap:1px;color:var(--sun)}
+.stars .off{color:var(--line)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.revph{display:flex;gap:6px}
+.revph .ph-btn{width:64px}
+.ref{padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:10px}
+.ref+.ref{border-top:1px solid var(--line)}
+.ref p{margin:4px 0 0;font-size:13.5px;color:var(--ink-2)}
+.ref small{font-size:12px;color:var(--ink-2)}
+.cta{position:sticky;bottom:0;z-index:4;padding:12px 16px 14px;background:linear-gradient(to top,var(--surface-2) 70%,transparent);display:flex;gap:10px;align-items:center}
+.about{padding:14px;font-size:14px;margin:0}
+
+/* booking */
+.opt{display:flex;align-items:center;gap:12px;padding:12px 14px;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.opt[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+.opt .radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);flex:none}
+.opt[aria-pressed="true"] .radio{border:5px solid var(--accent)}
+.opt div{flex:1;min-width:0}
+.opt small{display:block;font-size:12.5px;color:var(--ink-2)}
+.day{display:flex;flex-direction:column;align-items:center;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);min-width:58px;font-size:11.5px;color:var(--ink-2);font-weight:600}
+.day b{font-size:17px;color:var(--ink);font-family:var(--f-display)}
+.day[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.day[aria-pressed="true"] b{color:var(--bg)}
+.sum{padding:14px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.sum div{display:flex;justify-content:space-between;gap:10px;font-variant-numeric:tabular-nums}
+.sum .tot{border-top:1px solid var(--line);padding-top:8px;font-weight:700;font-size:16px}
+.note{display:flex;gap:10px;padding:12px;border-radius:12px;background:var(--accent-soft);color:var(--ink);font-size:13px;align-items:flex-start}
+.note svg{color:var(--accent)}
+.note.warn{background:var(--sun-soft)}
+.note.warn svg{color:var(--sun)}
+
+/* booking list & detail */
+.bk{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:12px;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);align-items:center}
+.bk div{min-width:0}
+.bk b{display:block}
+.bk small{display:block;color:var(--ink-2);font-size:12.5px}
+.bk .pill{margin-top:5px}
+.tl{list-style:none;margin:0;padding:14px 14px 4px;display:flex;flex-direction:column}
+.tl li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding-bottom:14px;position:relative;font-size:14px;color:var(--ink-2)}
+.tl li::before{content:"";position:absolute;left:10px;top:20px;bottom:0;width:2px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);background:var(--surface);display:grid;place-items:center;position:relative;z-index:1}
+.tl li.done{color:var(--ink)}
+.tl li.done i{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.tl li.now i{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.tl li.now{color:var(--ink);font-weight:600}
+.tl small{display:block;font-size:12px;color:var(--ink-2);font-weight:400}
+.kv{padding:4px 14px}
+.kv div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;font-size:14px}
+.kv div+div{border-top:1px solid var(--line)}
+.kv span{color:var(--ink-2)}
+.kv b{text-align:right;font-weight:600;min-width:0;overflow-wrap:anywhere}
+
+/* review form */
+.starpick{display:flex;gap:6px;justify-content:center;padding:6px 0}
+.starpick button{color:var(--line)}
+.starpick button.on{color:var(--sun)}
+.starlbl{text-align:center;font-weight:700;min-height:1.4em}
+
+/* pro dashboard */
+.earn{padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--ink);color:var(--bg);border-radius:18px;border:0}
+.earn .big{font-family:var(--f-display);font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.earn .rows{display:flex;flex-direction:column;gap:4px;font-size:13px;opacity:.85}
+.earn .rows div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.meter{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.meter em{display:block;height:100%;background:var(--accent);border-radius:4px}
+.chk{display:flex;align-items:center;gap:10px;padding:10px 14px;width:100%;font-size:14px}
+.chk+.chk{border-top:1px solid var(--line)}
+.chk i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;flex:none}
+.chk.ok i{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chk.ok span{color:var(--ink-2);text-decoration:line-through}
+.chk span{flex:1}
+.req{padding:14px;display:flex;flex-direction:column;gap:10px}
+.req-h{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.req-h small{display:block;color:var(--ink-2);font-size:12.5px}
+.req p{margin:0;font-size:14px;color:var(--ink-2)}
+.req .acts{display:flex;gap:8px}
+.req .acts .btn{flex:1}
+.money{font-family:var(--f-display);font-weight:700;font-size:18px;text-align:right;font-variant-numeric:tabular-nums}
+.money small{display:block;font-family:var(--f-body);font-weight:500;font-size:11.5px;color:var(--ink-2)}
+
+/* sheet + toast */
+.sheet-wrap{position:absolute;inset:0;z-index:30;background:rgba(10,18,14,.45);display:flex;align-items:flex-end}
+.sheet{width:100%;max-height:88%;overflow:auto;background:var(--surface);border-radius:22px 22px 0 0;padding:10px 16px 18px;display:flex;flex-direction:column;gap:12px}
+.sheet .grab{width:40px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 4px}
+.sheet h3{font-family:var(--f-display);font-size:20px;margin:0}
+.sheet p{margin:0;color:var(--ink-2)}
+.sheet .ph{aspect-ratio:4/3}
+.toast{position:absolute;left:16px;right:16px;bottom:84px;z-index:40;background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:var(--shadow);display:flex;gap:8px;align-items:center}
+
+@media (max-width: 880px){
+  .stage{display:flex;flex-direction:column;gap:10px;padding-block:10px;align-items:stretch;min-height:0}
+  .panel{gap:10px}
+  .panel .intro,.panel .steps,.panel h2{display:none}
+  .panel-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .panel-foot{display:none}
+  .phone{width:100%;height:calc(100vh - 92px);height:calc(100svh - 92px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));min-height:520px;border-width:0;border-radius:24px;border:1px solid var(--line);box-shadow:none}
+  .brand small{display:none}
+  .seg button{padding:7px 12px}
+}
+@media (prefers-reduced-motion: no-preference){
+  .toast{animation:up .25s ease-out}
+  .sheet{animation:up .22s ease-out}
+  @keyframes up{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+}
+</style>
+
+<div class="stage">
+  <aside class="panel">
+    <div class="panel-top">
+      <div class="brand"><span class="logo">R</span><div><b>Resuelve</b><small>Prototipo navegable · Panamá</small></div></div>
+      <div class="seg" role="group" aria-label="Cambiar vista">
+        <button id="mode-client" data-act="mode" data-m="client" aria-pressed="true">Cliente</button>
+        <button id="mode-pro" data-act="mode" data-m="pro" aria-pressed="false">Profesional</button>
+      </div>
+    </div>
+    <h2 class="display">Un marketplace de servicios donde la confianza se ve.</h2>
+    <p class="intro">Esta es la app funcionando con datos de ejemplo. Todo lo que hagas aquí afecta a los dos lados del mercado: lo que publica un profesional lo ve el cliente, y lo que reserva el cliente le llega al profesional.</p>
+    <ol class="steps">
+      <li><span><b>Busca "fuga"</b> y reserva un plomero. Mira el pago protegido y el seguimiento.</span></li>
+      <li><span><b>Califica la limpieza</b> que está pendiente en Reservas: estrellas, comentario y fotos.</span></li>
+      <li><span><b>Cámbiate a Profesional</b>, regístrate, sube fotos de tus trabajos y agrega referencias.</span></li>
+      <li><span><b>Vuelve a Cliente</b>: tu perfil ya aparece en la búsqueda. Resérvate y acepta la solicitud del otro lado.</span></li>
+    </ol>
+    <div class="panel-foot"><span>Los datos se guardan solo en este navegador.</span><button class="linkbtn" data-act="reset-ask">Reiniciar demo</button></div>
+  </aside>
+  <div class="phone" id="phone">
+    <main id="screen" aria-live="polite"></main>
+    <nav class="tabbar" id="tabbar" aria-label="Navegación principal"></nav>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const LS_KEY='resuelve-demo-v1';
+const COMMISSION=0.18;
+const DAY=86400000;
+
+const ICONS={
+  drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+  bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+  spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+  snow:'<path d="M12 2v20M4 7l16 10M4 17 20 7M9 4l3 2 3-2M9 20l3-2 3 2"/>',
+  roller:'<rect x="3" y="3" width="15" height="6" rx="1.5"/><path d="M18 6h2v5h-8v3"/><rect x="10" y="14" width="4" height="7" rx="1"/>',
+  scissors:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5 20 18M8.5 16.5 20 6"/>',
+  paw:'<circle cx="7" cy="9" r="2"/><circle cx="17" cy="9" r="2"/><circle cx="10" cy="5" r="2"/><circle cx="14" cy="5" r="2"/><path d="M12 12c-3 0-5 3-5 5.5S9 20 12 19s5 1 5-1.5S15 12 12 12z"/>',
+  book:'<path d="M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z"/>',
+  star:'<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+  check:'<path d="m5 12 4.5 4.5L19 7"/>',
+  shield:'<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  pin:'<path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  list:'<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  inbox:'<path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5 5h14l2 8v6H3v-6z"/>',
+  camera:'<path d="M4 7h3l2-3h6l2 3h3v13H4z"/><circle cx="12" cy="13" r="4"/>',
+  back:'<path d="M15 5 8 12l7 7"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  wallet:'<rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M16 15h2"/>',
+  quote:'<path d="M7 7h4v4c0 3-2 5-4 6M15 7h4v4c0 3-2 5-4 6"/>',
+  phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+  alert:'<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17v.5"/>',
+  eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'
+};
+const ic=(n,s=20)=>`<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||''}</svg>`;
+const starIc=(s=14,on=true)=>`<svg class="ic${on?'':' off'}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${ICONS.star}</svg>`;
+
+const CATS=[
+  {id:'plomeria',name:'Plomería',icon:'drop',h:205,live:true,kw:'plomero fuga tuberia tubo bano baño inodoro lavamanos agua calentador destape goteo'},
+  {id:'electricidad',name:'Electricidad',icon:'bolt',h:42,live:true,kw:'electricista luz breaker toma corriente apagon lampara cableado tablero'},
+  {id:'limpieza',name:'Limpieza',icon:'spark',h:160,live:true,kw:'limpiar aseo casa apartamento mudanza profunda muebles sofa'},
+  {id:'aires',name:'Aires acondicionados',short:'Aires A/C',icon:'snow',h:190,live:true,kw:'aire acondicionado split no enfria enfria gas mantenimiento a/c ac'},
+  {id:'pintura',name:'Pintura',icon:'roller',h:14,live:true,kw:'pintor pintar pared paredes fachada techo humedad'},
+  {id:'belleza',name:'Belleza',icon:'scissors',h:330,live:false},
+  {id:'mascotas',name:'Mascotas',icon:'paw',h:28,live:false},
+  {id:'tutorias',name:'Tutorías',icon:'book',h:260,live:false}
+];
+const catById=id=>CATS.find(c=>c.id===id)||CATS[0];
+const ZONES=['San Francisco','Costa del Este','El Cangrejo','Obarrio','Bella Vista','Condado del Rey','Clayton','Punta Pacífica','Albrook','Brisas del Golf','Betania','Villa de las Fuentes'];
+const DEFAULT_SVCS={
+  plomeria:[['Reparación de fuga',25],['Destape de tubería',35],['Instalación de calentador',60]],
+  electricidad:[['Visita de diagnóstico',20],['Instalar lámpara o abanico',30],['Cambio de breaker',40]],
+  limpieza:[['Limpieza general (3 h)',40],['Limpieza profunda (5 h)',70],['Limpieza post mudanza',95]],
+  aires:[['Mantenimiento split 12k BTU',45],['Recarga de gas',65],['Instalación split',120]],
+  pintura:[['Pintar habitación',90],['Retoque de paredes',45],['Sellado de humedad',60]]
+};
+
+/* ---------------- utils ---------------- */
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+const money=n=>'$'+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:Number.isInteger(Math.round(n*100)/100)?0:2,maximumFractionDigits:2});
+const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const iso=d=>{const x=new Date(d);return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')};
+const DOW=['dom','lun','mar','mié','jue','vie','sáb'];
+const MON=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function fmtDay(s){const [y,m,d]=s.split('-').map(Number);const dt=new Date(y,m-1,d);const t=iso(Date.now()),tm=iso(Date.now()+DAY);if(s===t)return 'Hoy';if(s===tm)return 'Mañana';return DOW[dt.getDay()]+' '+d+' '+MON[m-1]}
+function ago(ts){const d=Math.floor((Date.now()-ts)/DAY);if(d<1)return 'hoy';if(d===1)return 'ayer';if(d<30)return 'hace '+d+' días';const mo=Math.floor(d/30);return mo===1?'hace 1 mes':'hace '+mo+' meses'}
+function initials(n){return n.split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+function hueOf(s){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))%360;return h}
+function getPath(o,p){return p.split('.').reduce((a,k)=>a==null?a:a[k],o)}
+function setPath(o,p,v){const ks=p.split('.');let a=o;ks.slice(0,-1).forEach(k=>{if(a[k]==null||typeof a[k]!=='object')a[k]={};a=a[k]});a[ks[ks.length-1]]=v}
+
+/* ---------------- seed ---------------- */
+function seed(){
+  const now=Date.now();
+  const P=(o)=>Object.assign({reviews:[],refs:[],portfolio:[],hist:{5:0,4:0,3:0,2:0,1:0},ver:{id:true,bg:true,ins:false},resp:15,distance:2,jobs:0,years:3},o);
+  const R=(author,stars,text,svc,daysAgo,tags,photos)=>({author,stars,text,svc,ts:now-daysAgo*DAY,tags:tags||[],photos:photos||[]});
+  const pros=[
+    P({id:'p1',name:'Rogelio Batista',cat:'plomeria',zone:'Condado del Rey',priceFrom:25,years:14,jobs:212,resp:12,distance:2.1,ver:{id:true,bg:true,ins:true},
+      bio:'Plomero certificado con 14 años en residencias y PH. Atiendo fugas, destapes, calentadores y remodelación de baños. Llevo mis repuestos y doy garantía de 30 días en mano de obra.',
+      svcs:[['Reparación de fuga',25],['Destape de tubería',35],['Instalación de calentador',60],['Cambio de inodoro',55]],
+      hist:{5:88,4:9,3:2,2:0,1:1},
+      portfolio:[{h:205,t:'Cambio de tubería PVC · cocina'},{h:190,t:'Calentador de paso instalado'},{h:220,t:'Baño remodelado · Obarrio'},{h:200,t:'Destape de bajante · PH'}],
+      reviews:[R('Melissa G.',5,'Llegó a la hora acordada, encontró la fuga detrás de la pared sin romper de más y dejó todo limpio. Ya lo guardé como mi plomero.','Reparación de fuga',3,['Puntual','Limpio','Lo recomiendo'],[{h:205,t:'Antes'},{h:150,t:'Después'}]),
+               R('Iván P.',5,'Me instaló el calentador y me explicó cómo purgarlo. Precio igual al cotizado.','Instalación de calentador',11,['Buen precio','Profesional']),
+               R('Administración PH Costa Mare',4,'Atendió una emergencia un domingo. Tardó un poco más de lo dicho pero resolvió.','Destape de tubería',24,['Profesional'])],
+      refs:[{name:'Ing. Carla Domínguez',rel:'Administradora · PH Vista Marina',phone:'6612-••••',note:'Mantenimiento de plomería en 3 torres desde 2021.',verified:true},
+            {name:'Constructora Arcos',rel:'Subcontrato · remodelaciones',phone:'263-••••',note:'Instalaciones sanitarias en 12 apartamentos.',verified:true}]}),
+    P({id:'p2',name:'Yariela Pinzón',cat:'limpieza',zone:'San Francisco',priceFrom:40,years:6,jobs:341,resp:8,distance:0.8,
+      bio:'Limpieza residencial y de oficinas pequeñas. Trabajo con mis propios productos y equipos. Disponible de lunes a sábado.',
+      svcs:[['Limpieza general (3 h)',40],['Limpieza profunda (5 h)',70],['Limpieza post mudanza',95]],
+      hist:{5:140,4:12,3:3,2:1,1:0},
+      portfolio:[{h:160,t:'Cocina después de limpieza profunda'},{h:170,t:'Sala lista para entrega'},{h:150,t:'Baño · post mudanza'}],
+      reviews:[R('Andrea M.',5,'Dejó el apartamento impecable, hasta los rieles de las ventanas. Muy respetuosa.','Limpieza profunda (5 h)',6,['Limpio','Puntual'],[{h:160,t:'Cocina'}]),
+               R('Gustavo R.',5,'Segunda vez que la contrato. Súper confiable.','Limpieza general (3 h)',15,['Lo recomiendo'])],
+      refs:[{name:'Familia Arosemena',rel:'Cliente recurrente · 3 años',phone:'6780-••••',note:'Limpieza semanal en casa de 4 recámaras.',verified:true}]}),
+    P({id:'p3',name:'Ernesto Cedeño',cat:'electricidad',zone:'El Cangrejo',priceFrom:20,years:11,jobs:158,resp:20,distance:1.6,ver:{id:true,bg:true,ins:true},
+      bio:'Electricista con idoneidad de la JTIE. Tableros, breakers, iluminación LED y cableado. Trabajo con facturas y garantía.',
+      svcs:[['Visita de diagnóstico',20],['Instalar lámpara o abanico',30],['Cambio de breaker',40],['Revisión de tablero',55]],
+      hist:{5:61,4:10,3:2,2:1,1:0},
+      portfolio:[{h:42,t:'Tablero reorganizado'},{h:55,t:'Iluminación LED · terraza'},{h:30,t:'Abanico de techo instalado'}],
+      reviews:[R('Luis F.',5,'Se iban los breakers cada vez que prendía el aire. Encontró el problema en 20 minutos.','Visita de diagnóstico',4,['Profesional','Buen precio']),
+               R('Mariela S.',4,'Buen trabajo con las lámparas. Llegó 30 min tarde pero avisó.','Instalar lámpara o abanico',19,['Profesional'],[{h:48,t:'Lámparas'}])],
+      refs:[{name:'Café Unido · sucursal El Cangrejo',rel:'Cliente comercial',phone:'391-••••',note:'Mantenimiento eléctrico preventivo trimestral.',verified:true}]}),
+    P({id:'p4',name:'Luis Ábrego · Frío Total',cat:'aires',zone:'Costa del Este',priceFrom:45,years:9,jobs:276,resp:15,distance:4.2,ver:{id:true,bg:true,ins:true},
+      bio:'Mantenimiento, instalación y reparación de aires split e inverter. Equipo de 2 técnicos. Reporte con fotos de antes y después en cada visita.',
+      svcs:[['Mantenimiento split 12k BTU',45],['Mantenimiento split 24k BTU',60],['Recarga de gas',65],['Instalación split',120]],
+      hist:{5:102,4:15,3:4,2:1,1:1},
+      portfolio:[{h:190,t:'Limpieza de evaporador'},{h:200,t:'Instalación inverter 18k'},{h:180,t:'Condensadora en azotea'},{h:210,t:'Antes y después · filtros'}],
+      reviews:[R('Carolina V.',5,'Me mandaron fotos del antes y después. El aire enfría como nuevo.','Mantenimiento split 12k BTU',2,['Puntual','Profesional'],[{h:190,t:'Filtro antes'},{h:175,t:'Filtro después'}]),
+               R('Ricardo T.',4,'Bien, aunque el precio final subió $10 por una pieza. Me avisaron antes.','Recarga de gas',30,['Profesional'])],
+      refs:[{name:'Hotel Costa Este Suites',rel:'Contrato de mantenimiento',phone:'300-••••',note:'48 equipos en mantenimiento bimensual.',verified:true}]}),
+    P({id:'p5',name:'Marcos Rivera',cat:'pintura',zone:'Bella Vista',priceFrom:45,years:12,jobs:97,resp:35,distance:2.9,
+      bio:'Pintura interior y exterior, sellado de humedad y acabados. Cotizo por metro cuadrado y cumplo la fecha.',
+      svcs:[['Retoque de paredes',45],['Pintar habitación',90],['Sellado de humedad',60]],
+      hist:{5:38,4:8,3:2,2:0,1:0},
+      portfolio:[{h:14,t:'Sala en tono arena'},{h:30,t:'Fachada · casa en Betania'},{h:5,t:'Cuarto infantil'}],
+      reviews:[R('Paola C.',5,'Cubrió muebles y pisos, quedó perfecto. Muy ordenado.','Pintar habitación',9,['Limpio','Lo recomiendo'],[{h:14,t:'Resultado'}])],
+      refs:[{name:'Inmobiliaria Paitilla',rel:'Preparación de apartamentos',phone:'214-••••',note:'Pinta unidades antes de cada entrega.',verified:false}]}),
+    P({id:'p6',name:'Daniela Castillo',cat:'limpieza',zone:'Costa del Este',priceFrom:45,years:4,jobs:122,resp:10,distance:3.8,
+      bio:'Limpieza con productos ecológicos. Especialista en apartamentos de alquiler corto: check-out a check-in en 3 horas.',
+      svcs:[['Limpieza general (3 h)',45],['Turnover Airbnb',55],['Limpieza profunda (5 h)',75]],
+      hist:{5:52,4:6,3:1,2:0,1:0},
+      portfolio:[{h:140,t:'Apartamento listo para huésped'},{h:165,t:'Cocina ecológica'}],
+      reviews:[R('Hernán Q.',5,'Me maneja dos apartamentos en Airbnb. Nunca falla.','Turnover Airbnb',5,['Puntual','Lo recomiendo'])],
+      refs:[]}),
+    P({id:'p7',name:'José "Cheo" Morán',cat:'plomeria',zone:'Brisas del Golf',priceFrom:20,years:7,jobs:41,resp:25,distance:6.5,ver:{id:true,bg:false,ins:false},
+      bio:'Plomería residencial en el este de la ciudad. Precios justos y atención el mismo día.',
+      svcs:[['Reparación de fuga',20],['Destape de tubería',30],['Cambio de llave de paso',25]],
+      hist:{5:14,4:5,3:2,2:0,1:0},
+      portfolio:[{h:215,t:'Llave de paso nueva'}],
+      reviews:[R('Kathia L.',4,'Resolvió rápido el destape. Buen precio.','Destape de tubería',8,['Buen precio'])],
+      refs:[]}),
+    P({id:'p8',name:'Aníbal Quintero',cat:'electricidad',zone:'Clayton',priceFrom:25,years:18,jobs:203,resp:30,distance:5.1,ver:{id:true,bg:true,ins:false},
+      bio:'18 años de experiencia. Instalaciones nuevas, planta eléctrica y sistemas de respaldo.',
+      svcs:[['Visita de diagnóstico',25],['Instalación de planta eléctrica',150],['Cambio de breaker',40]],
+      hist:{5:70,4:14,3:3,2:1,1:0},
+      portfolio:[{h:50,t:'Planta de respaldo instalada'},{h:38,t:'Cableado nuevo · Clayton'}],
+      reviews:[R('Familia Vega',5,'Instaló la planta antes de la temporada de lluvias. Muy serio.','Instalación de planta eléctrica',21,['Profesional'])],
+      refs:[{name:'Colegio Bilingüe Clayton',rel:'Mantenimiento eléctrico',phone:'317-••••',note:'Proveedor desde 2019.',verified:true}]}),
+    P({id:'p9',name:'Kathia Herrera',cat:'aires',zone:'Albrook',priceFrom:40,years:5,jobs:88,resp:18,distance:3.3,
+      bio:'Técnica en refrigeración. Mantenimiento preventivo y diagnóstico de fallas en equipos inverter.',
+      svcs:[['Mantenimiento split 12k BTU',40],['Diagnóstico de falla',25],['Recarga de gas',60]],
+      hist:{5:31,4:6,3:1,2:0,1:0},
+      portfolio:[{h:185,t:'Limpieza de serpentín'},{h:195,t:'Diagnóstico inverter'}],
+      reviews:[R('Óscar D.',5,'Explicó todo con paciencia y dejó el aire funcionando. Puntualísima.','Diagnóstico de falla',12,['Puntual','Profesional'])],
+      refs:[]}),
+    P({id:'p10',name:'Eduardo Saldaña',cat:'pintura',zone:'Obarrio',priceFrom:50,years:8,jobs:64,resp:40,distance:1.9,ver:{id:true,bg:true,ins:false},
+      bio:'Pintura decorativa, texturas y murales. También pinto oficinas fuera de horario laboral.',
+      svcs:[['Pintar habitación',95],['Textura decorativa',120],['Pintura de oficina (por m²)',4]],
+      hist:{5:25,4:7,3:2,2:1,1:0},
+      portfolio:[{h:340,t:'Mural en restaurante'},{h:20,t:'Textura en pared de sala'}],
+      reviews:[R('Restaurante La Fonda',5,'El mural quedó espectacular y lo terminó en el fin de semana.','Textura decorativa',16,['Lo recomiendo'],[{h:340,t:'Mural'}])],
+      refs:[]})
+  ];
+  pros.forEach(p=>{p.services=p.svcs.map(([name,price])=>({name,price}));delete p.svcs});
+  const t1=iso(now-2*DAY), t2=iso(now+DAY);
+  const bookings=[
+    {id:'b-seed1',proId:'p2',client:'self',clientName:'Andrea M.',svc:{name:'Limpieza general (3 h)',price:40},day:t1,slot:'9:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'Apartamento de 2 recámaras.',photos:[],pay:'Yappy',status:'completado',created:now-3*DAY,hist:{pendiente:now-3*DAY,aceptado:now-3*DAY+600000,en_curso:now-2*DAY,terminado:now-2*DAY+10800000,completado:now-2*DAY+11000000}},
+    {id:'b-seed2',proId:'p4',client:'self',clientName:'Andrea M.',svc:{name:'Mantenimiento split 12k BTU',price:45},day:t2,slot:'10:00',addr:'Calle 74, San Francisco, Torre Mar apto 8B',desc:'El aire de la recámara principal gotea.',photos:[],pay:'Tarjeta',status:'aceptado',created:now-DAY,hist:{pendiente:now-DAY,aceptado:now-DAY+900000}}
+  ];
+  return {v:1,pros,bookings,meId:null,client:{name:'Andrea M.',zone:'San Francisco',addr:'Calle 74, San Francisco, Torre Mar apto 8B'},baseDone:1840,waitlist:[]};
+}
+
+/* ---------------- state ---------------- */
+let S=load()||seed();
+let mode='client';
+let cur={v:'home',p:{}};
+let stack=[];
+let draft={};
+let storageWarned=false;
+function load(){try{const r=localStorage.getItem(LS_KEY);if(!r)return null;const o=JSON.parse(r);return (o&&o.v===1&&Array.isArray(o.pros))?o:null}catch(e){return null}}
+function save(){try{localStorage.setItem(LS_KEY,JSON.stringify(S));return true}catch(e){if(!storageWarned){storageWarned=true;toast('Este navegador no permite guardar más fotos. La demo sigue funcionando en esta sesión.')}return false}}
+
+const proById=id=>S.pros.find(p=>p.id===id);
+const me=()=>S.meId?proById(S.meId):null;
+function rating(p){
+  let sum=0,count=0;const dist={5:0,4:0,3:0,2:0,1:0};
+  for(const k of [5,4,3,2,1]){dist[k]+=p.hist[k]||0;sum+=k*(p.hist[k]||0);count+=p.hist[k]||0}
+  p.reviews.forEach(r=>{dist[r.stars]++;sum+=r.stars;count++});
+  return {avg:count?sum/count:0,count,dist};
+}
+const isVerified=p=>p.ver.id===true&&p.ver.bg===true;
+function checklist(p){
+  return [
+    {k:'id',label:'Verificar cédula',ok:p.ver.id===true},
+    {k:'bg',label:p.ver.bg==='pendiente'?'Antecedentes en revisión':'Récord policivo (antecedentes)',ok:p.ver.bg===true,pending:p.ver.bg==='pendiente'},
+    {k:'bio',label:'Descripción de al menos 60 caracteres',ok:(p.bio||'').trim().length>=60},
+    {k:'pf',label:'3 o más fotos de trabajos',ok:p.portfolio.length>=3},
+    {k:'refs',label:'2 o más referencias',ok:p.refs.length>=2},
+    {k:'rev',label:'Primera reseña de un cliente',ok:rating(p).count>0}
+  ];
+}
+const completeness=p=>{const c=checklist(p);return c.filter(x=>x.ok).length/c.length};
+function rankScore(p){
+  const r=rating(p);
+  const avg=r.count?r.avg:4.6; // cold-start boost: new pros get visibility until their first reviews
+  return avg*Math.log10(r.count+12)*(isVerified(p)?1.12:1)+completeness(p)*0.6-p.distance*0.04;
+}
+const visiblePros=()=>S.pros.filter(p=>catById(p.cat).live);
+const myBookings=()=>S.bookings.filter(b=>b.client==='self');
+const proBookings=()=>S.bookings.filter(b=>b.proId===S.meId);
+
+/* ---------------- shared bits ---------------- */
+function avatar(p,size){
+  const h=hueOf(p.name);
+  return `<span class="avatar" style="--h:${h};width:${size}px;height:${size}px;font-size:${Math.round(size*0.36)}px">${p.photo?`<img src="${p.photo}" alt="">`:esc(initials(p.name))}</span>`;
+}
+function starsInline(r){
+  if(!r.count) return `<span class="pill new">Nuevo</span>`;
+  return `<span class="rt">${starIc(14)}<b>${r.avg.toFixed(1)}</b><span class="muted">(${r.count})</span></span>`;
+}
+function stars(n,s=14){let h='<span class="stars" aria-label="'+n+' de 5 estrellas">';for(let i=1;i<=5;i++)h+=starIc(s,i<=n);return h+'</span>'}
+function photo(p,big){
+  if(p.src) return `<div class="ph"><img src="${p.src}" alt="${esc(p.t||'Foto')}"></div>`;
+  return `<div class="ph" style="--h:${p.h}">${ic('camera',big?40:22)}<span>${esc(p.t||'')}</span></div>`;
+}
+function photoBtn(p,ctx){return `<button class="ph-btn" data-act="lightbox" data-ctx="${esc(ctx)}" aria-label="Ver foto ${esc(p.t||'')}">${photo(p)}</button>`}
+function proRow(p){
+  const r=rating(p);
+  return `<button class="pro-row" data-act="open-pro" data-id="${p.id}">${avatar(p,52)}
+    <div class="pr-main">
+      <div class="pr-top"><b>${esc(p.name)}</b>${isVerified(p)?`<span class="vbadge" title="Identidad y antecedentes verificados">${ic('shield',15)}</span>`:''}</div>
+      <div class="pr-sub">${esc(catById(p.cat).name)} · ${esc(p.zone)}</div>
+      <div class="pr-meta">${starsInline(r)}<span class="muted">· ${p.distance} km · responde en ~${p.resp} min</span></div>
+    </div>
+    <div class="pr-price"><span class="muted">desde</span><b>${money(p.priceFrom)}</b></div></button>`;
+}
+function topbar(title,opts={}){
+  return `<div class="topbar">${opts.noBack?'':`<button class="iconbtn" data-act="back" aria-label="Volver">${ic('back')}</button>`}<h1 class="display">${esc(title)}</h1>${opts.right||''}</div>`;
+}
+const STATUS={
+  pendiente:['Esperando confirmación','warn'],aceptado:['Confirmada','info'],en_curso:['En curso','info'],
+  terminado:['Confirma el trabajo','warn'],completado:['Por calificar','warn'],calificado:['Completada','ok'],
+  rechazado:['No disponible','bad'],cancelado:['Cancelada','bad']
+};
+const STEPS=[['pendiente','Solicitud enviada'],['aceptado','Profesional confirmó'],['en_curso','Trabajo en curso'],['terminado','Profesional marcó terminado'],['completado','Confirmaste y se liberó el pago'],['calificado','Calificaste el servicio']];
+function statusPill(b,forPro){
+  let [t,c]=STATUS[b.status]||['',''];
+  if(forPro){
+    if(b.status==='pendiente'){t='Nueva solicitud';c='warn'}
+    else if(b.status==='terminado'){t='Esperando al cliente';c='info'}
+    else if(b.status==='completado'||b.status==='calificado'){t='Pago liberado';c='ok'}
+  }
+  return `<span class="pill ${c}">${t}</span>`;
+}
+
+/* ---------------- client views ---------------- */
+function vHome(){
+  return `<header class="h-home">
+      <div class="loc">${ic('pin',16)}<span>${esc(S.client.zone)}, Ciudad de Panamá</span></div>
+      <h1 class="display">¿Qué necesitas resolver hoy?</h1>
+      <label class="search">${ic('search',18)}<input id="q" type="search" placeholder="Ej: fuga en el baño, A/C, limpieza" value="${esc(draft.q||'')}" autocomplete="off" aria-label="Buscar servicio o profesional"></label>
+    </header>
+    <div id="home-body">${homeBody()}</div>`;
+}
+function homeBody(){
+  const q=(draft.q||'').trim();
+  if(q) return searchResults(q);
+  const pros=visiblePros();
+  const ver=pros.filter(isVerified).length;
+  const done=S.baseDone+S.bookings.filter(b=>['completado','calificado'].includes(b.status)).length;
+  const reviews=pros.reduce((a,p)=>a+rating(p).count,0);
+  const top=[...pros].sort((a,b)=>rankScore(b)-rankScore(a)).slice(0,6);
+  return `<section class="sec" style="padding-top:16px">
+      <div class="net" aria-label="Tamaño de la red">
+        <div><b>${pros.length}</b><span>profesionales activos (${ver} verificados)</span></div>
+        <div><b>${done.toLocaleString('en-US')}</b><span>servicios completados</span></div>
+        <div><b>${reviews.toLocaleString('en-US')}</b><span>reseñas de clientes reales</span></div>
+      </div>
+    </section>
+    <section class="sec">
+      <div class="sec-h"><h2>Categorías</h2><span>5 activas · más pronto</span></div>
+      <div class="cats">${CATS.map(c=>`<button class="cat${c.live?'':' soon'}" style="--h:${c.h}" data-act="${c.live?'open-cat':'waitlist'}" data-id="${c.id}">
+        ${c.live?'':'<span class="soon-tag">Pronto</span>'}<span class="cat-ic">${ic(c.icon,22)}</span>${esc(c.short||c.name)}</button>`).join('')}</div>
+    </section>
+    <section class="sec">
+      <div class="sec-h"><h2>Mejor calificados cerca de ti</h2></div>
+      <div class="hscroll">${top.map(p=>{const r=rating(p);return `<button class="card pro-card" data-act="open-pro" data-id="${p.id}">
+        <div style="display:flex;gap:10px;align-items:center">${avatar(p,42)}<div style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(p.name)}</b><span class="muted" style="font-size:12.5px">${esc(catById(p.cat).name)}</span></div></div>
+        <div class="pr-meta">${starsInline(r)}${isVerified(p)?`<span class="vbadge">${ic('shield',15)}</span>`:''}</div>
+        <span class="muted" style="font-size:12.5px">${esc(p.zone)} · desde <b style="color:var(--ink)">${money(p.priceFrom)}</b></span></button>`}).join('')}</div>
+    </section>
+    <section class="sec">
+      <div class="sec-h"><h2>Por qué confiar</h2></div>
+      <div class="card pad trust">
+        <div><i>${ic('shield',18)}</i><span><b>Profesionales verificados</b>Cédula y récord policivo revisados antes de aparecer con el sello.</span></div>
+        <div><i>${ic('wallet',18)}</i><span><b>Pago protegido</b>Pagas con Yappy o tarjeta; el dinero se libera solo cuando confirmas que quedó bien.</span></div>
+        <div><i>${ic('star',18)}</i><span><b>Reseñas solo de clientes reales</b>Solo puede calificar quien contrató y pagó por la app, con fotos del trabajo.</span></div>
+      </div>
+    </section>`;
+}
+function searchResults(q){
+  const nq=norm(q);
+  const words=nq.split(/\s+/).filter(w=>w.length>1);
+  const catHits=CATS.filter(c=>c.live&&words.some(w=>norm(c.name+' '+(c.kw||'')).includes(w)));
+  const res=visiblePros().map(p=>{
+    const hay=norm([p.name,catById(p.cat).name,catById(p.cat).kw,p.zone,p.bio,p.services.map(s=>s.name).join(' ')].join(' '));
+    const hit=words.filter(w=>hay.includes(w)).length;
+    return {p,hit};
+  }).filter(x=>x.hit>0).sort((a,b)=>b.hit-a.hit||rankScore(b.p)-rankScore(a.p));
+  return `<section class="sec" style="padding-top:16px">
+    ${catHits.length?`<div class="chips">${catHits.map(c=>`<button class="chip" data-act="open-cat" data-id="${c.id}">Ver todo en ${esc(c.name)}</button>`).join('')}</div>`:''}
+    <div class="sec-h"><h2>${res.length} resultado${res.length===1?'':'s'}</h2><span>para "${esc(q)}"</span></div>
+    ${res.length?res.map(x=>proRow(x.p)).join(''):`<div class="card empty">${ic('search',28)}<b>No encontramos profesionales para "${esc(q)}"</b><span>Prueba con otra palabra, o deja tu solicitud y te avisamos cuando se una alguien.</span><button class="btn sm" data-act="waitlist" data-id="q:${esc(q)}">Avisarme</button></div>`}
+  </section>`;
+}
+function vCat(p){
+  const c=catById(p.id);
+  const sort=draft.sort||'rec', onlyVer=!!draft.onlyVer;
+  let list=visiblePros().filter(x=>x.cat===c.id&&(!onlyVer||isVerified(x)));
+  const fn={rec:(a,b)=>rankScore(b)-rankScore(a),rating:(a,b)=>rating(b).avg-rating(a).avg||rating(b).count-rating(a).count,price:(a,b)=>a.priceFrom-b.priceFrom,near:(a,b)=>a.distance-b.distance}[sort];
+  list.sort(fn);
+  const chip=(k,l)=>`<button class="chip" data-act="sort" data-k="${k}" aria-pressed="${sort===k}">${l}</button>`;
+  return `${topbar(c.name)}
+  <section class="sec" style="padding-top:4px">
+    <div class="chips">${chip('rec','Recomendados')}${chip('rating','Mejor calificados')}${chip('price','Menor precio')}${chip('near','Más cerca')}
+      <button class="chip" data-act="toggle-ver" aria-pressed="${onlyVer}">${ic('shield',14).replace('class="ic"','class="ic" style="display:inline;vertical-align:-2px"')} Solo verificados</button></div>
+    <div class="sec-h"><span>${list.length} profesional${list.length===1?'':'es'} en Ciudad de Panamá</span></div>
+    ${list.length?list.map(proRow).join(''):`<div class="card empty"><b>Sin resultados con este filtro</b><button class="btn sm ghost" data-act="toggle-ver">Quitar filtro</button></div>`}
+  </section>`;
+}
+function vPro(p){
+  const pro=proById(p.id);
+  if(!pro) return topbar('Perfil')+`<div class="empty">Este perfil ya no existe.</div>`;
+  const r=rating(pro), c=catById(pro.cat);
+  const max=Math.max(1,...Object.values(r.dist));
+  const v=pro.ver;
+  const vb=[
+    v.id===true?`<span class="pill ok">${ic('check',13)} Cédula verificada</span>`:`<span class="pill">Cédula sin verificar</span>`,
+    v.bg===true?`<span class="pill ok">${ic('check',13)} Antecedentes OK</span>`:v.bg==='pendiente'?`<span class="pill warn">Antecedentes en revisión</span>`:`<span class="pill">Sin antecedentes</span>`,
+    v.ins?`<span class="pill ok">${ic('check',13)} Seguro de responsabilidad</span>`:''
+  ].join('');
+  const mine=pro.id===S.meId;
+  return `${topbar(c.name)}
+  <div class="p-hero">
+    ${avatar(pro,84)}
+    <h2 class="display">${esc(pro.name)}</h2>
+    <div class="muted" style="font-size:14px">${esc(c.name)} · ${esc(pro.zone)} · ${pro.years} año${pro.years==1?'':'s'} de experiencia</div>
+    <div class="ver">${vb}</div>
+    <div class="p-stats">
+      <div><b>${r.count?r.avg.toFixed(1):'—'}</b><span>${r.count} reseña${r.count===1?'':'s'}</span></div>
+      <div><b>${pro.jobs}</b><span>trabajos</span></div>
+      <div><b>~${pro.resp}m</b><span>responde</span></div>
+    </div>
+  </div>
+  ${mine?`<section class="sec"><div class="note">${ic('eye',18)}<span>Así ven tu perfil los clientes. Si te reservas aquí, la solicitud te llega en la vista Profesional.</span></div></section>`:''}
+  <section class="sec">
+    <div class="sec-h"><h2>Servicios y precios</h2><span>precio base</span></div>
+    <div class="card">${pro.services.map((s,i)=>`<div class="svc"><div><b>${esc(s.name)}</b><small>Materiales aparte si aplica</small></div><b class="price">${money(s.price)}</b><button class="btn sm" data-act="book" data-id="${pro.id}" data-svc="${i}">Reservar</button></div>`).join('')}</div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Trabajos realizados</h2><span>${pro.portfolio.length} foto${pro.portfolio.length===1?'':'s'}</span></div>
+    ${pro.portfolio.length?`<div class="gallery">${pro.portfolio.map((ph,i)=>photoBtn(ph,'pf:'+pro.id+':'+i)).join('')}</div>`:`<div class="card empty" style="padding:18px">Aún no ha subido fotos de trabajos.</div>`}
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Reseñas</h2><span>solo de clientes que pagaron por la app</span></div>
+    <div class="card">
+      ${r.count?`<div class="bars"><div class="big"><b>${r.avg.toFixed(1)}</b>${stars(Math.round(r.avg),13)}<span class="muted" style="font-size:12px">${r.count} reseñas</span></div>
+        <div style="display:flex;flex-direction:column;gap:5px">${[5,4,3,2,1].map(k=>`<div class="bar"><span>${k}</span><i><em style="width:${(r.dist[k]/max*100).toFixed(1)}%"></em></i><span>${r.dist[k]}</span></div>`).join('')}</div></div>`:''}
+      ${pro.reviews.length?pro.reviews.map((rv,i)=>`<div class="rev" style="border-top:1px solid var(--line)">
+        <div class="rev-h"><span class="avatar" style="--h:${hueOf(rv.author)};width:34px;height:34px;font-size:13px">${esc(initials(rv.author))}</span><div><b>${esc(rv.author)}</b><small>${esc(rv.svc)} · ${ago(rv.ts)}</small></div>${stars(rv.stars,13)}</div>
+        ${rv.text?`<p>${esc(rv.text)}</p>`:''}
+        ${rv.tags.length?`<div class="tags">${rv.tags.map(t=>`<span class="pill">${esc(t)}</span>`).join('')}</div>`:''}
+        ${rv.photos.length?`<div class="revph">${rv.photos.map((ph,j)=>photoBtn(ph,'rv:'+pro.id+':'+i+':'+j)).join('')}</div>`:''}
+      </div>`).join(''):`<div class="empty" style="padding:18px">Todavía no tiene reseñas. Sé de los primeros en contratarlo.</div>`}
+    </div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Referencias</h2><span>verificamos cada una por llamada</span></div>
+    ${pro.refs.length?`<div class="card">${pro.refs.map(rf=>`<div class="ref"><span class="iconbtn" style="width:34px;height:34px">${ic('quote',16)}</span><div><b>${esc(rf.name)}</b> ${rf.verified?`<span class="pill ok">${ic('check',12)} Verificada</span>`:`<span class="pill warn">En verificación</span>`}<br><small>${esc(rf.rel)} · ${esc(rf.phone)}</small>${rf.note?`<p>${esc(rf.note)}</p>`:''}</div></div>`).join('')}</div>`:`<div class="card empty" style="padding:18px">Sin referencias todavía.</div>`}
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Sobre ${esc(pro.name.split(' ')[0])}</h2></div>
+    <p class="card about">${esc(pro.bio||'Sin descripción.')}</p>
+  </section>
+  <div class="cta"><button class="btn" data-act="book" data-id="${pro.id}" data-svc="0">Reservar · desde ${money(pro.priceFrom)}</button></div>`;
+}
+function nextDays(){const out=[];for(let i=0;i<7;i++){const d=new Date(Date.now()+i*DAY);out.push({iso:iso(d),dow:i===0?'Hoy':i===1?'Mañana':DOW[d.getDay()],d:d.getDate()})}return out}
+const SLOTS=['8:00','10:00','13:00','15:00','17:00'];
+function slotTaken(dayIso,slot,proId){
+  if(S.bookings.some(b=>b.proId===proId&&b.day===dayIso&&b.slot===slot&&!['cancelado','rechazado'].includes(b.status)))return true;
+  if(dayIso===iso(Date.now())){const h=new Date().getHours();return parseInt(slot,10)<=h+1}
+  return false;
+}
+function vBook(p){
+  const pro=proById(p.id);
+  if(!pro) return topbar('Reservar')+`<div class="empty">Perfil no disponible.</div>`;
+  if(!draft.book||draft.book.proId!==pro.id) draft.book={proId:pro.id,svc:Number(p.svc)||0,day:'',slot:'',addr:S.client.addr,desc:'',photos:[],pay:'Yappy',err:''};
+  const b=draft.book; const s=pro.services[b.svc]||pro.services[0];
+  if(b.day&&b.slot&&slotTaken(b.day,b.slot,pro.id)) b.slot='';
+  return `${topbar('Reservar')}
+  <section class="sec" style="padding-top:4px">
+    <div style="display:flex;gap:12px;align-items:center">${avatar(pro,46)}<div><b>${esc(pro.name)}</b><div class="muted" style="font-size:13px">${esc(catById(pro.cat).name)} · ${starsInline(rating(pro))}</div></div></div>
+  </section>
+  <section class="sec"><span class="lbl">1 · Servicio</span>
+    ${pro.services.map((x,i)=>`<button class="opt" data-act="bk-set" data-k="svc" data-v="${i}" aria-pressed="${b.svc===i}"><span class="radio"></span><div><b>${esc(x.name)}</b></div><b>${money(x.price)}</b></button>`).join('')}
+  </section>
+  <section class="sec"><span class="lbl">2 · Día y hora</span>
+    <div class="chips">${nextDays().map(d=>`<button class="day" data-act="bk-set" data-k="day" data-v="${d.iso}" aria-pressed="${b.day===d.iso}">${d.dow}<b>${d.d}</b></button>`).join('')}</div>
+    ${b.day?`<div class="chips">${SLOTS.map(sl=>{const t=slotTaken(b.day,sl,pro.id);return `<button class="chip" data-act="bk-set" data-k="slot" data-v="${sl}" aria-pressed="${b.slot===sl}" ${t?'disabled':''}>${sl}</button>`}).join('')}</div>`:`<span class="hint">Elige un día para ver los horarios disponibles.</span>`}
+  </section>
+  <section class="sec"><span class="lbl">3 · Dirección y detalles</span>
+    <div class="field"><label for="bk-addr">Dirección</label><input class="input" id="bk-addr" data-bind="book.addr" value="${esc(b.addr)}" placeholder="Calle, edificio, apartamento"></div>
+    <div class="field"><label for="bk-desc">¿Qué necesitas?</label><textarea class="input" id="bk-desc" data-bind="book.desc" placeholder="Ej: el lavamanos del baño de visitas gotea desde ayer">${esc(b.desc)}</textarea></div>
+    <div><span class="lbl">Fotos del problema (opcional)</span>
+      <div class="gallery" style="margin-top:6px">${b.photos.map((ph,i)=>`<div class="ph"><img src="${ph.src}" alt="Foto adjunta"><button class="rm" data-act="rm-draft-photo" data-path="book.photos" data-i="${i}" aria-label="Quitar foto">${ic('x',14)}</button></div>`).join('')}
+        <label class="addph" for="up-book">${ic('camera',22)}Agregar<input type="file" id="up-book" accept="image/*" multiple data-upload="book.photos"></label></div></div>
+  </section>
+  <section class="sec"><span class="lbl">4 · Pago</span>
+    ${[['Yappy','Paga desde tu banca móvil'],['Tarjeta','Visa o Mastercard, crédito o débito']].map(([k,d])=>`<button class="opt" data-act="bk-set" data-k="pay" data-v="${k}" aria-pressed="${b.pay===k}"><span class="radio"></span><div><b>${k}</b><small>${d}</small></div></button>`).join('')}
+    <div class="card sum">
+      <div><span>${esc(s.name)}</span><span>${money(s.price)}</span></div>
+      <div class="muted"><span>Cargo por servicio</span><span>$0</span></div>
+      <div class="tot"><span>Total</span><span>${money(s.price)}</span></div>
+    </div>
+    <div class="note">${ic('shield',18)}<span><b>Pago protegido.</b> Cobramos ahora y retenemos el dinero. Se libera al profesional solo cuando confirmes que el trabajo quedó bien.</span></div>
+    ${b.err?`<div class="err" role="alert">${esc(b.err)}</div>`:''}
+  </section>
+  <div class="cta"><button class="btn" id="bk-submit" data-act="bk-submit">Confirmar y pagar ${money(s.price)}</button></div>`;
+}
+function vBookings(){
+  const list=myBookings().sort((a,b)=>b.created-a.created);
+  const act=list.filter(b=>['pendiente','aceptado','en_curso','terminado'].includes(b.status));
+  const rate=list.filter(b=>b.status==='completado');
+  const hist=list.filter(b=>['calificado','cancelado','rechazado'].includes(b.status));
+  const row=b=>{const p=proById(b.proId);if(!p)return '';return `<button class="bk" data-act="open-bk" data-id="${b.id}">${avatar(p,46)}<div><b>${esc(b.svc.name)}</b><small>${esc(p.name)} · ${fmtDay(b.day)} ${esc(b.slot)}</small>${statusPill(b)}</div></button>`};
+  const sec=(t,arr,e)=>`<section class="sec"><div class="sec-h"><h2>${t}</h2><span>${arr.length}</span></div>${arr.length?arr.map(row).join(''):`<div class="hint">${e}</div>`}</section>`;
+  return `${topbar('Mis reservas',{noBack:true})}${rate.length?sec('Por calificar',rate,''):''}${sec('Activas',act,'No tienes servicios en curso.')}${sec('Historial',hist,'Aquí verás tus servicios terminados.')}`;
+}
+function vBk(p){
+  const b=S.bookings.find(x=>x.id===p.id);
+  if(!b) return topbar('Reserva')+`<div class="empty">Reserva no encontrada.</div>`;
+  const pro=proById(b.proId); const mine=b.proId===S.meId;
+  const idx=STEPS.findIndex(s=>s[0]===b.status);
+  const cancelled=['cancelado','rechazado'].includes(b.status);
+  let actions='';
+  if(b.status==='pendiente'){
+    actions=mine?`<div class="note warn">${ic('clock',18)}<span>Este profesional eres tú. Cámbiate a la vista <b>Profesional</b> para aceptar la solicitud.</span></div>`:`<div class="note">${ic('clock',18)}<span>Le avisamos a ${esc(pro.name.split(' ')[0])}. Normalmente responde en ~${pro.resp} min.</span></div>`;
+    actions+=`<button class="btn danger" data-act="cl-cancel" data-id="${b.id}">Cancelar solicitud</button>`;
+  } else if(b.status==='aceptado'||b.status==='en_curso'){
+    actions=mine?`<div class="note warn">${ic('clock',18)}<span>Avanza el trabajo desde la vista <b>Profesional</b>.</span></div>`:
+      `<div class="note">${ic('phone',18)}<span>Contacto por WhatsApp: <b>+507 6${String(hueOf(pro.name)).padStart(3,'0')}-${String(pro.jobs).padStart(4,'0').slice(0,4)}</b>. El número real se muestra solo con reserva confirmada.</span></div>
+       <button class="btn ghost" data-act="demo-adv" data-id="${b.id}">Simular siguiente paso del profesional (demo)</button>`;
+  } else if(b.status==='terminado'){
+    actions=`<div class="note warn">${ic('alert',18)}<span>${esc(pro.name.split(' ')[0])} marcó el trabajo como terminado. Revisa y confirma para liberar el pago.</span></div>
+      <button class="btn" data-act="cl-confirm" data-id="${b.id}">Todo quedó bien, liberar pago</button>
+      <button class="btn ghost" data-act="cl-issue" data-id="${b.id}">Reportar un problema</button>`;
+  } else if(b.status==='completado'){
+    actions=`<button class="btn" data-act="go-review" data-id="${b.id}">${starIc(16)} Calificar a ${esc(pro.name.split(' ')[0])}</button>`;
+  } else if(b.status==='calificado'&&b.review){
+    actions=`<div class="card rev"><div class="rev-h"><div><b>Tu reseña</b><small>${ago(b.review.ts)}</small></div>${stars(b.review.stars,14)}</div>${b.review.text?`<p>${esc(b.review.text)}</p>`:''}${b.review.photos.length?`<div class="revph">${b.review.photos.map((ph,j)=>photoBtn(ph,'bkrv:'+b.id+':'+j)).join('')}</div>`:''}</div>`;
+  } else if(b.status==='rechazado'){
+    actions=`<div class="note warn">${ic('alert',18)}<span>El profesional no puede en ese horario. No se hizo ningún cobro.</span></div><button class="btn" data-act="open-cat" data-id="${pro.cat}">Ver otros profesionales</button>`;
+  }
+  return `${topbar('Reserva')}
+  <section class="sec" style="padding-top:4px">
+    <button class="bk" data-act="open-pro" data-id="${pro.id}">${avatar(pro,46)}<div><b>${esc(pro.name)}</b><small>${esc(catById(pro.cat).name)} · ver perfil</small></div></button>
+    ${cancelled?'':`<div class="card"><ol class="tl">${STEPS.map((s,i)=>`<li class="${i<idx||(i===idx&&s[0]==='calificado')?'done':i===idx?'now done':''}"><i>${i<=idx?ic('check',12):''}</i><span>${s[1]}${b.hist&&b.hist[s[0]]?`<small>${new Date(b.hist[s[0]]).toLocaleString('es-PA',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</small>`:''}</span></li>`).join('')}</ol></div>`}
+    ${actions}
+    <div class="card kv">
+      <div><span>Servicio</span><b>${esc(b.svc.name)}</b></div>
+      <div><span>Fecha</span><b>${fmtDay(b.day)} · ${esc(b.slot)}</b></div>
+      <div><span>Dirección</span><b>${esc(b.addr)}</b></div>
+      ${b.desc?`<div><span>Detalle</span><b>${esc(b.desc)}</b></div>`:''}
+      <div><span>Pago</span><b>${money(b.svc.price)} · ${esc(b.pay)}</b></div>
+      <div><span>Estado del pago</span><b>${b.status==='completado'||b.status==='calificado'?'Liberado al profesional':cancelled?'Sin cobro':'Retenido por Resuelve'}</b></div>
+    </div>
+    ${b.photos.length?`<div class="gallery">${b.photos.map((ph,j)=>photoBtn(ph,'bk:'+b.id+':'+j)).join('')}</div>`:''}
+  </section>`;
+}
+const TAGS=['Puntual','Limpio','Buen precio','Profesional','Lo recomiendo'];
+const STAR_LBL=['','Muy malo','Malo','Regular','Bueno','Excelente'];
+function vReview(p){
+  const b=S.bookings.find(x=>x.id===p.id); const pro=b&&proById(b.proId);
+  if(!b||!pro) return topbar('Calificar')+`<div class="empty">Reserva no encontrada.</div>`;
+  if(!draft.rev||draft.rev.bid!==b.id) draft.rev={bid:b.id,stars:0,tags:[],text:'',photos:[],err:''};
+  const r=draft.rev;
+  return `${topbar('Calificar servicio')}
+  <section class="sec" style="padding-top:4px;align-items:center;text-align:center">
+    ${avatar(pro,64)}<b style="font-size:17px">¿Cómo te fue con ${esc(pro.name.split(' ')[0])}?</b><span class="muted" style="font-size:13px">${esc(b.svc.name)} · ${fmtDay(b.day)}</span>
+  </section>
+  <section class="sec">
+    <div class="starpick" role="radiogroup" aria-label="Calificación">${[1,2,3,4,5].map(i=>`<button role="radio" aria-checked="${r.stars===i}" aria-label="${i} estrella${i>1?'s':''}" class="${i<=r.stars?'on':''}" data-act="rv-star" data-v="${i}">${starIc(38)}</button>`).join('')}</div>
+    <div class="starlbl">${STAR_LBL[r.stars]||'Toca para calificar'}</div>
+    <div class="tags" style="justify-content:center">${TAGS.map(t=>`<button class="chip" data-act="rv-tag" data-v="${t}" aria-pressed="${r.tags.includes(t)}">${t}</button>`).join('')}</div>
+    <div class="field"><label for="rv-text">Comentario</label><textarea class="input" id="rv-text" data-bind="rev.text" placeholder="Cuéntale a otros clientes cómo fue el servicio">${esc(r.text)}</textarea></div>
+    <div><span class="lbl">Fotos del trabajo terminado</span>
+      <div class="gallery" style="margin-top:6px">${r.photos.map((ph,i)=>`<div class="ph"><img src="${ph.src}" alt="Foto de la reseña"><button class="rm" data-act="rm-draft-photo" data-path="rev.photos" data-i="${i}" aria-label="Quitar foto">${ic('x',14)}</button></div>`).join('')}
+        ${r.photos.length<6?`<label class="addph" for="up-rev">${ic('camera',22)}Agregar<input type="file" id="up-rev" accept="image/*" multiple data-upload="rev.photos"></label>`:''}</div>
+      <span class="hint">Las reseñas con fotos ayudan más a otros clientes.</span></div>
+    ${r.err?`<div class="err" role="alert">${esc(r.err)}</div>`:''}
+  </section>
+  <div class="cta"><button class="btn" id="rv-submit" data-act="rv-submit">Publicar reseña</button></div>`;
+}
+function vAccount(){
+  const wl=S.waitlist.length;
+  return `${topbar('Mi cuenta',{noBack:true})}
+  <section class="sec" style="padding-top:4px">
+    <div class="card pad" style="display:flex;gap:12px;align-items:center">${avatar({name:S.client.name},52)}<div><b>${esc(S.client.name)}</b><div class="muted" style="font-size:13px">${esc(S.client.addr)}</div></div></div>
+    <div class="card kv"><div><span>Métodos de pago</span><b>Yappy · Visa ••42</b></div><div><span>Servicios contratados</span><b>${myBookings().length}</b></div><div><span>Categorías en lista de espera</span><b>${wl}</b></div></div>
+  </section>
+  <section class="sec">
+    <div class="card pad" style="display:flex;flex-direction:column;gap:10px">
+      <b class="display" style="font-size:18px">¿Ofreces algún servicio?</b>
+      <span class="muted" style="font-size:14px">Crea tu perfil gratis, recibe solicitudes en tu zona y cobra con pago protegido. Solo pagas comisión cuando cobras un trabajo.</span>
+      <button class="btn" data-act="mode" data-m="pro">Quiero ofrecer mis servicios</button>
+    </div>
+  </section>`;
+}
+
+/* ---------------- pro views ---------------- */
+function obDefaults(){
+  const cat='plomeria';
+  return {name:'',phone:'',cat,zone:'Betania',priceFrom:25,years:5,bio:'',svcs:DEFAULT_SVCS[cat].map(([n,p])=>({name:n,price:p})),cedula:[],consent:false,err:''};
+}
+function vOnboard(){
+  if(!draft.ob) draft.ob=obDefaults();
+  const o=draft.ob;
+  return `${topbar('Únete como profesional',{noBack:true})}
+  <section class="sec" style="padding-top:4px">
+    <div class="note">${ic('wallet',18)}<span>Crear tu perfil es gratis. Resuelve cobra ${Math.round(COMMISSION*100)}% solo de los trabajos que cobras por la app. Recibes tu dinero al confirmar el cliente.</span></div>
+    <div class="field"><label for="ob-name">Nombre completo o de tu negocio</label><input class="input" id="ob-name" data-bind="ob.name" value="${esc(o.name)}" placeholder="Ej: Carlos Méndez"></div>
+    <div class="field"><label for="ob-phone">WhatsApp</label><input class="input" id="ob-phone" data-bind="ob.phone" value="${esc(o.phone)}" inputmode="tel" placeholder="6000-0000"></div>
+    <div class="row2">
+      <div class="field"><label for="ob-cat">Categoría</label><select class="input" id="ob-cat" data-bind="ob.cat" data-rerender="cat">${CATS.filter(c=>c.live).map(c=>`<option value="${c.id}" ${o.cat===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="ob-zone">Zona</label><select class="input" id="ob-zone" data-bind="ob.zone">${ZONES.map(z=>`<option ${o.zone===z?'selected':''}>${esc(z)}</option>`).join('')}</select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="ob-years">Años de experiencia</label><input class="input" id="ob-years" type="number" min="0" max="60" data-bind="ob.years" value="${esc(o.years)}"></div>
+      <div class="field"><label for="ob-wa">Responde en</label><select class="input" id="ob-wa" data-bind="ob.resp">${[['10','~10 min'],['30','~30 min'],['60','~1 hora']].map(([v,l])=>`<option value="${v}" ${String(o.resp||30)===v?'selected':''}>${l}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><label for="ob-bio">Cuéntale a los clientes sobre tu trabajo</label><textarea class="input" id="ob-bio" data-bind="ob.bio" placeholder="Experiencia, especialidades, zonas donde trabajas, garantía que ofreces">${esc(o.bio)}</textarea><span class="hint">${(o.bio||'').trim().length}/60 caracteres mínimos para un perfil completo</span></div>
+  </section>
+  <section class="sec">
+    <span class="lbl">Tus servicios y precios base</span>
+    ${o.svcs.map((s,i)=>`<div class="row2" style="grid-template-columns:1fr 92px"><input class="input" aria-label="Servicio ${i+1}" data-bind="ob.svcs.${i}.name" value="${esc(s.name)}"><input class="input" aria-label="Precio servicio ${i+1}" type="number" min="1" data-bind="ob.svcs.${i}.price" value="${esc(s.price)}"></div>`).join('')}
+    <span class="hint">Sugerimos precios típicos de tu categoría en Ciudad de Panamá. Ajústalos a tu tarifa.</span>
+  </section>
+  <section class="sec">
+    <span class="lbl">Verificación</span>
+    <div class="card pad" style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;gap:12px;align-items:center">
+        ${o.cedula.length?`<div style="width:72px">${photo(o.cedula[0])}</div><div style="flex:1"><b>Cédula cargada</b><div class="hint">La revisamos en menos de 24 h</div></div><button class="btn sm ghost" data-act="rm-draft-photo" data-path="ob.cedula" data-i="0">Quitar</button>`:
+        `<label class="addph" for="up-ced" style="width:72px;position:relative">${ic('camera',20)}Cédula<input type="file" id="up-ced" accept="image/*" data-upload="ob.cedula"></label><div style="flex:1"><b>Foto de tu cédula</b><div class="hint">Opcional ahora, necesaria para el sello de verificado</div></div>`}
+      </div>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px"><input type="checkbox" id="ob-consent" data-bind="ob.consent" ${o.consent?'checked':''} style="margin-top:3px;width:18px;height:18px;accent-color:var(--accent)"><span>Autorizo a Resuelve a consultar mi récord policivo y acepto los términos para profesionales.</span></label>
+    </div>
+    ${o.err?`<div class="err" role="alert">${esc(o.err)}</div>`:''}
+  </section>
+  <div class="cta"><button class="btn" id="ob-submit" data-act="ob-submit">Crear mi perfil</button></div>`;
+}
+function vProHome(){
+  const p=me(); if(!p) return vOnboard();
+  const bs=proBookings();
+  const paid=bs.filter(b=>['completado','calificado'].includes(b.status));
+  const held=bs.filter(b=>['aceptado','en_curso','terminado'].includes(b.status));
+  const gross=paid.reduce((a,b)=>a+b.svc.price,0), fee=gross*COMMISSION, net=gross-fee;
+  const heldNet=held.reduce((a,b)=>a+b.svc.price*(1-COMMISSION),0);
+  const pend=bs.filter(b=>b.status==='pendiente').length;
+  const r=rating(p); const cl=checklist(p); const pc=Math.round(completeness(p)*100);
+  return `${topbar('Hola, '+p.name.split(' ')[0],{noBack:true,right:`<button class="iconbtn" data-act="view-as-client" aria-label="Ver mi perfil como cliente">${ic('eye')}</button>`})}
+  <section class="sec" style="padding-top:4px">
+    <div class="card earn">
+      <span style="font-size:13px;opacity:.8">Neto cobrado este mes</span>
+      <span class="big">${money(net)}</span>
+      <div class="rows"><div><span>Ingresos brutos</span><span>${money(gross)}</span></div><div><span>Comisión Resuelve (${Math.round(COMMISSION*100)}%)</span><span>−${money(fee)}</span></div><div><span>Por liberar (trabajos en curso)</span><span>${money(heldNet)}</span></div></div>
+    </div>
+    <div class="p-stats" style="margin:0">
+      <div><b>${r.count?r.avg.toFixed(1):'—'}</b><span>calificación</span></div>
+      <div><b>${paid.length}</b><span>trabajos cobrados</span></div>
+      <button data-act="ptab" data-v="pro-reqs" style="background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:9px 6px;display:flex;flex-direction:column;align-items:center"><b style="font-family:var(--f-display);font-size:19px;color:${pend?'var(--danger)':'inherit'}">${pend}</b><span style="font-size:11.5px;color:var(--ink-2)">por responder</span></button>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Perfil ${pc}% completo</h2><span>${isVerified(p)?'Verificado':'Sin sello aún'}</span></div>
+    <div class="meter"><em style="width:${pc}%"></em></div>
+    <div class="card">${cl.map(c=>`<button class="chk${c.ok?' ok':''}" data-act="${c.k==='bg'&&c.pending?'demo-bg':c.ok?'noop':'ptab'}" data-v="pro-profile"><i>${c.ok?ic('check',12):''}</i><span>${esc(c.label)}</span>${c.pending?'<span class="pill warn" style="flex:none;text-decoration:none">Aprobar (demo)</span>':''}</button>`).join('')}</div>
+    <span class="hint">Los perfiles completos y verificados aparecen más arriba en las búsquedas. Los perfiles nuevos reciben un impulso de visibilidad mientras consiguen sus primeras reseñas.</span>
+  </section>`;
+}
+function vProReqs(){
+  const p=me(); if(!p) return vOnboard();
+  const bs=proBookings().sort((a,b)=>b.created-a.created);
+  const groups=[['Nuevas',bs.filter(b=>b.status==='pendiente')],['Agenda',bs.filter(b=>['aceptado','en_curso','terminado'].includes(b.status))],['Cobrados',bs.filter(b=>['completado','calificado'].includes(b.status))],['Rechazadas o canceladas',bs.filter(b=>['rechazado','cancelado'].includes(b.status))]];
+  const card=b=>{
+    const net=b.svc.price*(1-COMMISSION);
+    let acts='';
+    if(b.status==='pendiente') acts=`<div class="acts"><button class="btn ghost" data-act="pro-adv" data-id="${b.id}" data-to="rechazado">Rechazar</button><button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="aceptado">Aceptar</button></div>`;
+    else if(b.status==='aceptado') acts=`<button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="en_curso">Iniciar trabajo</button>`;
+    else if(b.status==='en_curso') acts=`<button class="btn" data-act="pro-adv" data-id="${b.id}" data-to="terminado">Marcar como terminado</button>`;
+    else if(b.status==='terminado') acts=b.client==='self'?`<div class="hint">Esperando que el cliente confirme. Si te reservaste tú mismo, confírmalo en la vista Cliente → Reservas.</div>`:`<div class="hint">Esperando que el cliente confirme. </div><button class="btn ghost" data-act="demo-client-confirm" data-id="${b.id}">Simular confirmación del cliente (demo)</button>`;
+    return `<div class="card req">
+      <div class="req-h"><div><b>${esc(b.svc.name)}</b><small>${esc(b.clientName)} · ${fmtDay(b.day)} ${esc(b.slot)}</small><small>${ic('pin',12).replace('class="ic"','class="ic" style="display:inline;vertical-align:-1px"')} ${esc(b.addr)}</small></div>
+      <div class="money">${money(net)}<small>neto de ${money(b.svc.price)}</small></div></div>
+      ${b.desc?`<p>"${esc(b.desc)}"</p>`:''}
+      ${b.photos.length?`<div class="revph">${b.photos.map((ph,j)=>photoBtn(ph,'bk:'+b.id+':'+j)).join('')}</div>`:''}
+      ${statusPill(b,true)}
+      ${acts}
+    </div>`;
+  };
+  return `${topbar('Solicitudes',{noBack:true})}${groups.map(([t,arr])=>arr.length||t==='Nuevas'?`<section class="sec"><div class="sec-h"><h2>${t}</h2><span>${arr.length}</span></div>${arr.length?arr.map(card).join(''):'<div class="hint">No tienes solicitudes nuevas.</div>'}</section>`:'').join('')}`;
+}
+function vProProfile(){
+  const p=me(); if(!p) return vOnboard();
+  if(!draft.ref) draft.ref={name:'',rel:'',phone:'',note:'',err:''};
+  if(draft.bioFor!==p.id){draft.bio=p.bio;draft.bioFor=p.id}
+  const rf=draft.ref;
+  return `${topbar('Mi perfil',{noBack:true,right:`<button class="btn sm ghost" data-act="view-as-client">${ic('eye',16)} Ver como cliente</button>`})}
+  <section class="sec" style="padding-top:4px">
+    <div class="card pad" style="display:flex;gap:12px;align-items:center">${avatar(p,52)}<div style="min-width:0"><b>${esc(p.name)}</b><div class="muted" style="font-size:13px">${esc(catById(p.cat).name)} · ${esc(p.zone)}</div><div style="margin-top:4px">${isVerified(p)?`<span class="pill ok">${ic('shield',12)} Verificado</span>`:`<span class="pill warn">Verificación pendiente</span>`}</div></div></div>
+    ${p.ver.id!==true?`<div class="card pad" style="display:flex;gap:12px;align-items:center"><label class="addph" for="up-ced2" style="width:64px;position:relative">${ic('camera',20)}Cédula<input type="file" id="up-ced2" accept="image/*" data-upload="me.cedula"></label><div><b>Sube tu cédula</b><div class="hint">Necesaria para el sello de verificado.</div></div></div>`:''}
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Fotos de tus trabajos</h2><span>${p.portfolio.length}/12</span></div>
+    <div class="gallery">${p.portfolio.map((ph,i)=>`<div style="position:relative">${photoBtn(ph,'pf:'+p.id+':'+i)}<button class="rm" style="position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center" data-act="rm-pf" data-i="${i}" aria-label="Quitar foto">${ic('x',14)}</button></div>`).join('')}
+      ${p.portfolio.length<12?`<label class="addph" for="up-pf" style="position:relative">${ic('plus',22)}Subir fotos<input type="file" id="up-pf" accept="image/*" multiple data-upload="me.portfolio"></label>`:''}</div>
+    <span class="hint">Antes y después funcionan mejor. Evita fotos con caras o direcciones visibles.</span>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Sobre ti</h2></div>
+    <textarea class="input" id="pp-bio" data-bind="bio" placeholder="Experiencia, especialidades, garantía">${esc(draft.bio||'')}</textarea>
+    <button class="btn ghost" data-act="save-bio">Guardar descripción</button>
+  </section>
+  <section class="sec">
+    <div class="sec-h"><h2>Referencias</h2><span>${p.refs.length}</span></div>
+    ${p.refs.length?`<div class="card">${p.refs.map((r,i)=>`<div class="ref"><span class="iconbtn" style="width:34px;height:34px">${ic('quote',16)}</span><div><b>${esc(r.name)}</b> ${r.verified?`<span class="pill ok">Verificada</span>`:`<span class="pill warn">En verificación</span>`}<br><small>${esc(r.rel)} · ${esc(r.phone)}</small>${r.note?`<p>${esc(r.note)}</p>`:''}<button class="linkbtn" style="font-size:13px;margin-top:4px" data-act="rm-ref" data-i="${i}">Quitar</button></div></div>`).join('')}</div>`:''}
+    <div class="card pad" style="display:flex;flex-direction:column;gap:10px">
+      <b>Agregar referencia</b>
+      <span class="hint">Un cliente, administrador de PH o empresa para la que trabajaste. Los llamamos para confirmar antes de marcarla como verificada.</span>
+      <input class="input" id="rf-name" data-bind="ref.name" value="${esc(rf.name)}" placeholder="Nombre de la persona o empresa" aria-label="Nombre de la referencia">
+      <input class="input" id="rf-rel" data-bind="ref.rel" value="${esc(rf.rel)}" placeholder="Relación. Ej: Cliente, administradora de PH" aria-label="Relación">
+      <input class="input" id="rf-phone" data-bind="ref.phone" value="${esc(rf.phone)}" inputmode="tel" placeholder="Teléfono" aria-label="Teléfono de la referencia">
+      <textarea class="input" id="rf-note" data-bind="ref.note" placeholder="¿Qué trabajo le hiciste?" aria-label="Comentario" style="min-height:64px">${esc(rf.note)}</textarea>
+      ${rf.err?`<div class="err" role="alert">${esc(rf.err)}</div>`:''}
+      <button class="btn" id="rf-add" data-act="add-ref">${ic('plus',18)} Agregar referencia</button>
+    </div>
+  </section>`;
+}
+
+/* ---------------- router ---------------- */
+const VIEWS={home:vHome,cat:vCat,pro:vPro,book:vBook,bookings:vBookings,bk:vBk,review:vReview,account:vAccount,'pro-home':vProHome,'pro-reqs':vProReqs,'pro-profile':vProProfile};
+const TAB_OF={home:'home',cat:'home',pro:'home',book:'home',bookings:'bookings',bk:'bookings',review:'bookings',account:'account','pro-home':'pro-home','pro-reqs':'pro-reqs','pro-profile':'pro-profile'};
+const $screen=document.getElementById('screen'), $tab=document.getElementById('tabbar'), $phone=document.getElementById('phone');
+function render(scrollTop){
+  const prev=$screen.scrollTop;
+  $screen.innerHTML=(VIEWS[cur.v]||vHome)(cur.p);
+  $screen.scrollTop=scrollTop?0:prev;
+  renderTabs();
+  document.getElementById('mode-client').setAttribute('aria-pressed',mode==='client');
+  document.getElementById('mode-pro').setAttribute('aria-pressed',mode==='pro');
+}
+function renderTabs(){
+  const t=TAB_OF[cur.v];
+  let tabs;
+  if(mode==='client'){
+    const n=myBookings().filter(b=>['terminado','completado'].includes(b.status)).length;
+    tabs=[['home','home','Inicio',0],['bookings','list','Reservas',n],['account','user','Cuenta',0]];
+  } else {
+    if(!me()){ $tab.innerHTML=''; $tab.hidden=true; return; }
+    const n=proBookings().filter(b=>b.status==='pendiente').length;
+    tabs=[['pro-home','home','Inicio',0],['pro-reqs','inbox','Solicitudes',n],['pro-profile','user','Mi perfil',0]];
+  }
+  $tab.hidden=false;
+  $tab.innerHTML=tabs.map(([v,i,l,n])=>`<button data-act="tab" data-v="${v}" ${t===v?'aria-current="page"':''}>${ic(i,22)}${l}${n?`<span class="dot">${n}</span>`:''}</button>`).join('');
+}
+function go(v,p={}){stack.push(cur);cur={v,p};render(true)}
+function back(){cur=stack.pop()||{v:mode==='client'?'home':'pro-home',p:{}};render(true)}
+function tab(v){stack=[];cur={v,p:{}};render(true)}
+function setMode(m){mode=m;closeSheet();stack=[];cur={v:m==='client'?'home':'pro-home',p:{}};render(true)}
+
+/* ---------------- sheet, toast ---------------- */
+let toastTimer;
+function toast(msg){
+  let el=document.getElementById('toast');
+  if(!el){el=document.createElement('div');el.id='toast';el.className='toast';el.setAttribute('role','status');$phone.appendChild(el)}
+  el.innerHTML=ic('check',18)+'<span>'+esc(msg)+'</span>';
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.remove(),3200);
+}
+function openSheet(html){closeSheet();const w=document.createElement('div');w.className='sheet-wrap';w.id='sheet';w.dataset.act='close-sheet-bg';w.innerHTML=`<div class="sheet" role="dialog" aria-modal="true"><div class="grab"></div>${html}</div>`;$phone.appendChild(w);const f=w.querySelector('button');if(f)f.focus()}
+function closeSheet(){const s=document.getElementById('sheet');if(s)s.remove()}
+
+/* ---------------- state transitions ---------------- */
+function advance(id,to){
+  const b=S.bookings.find(x=>x.id===id); if(!b) return;
+  b.status=to; b.hist=b.hist||{}; b.hist[to]=Date.now();
+  if(to==='completado'){const p=proById(b.proId); if(p) p.jobs++}
+  save();
+}
+const timers={};
+function scheduleAutoAccept(b){
+  if(b.client!=='self'||b.status!=='pendiente'||b.proId===S.meId||timers[b.id]) return;
+  timers[b.id]=setTimeout(()=>{
+    delete timers[b.id];
+    const x=S.bookings.find(y=>y.id===b.id);
+    if(!x||x.status!=='pendiente') return;
+    advance(b.id,'aceptado');
+    const p=proById(x.proId);
+    toast((p?p.name.split(' ')[0]:'El profesional')+' confirmó tu reserva');
+    if(mode==='client') render(false);
+  },2600);
+}
+const NEXT={aceptado:'en_curso',en_curso:'terminado'};
+
+/* ---------------- image upload ---------------- */
+function readImg(file){
+  return new Promise((res,rej)=>{
+    if(!file||!/^image\//.test(file.type)){rej(new Error('type'));return}
+    const r=new FileReader();
+    r.onerror=()=>rej(r.error);
+    r.onload=()=>{const img=new Image();img.onerror=()=>rej(new Error('decode'));img.onload=()=>{
+      const s=Math.min(1,640/Math.max(img.width,img.height));const c=document.createElement('canvas');
+      c.width=Math.max(1,Math.round(img.width*s));c.height=Math.max(1,Math.round(img.height*s));
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.72))};img.src=r.result};
+    r.readAsDataURL(file);
+  });
+}
+async function handleUpload(input){
+  const path=input.dataset.upload; const files=[...input.files];
+  if(!files.length) return;
+  const out=[];let bad=0;
+  for(const f of files){try{out.push({src:await readImg(f),t:f.name.replace(/\.[^.]+$/,'').slice(0,40)})}catch(e){bad++}}
+  input.value='';
+  if(bad) toast(bad===1?'Una imagen no se pudo leer. Usa JPG o PNG.':bad+' imágenes no se pudieron leer. Usa JPG o PNG.');
+  if(!out.length) return;
+  if(path==='me.portfolio'){const p=me();p.portfolio.push(...out.slice(0,12-p.portfolio.length));save();toast(out.length===1?'Foto agregada a tu perfil':out.length+' fotos agregadas a tu perfil')}
+  else if(path==='me.cedula'){const p=me();p.ver.id=true;save();toast('Cédula recibida. Sello de identidad activado (demo).')}
+  else if(path==='ob.cedula'){draft.ob.cedula=[out[0]]}
+  else {const arr=getPath(draft,path)||[];arr.push(...out);setPath(draft,path,arr.slice(0,6))}
+  render(false);
+}
+
+/* ---------------- actions ---------------- */
+const A={
+  mode:d=>setMode(d.m),
+  tab:d=>tab(d.v), ptab:d=>tab(d.v), back:()=>back(), noop:()=>{},
+  'open-cat':d=>{draft.sort='rec';draft.onlyVer=false;closeSheet();go('cat',{id:d.id})},
+  'open-pro':d=>go('pro',{id:d.id}),
+  sort:d=>{draft.sort=d.k;render(false)},
+  'toggle-ver':()=>{draft.onlyVer=!draft.onlyVer;render(false)},
+  waitlist:d=>{
+    const isQ=d.id.startsWith('q:'); const label=isQ?'"'+d.id.slice(2)+'"':catById(d.id).name;
+    openSheet(`<h3>${esc(isQ?'Te avisamos':catById(d.id).name+' llega pronto')}</h3><p>Estamos sumando profesionales de ${esc(label)}. Únete a la lista y te avisamos por WhatsApp apenas haya profesionales verificados en tu zona.</p>
+      <button class="btn" data-act="waitlist-join" data-id="${esc(d.id)}">Avisarme cuando esté disponible</button><button class="btn ghost" data-act="close-sheet">Ahora no</button>`);
+  },
+  'waitlist-join':d=>{if(!S.waitlist.includes(d.id))S.waitlist.push(d.id);save();closeSheet();toast('Listo. Te avisaremos por WhatsApp.');render(false)},
+  'close-sheet':()=>closeSheet(),
+  'close-sheet-bg':(d,el,e)=>{if(e.target===el)closeSheet()},
+  lightbox:d=>{
+    const [k,a,b,c]=d.ctx.split(':');let ph;
+    if(k==='pf') ph=proById(a)?.portfolio[+b];
+    else if(k==='rv') ph=proById(a)?.reviews[+b]?.photos[+c];
+    else if(k==='bk') ph=S.bookings.find(x=>x.id===a)?.photos[+b];
+    else if(k==='bkrv') ph=S.bookings.find(x=>x.id===a)?.review?.photos[+b];
+    if(!ph) return;
+    openSheet(`${photo(ph,true)}${ph.t?`<p>${esc(ph.t)}</p>`:''}<button class="btn ghost" data-act="close-sheet">Cerrar</button>`);
+  },
+  book:d=>{draft.book=null;go('book',{id:d.id,svc:d.svc})},
+  'bk-set':d=>{const b=draft.book;b.err='';if(d.k==='svc')b.svc=+d.v;else b[d.k]=d.v;if(d.k==='day')b.slot='';render(false)},
+  'bk-submit':()=>{
+    const b=draft.book; const pro=proById(b.proId);
+    if(!b.day||!b.slot){b.err='Elige el día y la hora del servicio.';render(false);return}
+    if(!b.addr.trim()){b.err='Escribe la dirección donde se hará el servicio.';render(false);return}
+    if(slotTaken(b.day,b.slot,pro.id)){b.err='Ese horario ya no está disponible. Elige otro.';b.slot='';render(false);return}
+    const s=pro.services[b.svc];
+    const bk={id:uid('b'),proId:pro.id,client:'self',clientName:S.client.name,svc:{name:s.name,price:+s.price},day:b.day,slot:b.slot,addr:b.addr.trim(),desc:b.desc.trim(),photos:b.photos,pay:b.pay,status:'pendiente',created:Date.now(),hist:{pendiente:Date.now()}};
+    S.bookings.push(bk); save(); draft.book=null;
+    scheduleAutoAccept(bk);
+    stack=[{v:'bookings',p:{}}]; cur={v:'bk',p:{id:bk.id}}; render(true);
+    toast('Solicitud enviada. Pago retenido de forma segura.');
+  },
+  'open-bk':d=>go('bk',{id:d.id}),
+  'cl-cancel':d=>{advance(d.id,'cancelado');toast('Solicitud cancelada. No se hizo ningún cobro.');render(false)},
+  'demo-adv':d=>{const b=S.bookings.find(x=>x.id===d.id);if(b&&NEXT[b.status]){advance(b.id,NEXT[b.status]);render(false)}},
+  'cl-confirm':d=>{advance(d.id,'completado');toast('Pago liberado. ¡Gracias por confirmar!');render(false)},
+  'cl-issue':d=>openSheet(`<h3>Reportar un problema</h3><p>Abrimos un caso con soporte y el pago se mantiene retenido hasta resolverlo. Te contactamos por WhatsApp en menos de 2 horas.</p><button class="btn" data-act="issue-ok">Abrir caso</button><button class="btn ghost" data-act="close-sheet">Volver</button>`),
+  'issue-ok':()=>{closeSheet();toast('Caso abierto. El pago sigue retenido.')},
+  'go-review':d=>{draft.rev=null;go('review',{id:d.id})},
+  'rv-star':d=>{draft.rev.stars=+d.v;draft.rev.err='';render(false)},
+  'rv-tag':d=>{const t=draft.rev.tags;const i=t.indexOf(d.v);i>=0?t.splice(i,1):t.push(d.v);render(false)},
+  'rv-submit':()=>{
+    const r=draft.rev;
+    if(!r.stars){r.err='Elige de 1 a 5 estrellas.';render(false);return}
+    const b=S.bookings.find(x=>x.id===r.bid); const p=proById(b.proId);
+    const review={author:S.client.name,stars:r.stars,text:r.text.trim(),svc:b.svc.name,ts:Date.now(),tags:[...r.tags],photos:r.photos};
+    p.reviews.unshift(review); b.review=review; advance(b.id,'calificado');
+    draft.rev=null;
+    stack=[{v:'bookings',p:{}}]; cur={v:'pro',p:{id:p.id}}; render(true);
+    toast('Reseña publicada en el perfil de '+p.name.split(' ')[0]);
+  },
+  'rm-draft-photo':d=>{const arr=getPath(draft,d.path);if(arr)arr.splice(+d.i,1);render(false)},
+  'ob-submit':()=>{
+    const o=draft.ob;
+    const name=o.name.trim(), phone=o.phone.trim();
+    const svcs=o.svcs.filter(s=>String(s.name).trim()&&+s.price>0).map(s=>({name:String(s.name).trim(),price:+s.price}));
+    if(name.length<3){o.err='Escribe tu nombre o el de tu negocio.';render(false);return}
+    if(phone.replace(/\D/g,'').length<7){o.err='Escribe un número de WhatsApp válido.';render(false);return}
+    if(!svcs.length){o.err='Agrega al menos un servicio con su precio.';render(false);return}
+    if(!o.consent){o.err='Necesitamos tu autorización para revisar antecedentes.';render(false);return}
+    const id=uid('me');
+    const p={id,name,phone,cat:o.cat,zone:o.zone,years:Math.max(0,+o.years||0),bio:o.bio.trim(),services:svcs,priceFrom:Math.min(...svcs.map(s=>s.price)),
+      reviews:[],refs:[],portfolio:[],hist:{5:0,4:0,3:0,2:0,1:0},ver:{id:o.cedula.length>0,bg:'pendiente',ins:false},resp:+(o.resp||30),distance:1.4,jobs:0,isNew:true};
+    S.pros.push(p); S.meId=id;
+    const zoneAddr=['Vía Porras, San Francisco, PH Bay View apto 12C','Calle 50, Obarrio, Edificio Plaza 2000 piso 7'];
+    const descs={plomeria:['El fregadero de la cocina no drena.','Fuga en la ducha del baño principal.'],electricidad:['Se va la luz de la cocina cuando uso el microondas.','Quiero instalar dos lámparas en la sala.'],limpieza:['Apartamento de 2 recámaras, limpieza general.','Necesito limpieza antes de entregar el apartamento.'],aires:['El aire de la sala gotea y no enfría bien.','Mantenimiento de 2 splits de 12k.'],pintura:['Pintar una recámara de 3x4 m.','Mancha de humedad en la pared del baño.']}[o.cat];
+    [['Ricardo T.',1,'10:00'],['María José P.',2,'15:00']].forEach(([cn,dd,sl],i)=>{
+      const sv=svcs[Math.min(i,svcs.length-1)];
+      S.bookings.push({id:uid('b'),proId:id,client:'other',clientName:cn,svc:{name:sv.name,price:sv.price},day:iso(Date.now()+dd*DAY),slot:sl,addr:zoneAddr[i],desc:descs[i],photos:[],pay:i?'Tarjeta':'Yappy',status:'pendiente',created:Date.now()-i*60000,hist:{pendiente:Date.now()-i*60000}});
+    });
+    save(); draft.ob=null; stack=[]; cur={v:'pro-home',p:{}}; render(true);
+    toast('Perfil creado. Ya apareces en las búsquedas. Tienes 2 solicitudes.');
+  },
+  'pro-adv':d=>{
+    const b=S.bookings.find(x=>x.id===d.id); if(!b) return;
+    advance(d.id,d.to);
+    toast({aceptado:'Solicitud aceptada. El cliente ya fue notificado.',rechazado:'Solicitud rechazada. No se cobró al cliente.',en_curso:'Trabajo iniciado.',terminado:'Le pedimos al cliente que confirme para liberar tu pago.'}[d.to]||'Actualizado');
+    render(false);
+  },
+  'demo-client-confirm':d=>{advance(d.id,'completado');const b=S.bookings.find(x=>x.id===d.id);toast('Pago liberado: '+money(b.svc.price*(1-COMMISSION))+' neto');render(false)},
+  'demo-bg':()=>{const p=me();p.ver.bg=true;save();toast(isVerified(p)?'Antecedentes aprobados. Ya tienes el sello de verificado.':'Antecedentes aprobados. Sube tu cédula para obtener el sello.');render(false)},
+  'view-as-client':()=>{const id=S.meId;mode='client';stack=[{v:'home',p:{}}];cur={v:'pro',p:{id}};render(true)},
+  'rm-pf':d=>{me().portfolio.splice(+d.i,1);save();render(false)},
+  'save-bio':()=>{const p=me();p.bio=(draft.bio||'').trim();save();toast('Descripción guardada');render(false)},
+  'add-ref':()=>{
+    const r=draft.ref;
+    if(r.name.trim().length<3){r.err='Escribe el nombre de la referencia.';render(false);return}
+    if(r.phone.replace(/\D/g,'').length<7){r.err='Escribe un teléfono válido para poder verificarla.';render(false);return}
+    const digits=r.phone.replace(/\D/g,'');
+    me().refs.push({name:r.name.trim(),rel:r.rel.trim()||'Cliente',phone:digits.slice(0,4)+'-••••',note:r.note.trim(),verified:false});
+    draft.ref=null; save(); toast('Referencia agregada. La verificaremos por llamada.'); render(false);
+  },
+  'rm-ref':d=>{me().refs.splice(+d.i,1);save();render(false)},
+  'reset-ask':()=>openSheet(`<h3>Reiniciar la demo</h3><p>Se borran tus reservas, reseñas y el perfil profesional que creaste, y vuelven los datos de ejemplo.</p><button class="btn danger" data-act="reset-do">Borrar y reiniciar</button><button class="btn ghost" data-act="close-sheet">Cancelar</button>`),
+  'reset-do':()=>{try{localStorage.removeItem(LS_KEY)}catch(e){}Object.values(timers).forEach(clearTimeout);for(const k in timers)delete timers[k];S=seed();draft={};closeSheet();setMode('client');toast('Demo reiniciada')}
+};
+
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]'); if(!el||el.disabled) return;
+  const fn=A[el.dataset.act]; if(!fn) return;
+  if(el.tagName==='A') e.preventDefault();
+  fn(el.dataset,el,e);
+});
+document.addEventListener('input',e=>{
+  const el=e.target;
+  if(el.id==='q'){draft.q=el.value;document.getElementById('home-body').innerHTML=homeBody();return}
+  if(el.dataset&&el.dataset.bind&&el.type!=='checkbox'&&el.tagName!=='SELECT'){setPath(draft,el.dataset.bind,el.value);
+    if(el.id==='ob-bio'){const h=el.parentElement.querySelector('.hint');if(h)h.textContent=el.value.trim().length+'/60 caracteres mínimos para un perfil completo'}}
+});
+document.addEventListener('change',e=>{
+  const el=e.target;
+  if(el.dataset&&el.dataset.upload){handleUpload(el);return}
+  if(el.dataset&&el.dataset.bind){
+    setPath(draft,el.dataset.bind,el.type==='checkbox'?el.checked:el.value);
+    if(el.dataset.rerender==='cat'){draft.ob.svcs=DEFAULT_SVCS[el.value].map(([n,p])=>({name:n,price:p}));render(false)}
+  }
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
+
+S.bookings.forEach(scheduleAutoAccept);
+render(true);
+window.__resuelve={get state(){return S},get cur(){return cur},get mode(){return mode}};
+})();
+</script>
