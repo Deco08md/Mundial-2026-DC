@@ -1,0 +1,392 @@
+<title>Inscripción Cuadra</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: single centered column, brand band on top, a 5-step stepper, one step visible at a time, sticky action bar at the bottom. */
+:root{
+  --bg:#ECEEF5; --surface:#FFFFFF; --surface-2:#F5F6FB; --ink:#131833; --ink-2:#535B78; --line:#DCE0EC;
+  --accent:#1F3FBF; --accent-ink:#FFFFFF; --accent-soft:#E4E9FB; --brand2:#F5B728; --brand2-ink:#1B1406;
+  --ok:#137A4B; --ok-soft:#DDF3E7; --warn:#8A5A00; --warn-soft:#FDF1D3; --bad:#B0302A; --bad-soft:#F9E1DE;
+  --f-d:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif; --f-b:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0C0F1E;--surface:#161A30;--surface-2:#1B2038;--ink:#E9ECF7;--ink-2:#A2A9C4;--line:#2A3152;--accent:#8EA3FF;--accent-ink:#0A1240;--accent-soft:#1F2752;--ok:#5FD39A;--ok-soft:#163327;--warn:#F5C25A;--warn-soft:#3A2E12;--bad:#F08070;--bad-soft:#3D1E1A;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0C0F1E;--surface:#161A30;--surface-2:#1B2038;--ink:#E9ECF7;--ink-2:#A2A9C4;--line:#2A3152;--accent:#8EA3FF;--accent-ink:#0A1240;--accent-soft:#1F2752;--ok:#5FD39A;--ok-soft:#163327;--warn:#F5C25A;--warn-soft:#3A2E12;--bad:#F08070;--bad-soft:#3D1E1A;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.band{background:#1F3FBF;color:#fff}
+.band-in{max-width:760px;margin:0 auto;padding-block:20px 22px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:10px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--f-d);font-weight:800;font-size:22px;letter-spacing:-.03em}
+.brand svg{width:26px;height:26px}
+.band h1{font-family:var(--f-d);font-weight:800;font-size:clamp(26px,5vw,34px);line-height:1.08;margin:0;letter-spacing:-.02em;text-wrap:balance}
+.band h1 em{font-style:normal;color:#F5B728}
+.band p{margin:0;opacity:.9;max-width:60ch}
+.demo{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:rgba(255,255,255,.12);border-radius:12px;padding:10px 12px;font-size:13.5px}
+.demo button{background:#F5B728;color:#1B1406;border:0;border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px;min-height:36px}
+.wrap{max-width:760px;margin:0 auto;padding-block:18px 120px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));display:flex;flex-direction:column;gap:16px}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.st{display:flex;flex-direction:column;gap:6px;background:none;border:0;padding:0;text-align:left;color:var(--ink-2);font-size:12px;font-weight:600;min-height:44px}
+.st i{display:block;height:5px;border-radius:3px;background:var(--line)}
+.st.done i{background:var(--accent)}
+.st.cur{color:var(--ink)}
+.st.cur i{background:var(--brand2)}
+.st:disabled{cursor:default}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.card h2{font-family:var(--f-d);font-weight:700;font-size:21px;margin:0;letter-spacing:-.01em}
+.card .lead{margin:-6px 0 0;color:var(--ink-2);font-size:14.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label,.lbl{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2)}
+.req{color:var(--bad)}
+.input{width:100%;min-height:46px;padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);font-size:16px}
+textarea.input{min-height:80px;resize:vertical}
+.input:focus{outline:2px solid var(--accent);outline-offset:0;border-color:transparent}
+.input.bad{border-color:var(--bad);background:var(--bad-soft)}
+.hint{font-size:13px;color:var(--ink-2)}
+.err{font-size:13px;color:var(--bad);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface-2);font-weight:600;font-size:14px;color:var(--ink-2);display:inline-flex;align-items:center;gap:6px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg .chip{border-radius:12px;justify-content:center}
+.tog{display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 0;font-size:15px}
+.tog input{width:22px;height:22px;flex:none;accent-color:var(--accent)}
+.tog small{display:block;color:var(--ink-2);font-size:13px}
+.doc{border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--surface-2)}
+.doc.okd{border-color:var(--ok)}
+.doc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.doc-h b{display:block;font-size:15.5px}
+.doc-h small{display:block;color:var(--ink-2);font-size:13px}
+.badge{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;flex:none}
+.b-req{background:var(--bad-soft);color:var(--bad)}.b-cond{background:var(--warn-soft);color:var(--warn)}.b-opt{background:var(--accent-soft);color:var(--accent)}.b-ok{background:var(--ok-soft);color:var(--ok)}
+.files{display:flex;flex-wrap:wrap;gap:8px}
+.file{position:relative;width:96px;display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--ink-2)}
+.file .th{width:96px;height:72px;border-radius:10px;overflow:hidden;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;font-weight:800;color:var(--accent)}
+.file .th img{width:100%;height:100%;object-fit:cover}
+.file span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file .x{position:absolute;top:-8px;right:-8px;width:28px;height:28px;border-radius:50%;border:2px solid var(--surface);background:var(--ink);color:var(--surface);display:grid;place-items:center;font-size:15px;line-height:1;padding:0}
+.up{width:96px;height:72px;border:1.5px dashed var(--line);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;font-weight:700;color:var(--accent);cursor:pointer;background:var(--surface);position:relative}
+.up input{position:absolute;width:1px;height:1px;opacity:0}
+.up:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.ref{border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--surface-2)}
+.ref-h{display:flex;justify-content:space-between;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 20px;border-radius:12px;border:0;font-weight:700;font-size:15.5px;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn.sm{min-height:44px;padding:8px 14px;font-size:14px}
+.btn.link{background:none;color:var(--accent);padding:8px 4px;min-height:44px;text-decoration:underline;text-underline-offset:3px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surface);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom, 0px));padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.bar-in{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center}
+.bar-in .grow{flex:1;font-size:13px;color:var(--ink-2);min-width:0}
+.sum{display:flex;flex-direction:column;gap:2px}
+.sum-sec{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.sum-sec:first-child{border-top:0;padding-top:0}
+.sum-h{display:flex;justify-content:space-between;align-items:center}
+.sum-h b{font-family:var(--f-d);font-size:17px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:4px 12px;font-size:14px}
+.kv span{color:var(--ink-2)}
+.kv b{font-weight:600;overflow-wrap:anywhere;min-width:0}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.checks li{display:flex;gap:10px;align-items:center;font-size:14.5px}
+.checks i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:13px;font-weight:800;flex:none}
+.checks .y i{background:var(--ok);color:#fff}.checks .n i{background:var(--bad-soft);color:var(--bad)}.checks .o i{background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.meter{height:10px;border-radius:5px;background:var(--surface-2);overflow:hidden;border:1px solid var(--line)}
+.meter em{display:block;height:100%;background:var(--accent)}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;min-height:44px;padding:4px 0}
+.consent input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--accent)}
+.done-card{align-items:flex-start}
+.folio{font-family:var(--f-d);font-weight:800;font-size:28px;letter-spacing:.04em}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.tl li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+.tl i{width:30px;height:30px;border-radius:9px;background:var(--brand2);color:var(--brand2-ink);display:grid;place-items:center;font-style:normal;font-weight:800}
+.tl small{display:block;color:var(--ink-2)}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}.kv{grid-template-columns:1fr}.kv span{margin-top:6px}.st span{display:none}}
+</style>
+
+<header class="band">
+  <div class="band-in">
+    <div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 36V10h26" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M54 28v26H28" fill="none" stroke="#F5B728" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#F5B728"/></svg>cuadra</div>
+    <h1>Inscríbete como <em>profesional</em></h1>
+    <p>Toma unos 10 minutos. Ten a mano tu cédula, tu récord policivo, tu idoneidad si tu oficio la requiere y fotos de trabajos que hayas hecho.</p>
+    <div class="demo"><span>Prototipo: los datos y archivos no salen de este navegador.</span><button type="button" id="fill-demo" data-act="demo">Llenar con datos de ejemplo</button></div>
+  </div>
+</header>
+<main class="wrap" id="app" aria-live="polite"></main>
+<div class="bar" id="bar"><div class="bar-in" id="bar-in"></div></div>
+
+<script>
+(function(){
+'use strict';
+const KEY='cuadra-inscripcion-draft-v1';
+const CATS=[['plomeria','Plomería'],['electricidad','Electricidad'],['limpieza','Limpieza'],['aires','Aires acondicionados'],['pintura','Pintura']];
+const ZONES=['San Francisco','Costa del Este','El Cangrejo','Obarrio','Bella Vista','Condado del Rey','Clayton','Punta Pacífica','Albrook','Brisas del Golf','Betania','Villa de las Fuentes','San Miguelito','Arraiján','La Chorrera'];
+const PROVS=['Panamá','Panamá Oeste','Colón','Coclé','Chiriquí','Herrera','Los Santos','Veraguas','Bocas del Toro','Darién'];
+const DAYS=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+const RELS=['Cliente residencial','Administración de PH','Empresa o comercio','Constructora o contratista','Otro'];
+const STEPS=['Tus datos','Tu oficio','Documentos','Trabajos y referencias','Revisar y enviar'];
+const MAX_MB=10;
+
+const blank=()=>({nombre:'',cedula:'',nac:'',wa:'',email:'',tipo:'natural',empresa:'',ruc:'',prov:'Panamá',barrio:'',
+  cats:[],espec:'',anos:'',zonas:[],dias:[],horario:'8:00 a 17:00',urg:false,transp:false,herr:false,
+  recFecha:'',idoNum:'',idoEnt:'Junta Técnica de Ingeniería y Arquitectura (JTIA)',idoVence:'',
+  refs:[{nombre:'',rel:'Cliente residencial',tel:'',trabajo:'',anio:''},{nombre:'',rel:'Cliente residencial',tel:'',trabajo:'',anio:''}],
+  redes:'',c1:false,c2:false,c3:false,c4:false});
+let F=load()||blank();
+let FILES={}; // key -> [{name,size,type,url}]
+let step=0, maxStep=0, errs={}, submitted=null, confirmClear=false;
+
+function load(){try{const r=localStorage.getItem(KEY);if(!r)return null;const o=JSON.parse(r);return Object.assign(blank(),o)}catch(e){return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(F))}catch(e){}}
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const digits=s=>String(s||'').replace(/\D/g,'');
+const today=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
+const parseDate=s=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(s||''))return null;const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const fmtDate=s=>{const d=parseDate(s);return d?d.toLocaleDateString('es-PA',{day:'numeric',month:'short',year:'numeric'}):'—'};
+const fmtWa=s=>{const d=digits(s);return d.length===8?d.slice(0,4)+'-'+d.slice(4):s};
+const catName=id=>(CATS.find(c=>c[0]===id)||['',''])[1];
+const needsIdo=()=>F.cats.includes('electricidad')||F.cats.includes('aires');
+const suggestsIdo=()=>F.cats.includes('plomeria');
+const has=k=>(FILES[k]||[]).length>0;
+
+/* ---------- validation ---------- */
+const CED=/^(PE|E|N|[1-9]|1[0-3])(AV|PI)?-\d{1,4}-\d{1,6}$/i;
+function validate(i){
+  const e={};
+  if(i===0){
+    if(F.nombre.trim().split(/\s+/).filter(Boolean).length<2) e.nombre='Escribe tu nombre y apellido.';
+    if(!CED.test(F.cedula.trim())) e.cedula='Usa el formato de tu cédula, por ejemplo 8-123-4567 o E-8-12345.';
+    const n=parseDate(F.nac); if(!n) e.nac='Indica tu fecha de nacimiento.'; else { const lim=today(); lim.setFullYear(lim.getFullYear()-18); if(n>lim) e.nac='Debes tener 18 años o más para inscribirte.'; }
+    const w=digits(F.wa); if(!(w.length===8&&w[0]==='6')) e.wa='Escribe un celular de 8 dígitos que empiece con 6, por ejemplo 6123-4567.';
+    if(F.email.trim()&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(F.email.trim())) e.email='Revisa el correo: falta la @ o el dominio.';
+    if(F.tipo==='empresa'){ if(F.empresa.trim().length<2) e.empresa='Escribe el nombre de tu empresa.'; if(digits(F.ruc).length<5) e.ruc='Escribe el RUC de la empresa.'; }
+    if(F.barrio.trim().length<2) e.barrio='Escribe tu corregimiento o barrio.';
+  }
+  if(i===1){
+    if(!F.cats.length) e.cats='Elige al menos un oficio.';
+    const a=Number(F.anos); if(F.anos===''||!(a>=0&&a<=60)) e.anos='Indica tus años de experiencia (0 a 60).';
+    if(!F.zonas.length) e.zonas='Elige al menos una zona donde trabajas.';
+    if(!F.dias.length) e.dias='Elige los días que puedes trabajar.';
+  }
+  if(i===2){
+    if(!has('foto')) e.foto='Sube una foto tuya de frente, sin lentes oscuros.';
+    if(!has('cedF')) e.cedF='Sube la foto del frente de tu cédula.';
+    if(!has('cedR')) e.cedR='Sube la foto del reverso de tu cédula.';
+    if(!has('record')) e.record='Sube tu récord policivo.';
+    const rd=parseDate(F.recFecha);
+    if(!rd) e.recFecha='Indica la fecha de emisión del récord.';
+    else { const lim=today(); lim.setDate(lim.getDate()-90); if(rd>today()) e.recFecha='La fecha de emisión no puede ser futura.'; else if(rd<lim) e.recFecha='El récord debe tener menos de 90 días. Solicita uno nuevo.'; }
+    if(needsIdo()){
+      if(!has('ido')) e.ido='Electricidad y aires acondicionados requieren idoneidad. Sube el certificado.';
+      if(F.idoNum.trim().length<3) e.idoNum='Escribe el número de tu idoneidad.';
+    }
+    if(F.idoVence){const v=parseDate(F.idoVence); if(v&&v<today()) e.idoVence='Esta idoneidad está vencida. Renuévala antes de inscribirte.';}
+    if(F.tipo==='empresa'&&!has('aviso')) e.aviso='Sube el aviso de operación de tu empresa.';
+  }
+  if(i===3){
+    F.refs.forEach((r,k)=>{
+      if(k<2||r.nombre||r.tel){
+        if(r.nombre.trim().length<3) e['rn'+k]='Escribe el nombre de la persona o empresa.';
+        const t=digits(r.tel); if(t.length<7) e['rt'+k]='Escribe un teléfono de 7 u 8 dígitos para poder llamar.';
+        if(r.trabajo.trim().length<5) e['rw'+k]='Describe brevemente qué trabajo le hiciste.';
+      }
+    });
+    const tels=F.refs.map(r=>digits(r.tel)).filter(Boolean);
+    if(tels.includes(digits(F.wa))) e.refs='Una referencia no puede tener tu mismo número.';
+    if(new Set(tels).size<tels.length) e.refs='Dos referencias tienen el mismo teléfono. Usa personas distintas.';
+  }
+  if(i===4){
+    ['c1','c2','c3','c4'].forEach(k=>{if(!F[k]) e[k]='Necesitamos esta autorización para revisar tu solicitud.'});
+  }
+  return e;
+}
+function firstInvalid(){for(let i=0;i<4;i++){if(Object.keys(validate(i)).length)return i}return -1}
+
+/* ---------- render helpers ---------- */
+const er=k=>errs[k]?`<div class="err" id="err-${k}" role="alert">${esc(errs[k])}</div>`:'';
+const bad=k=>errs[k]?' bad':'';
+function inp(k,label,opts={}){
+  return `<div class="field"><label for="f-${k}">${label}${opts.req?' <span class="req">*</span>':''}</label>
+  <input class="input${bad(k)}" id="f-${k}" data-bind="${k}" value="${esc(F[k])}" ${opts.type?`type="${opts.type}"`:''} ${opts.mode?`inputmode="${opts.mode}"`:''} ${opts.ph?`placeholder="${esc(opts.ph)}"`:''} ${opts.ac?`autocomplete="${opts.ac}"`:''} ${opts.max?`max="${opts.max}"`:''} aria-describedby="err-${k}">
+  ${opts.hint?`<span class="hint">${opts.hint}</span>`:''}${er(k)}</div>`;
+}
+function chips(k,list,label){return `<div class="chips" role="group" aria-label="${esc(label)}">${list.map(([v,l])=>`<button type="button" class="chip" data-act="tg" data-k="${k}" data-v="${esc(v)}" aria-pressed="${F[k].includes(v)}">${esc(l)}</button>`).join('')}</div>`}
+function fileThumbs(k){return (FILES[k]||[]).map((f,i)=>`<div class="file"><div class="th">${f.type.startsWith('image/')?`<img src="${f.url}" alt="${esc(f.name)}">`:'PDF'}</div><span title="${esc(f.name)}">${esc(f.name)}</span><button type="button" class="x" data-act="rmf" data-k="${k}" data-i="${i}" aria-label="Quitar ${esc(f.name)}">×</button></div>`).join('')}
+function docCard(k,title,desc,level,opts={}){
+  const ok=has(k); const multi=!!opts.multi; const accept=opts.img?'image/*':'image/*,application/pdf';
+  const badge=ok?'<span class="badge b-ok">Cargado</span>':level==='req'?'<span class="badge b-req">Obligatorio</span>':level==='cond'?`<span class="badge b-cond">${esc(opts.condLabel||'Según tu oficio')}</span>`:'<span class="badge b-opt">Opcional</span>';
+  return `<div class="doc${ok?' okd':''}" id="doc-${k}"><div class="doc-h"><div><b>${title}</b><small>${desc}</small></div>${badge}</div>
+    <div class="files">${fileThumbs(k)}${(!ok||multi)&&(FILES[k]||[]).length<(opts.max||1)?`<label class="up" for="up-${k}">+ Subir<small style="font-weight:500;color:var(--ink-2)">${opts.img?'Foto':'Foto o PDF'}</small><input type="file" id="up-${k}" accept="${accept}" ${multi?'multiple':''} data-upload="${k}" data-max="${opts.max||1}" data-img="${opts.img?1:0}"></label>`:''}</div>
+    ${opts.extra||''}${er(k)}</div>`;
+}
+
+/* ---------- steps ---------- */
+function s0(){return `<section class="card" aria-labelledby="h-s0"><h2 id="h-s0">Tus datos</h2><p class="lead">Así te identificamos y te contactamos. Tu número no se muestra a los clientes.</p>
+  ${inp('nombre','Nombre y apellido',{req:1,ph:'Ej: Carlos Méndez Ríos',ac:'name'})}
+  <div class="grid2">${inp('cedula','Cédula',{req:1,ph:'8-123-4567'})}${inp('nac','Fecha de nacimiento',{req:1,type:'date'})}</div>
+  <div class="grid2">${inp('wa','WhatsApp',{req:1,mode:'tel',ph:'6123-4567',ac:'tel'})}${inp('email','Correo',{type:'email',ph:'opcional',ac:'email'})}</div>
+  <div class="field"><span class="lbl">¿Cómo trabajas? <span class="req">*</span></span><div class="seg" role="group" aria-label="Tipo de inscripción">
+    <button type="button" class="chip" data-act="set" data-k="tipo" data-v="natural" aria-pressed="${F.tipo==='natural'}">Independiente</button>
+    <button type="button" class="chip" data-act="set" data-k="tipo" data-v="empresa" aria-pressed="${F.tipo==='empresa'}">Tengo empresa</button></div></div>
+  ${F.tipo==='empresa'?`<div class="grid2">${inp('empresa','Nombre de la empresa',{req:1})}${inp('ruc','RUC',{req:1,ph:'155-123-456789'})}</div>`:''}
+  <div class="grid2"><div class="field"><label for="f-prov">Provincia <span class="req">*</span></label><select class="input" id="f-prov" data-bind="prov">${PROVS.map(p=>`<option ${F.prov===p?'selected':''}>${p}</option>`).join('')}</select></div>
+  ${inp('barrio','Corregimiento o barrio',{req:1,ph:'Ej: Betania'})}</div>
+</section>`}
+function s1(){return `<section class="card" aria-labelledby="h-s1"><h2 id="h-s1">Tu oficio</h2><p class="lead">Elige todo lo que haces bien. Puedes ampliarlo después.</p>
+  <div class="field"><span class="lbl">Oficios <span class="req">*</span></span>${chips('cats',CATS,'Oficios')}<span class="hint">Belleza, mascotas y tutorías abren pronto.</span>${er('cats')}</div>
+  <div class="field"><label for="f-espec">¿En qué eres más fuerte?</label><textarea class="input" id="f-espec" data-bind="espec" placeholder="Ej: calentadores de paso, destapes con máquina, remodelación de baños">${esc(F.espec)}</textarea></div>
+  ${inp('anos','Años de experiencia',{req:1,type:'number',mode:'numeric',ph:'Ej: 8'})}
+  <div class="field"><span class="lbl">Zonas donde trabajas <span class="req">*</span></span>${chips('zonas',ZONES.map(z=>[z,z]),'Zonas')}${er('zonas')}</div>
+  <div class="field"><span class="lbl">Días disponibles <span class="req">*</span></span>${chips('dias',DAYS.map(d=>[d,d]),'Días')}${er('dias')}</div>
+  <div class="field"><label for="f-horario">Horario habitual</label><select class="input" id="f-horario" data-bind="horario">${['7:00 a 15:00','8:00 a 17:00','9:00 a 18:00','Horario flexible'].map(h=>`<option ${F.horario===h?'selected':''}>${h}</option>`).join('')}</select></div>
+  <div class="field"><span class="lbl">Cómo trabajas</span>
+    <label class="tog"><input type="checkbox" id="f-urg" data-bind="urg" ${F.urg?'checked':''}><span>Atiendo urgencias<small>Llegar en máximo 2 horas. El cliente paga un recargo de $15.</small></span></label>
+    <label class="tog"><input type="checkbox" id="f-transp" data-bind="transp" ${F.transp?'checked':''}><span>Tengo transporte propio</span></label>
+    <label class="tog"><input type="checkbox" id="f-herr" data-bind="herr" ${F.herr?'checked':''}><span>Tengo mis propias herramientas</span></label></div>
+</section>`}
+function s2(){
+  const ido=needsIdo()?'cond':suggestsIdo()?'opt':'opt';
+  const idoLabel=needsIdo()?'Obligatoria para tu oficio':'';
+  return `<section class="card" aria-labelledby="h-s2"><h2 id="h-s2">Documentos</h2><p class="lead">Fotos claras o PDF, hasta ${MAX_MB} MB cada uno. Solo el equipo de verificación de Cuadra los ve; nunca se muestran a los clientes.</p>
+  ${docCard('foto','Foto de perfil','De frente, buena luz, sin lentes oscuros. Es la que verán los clientes.','req',{img:1})}
+  ${docCard('cedF','Cédula · frente','Que se lean el nombre y el número.','req')}
+  ${docCard('cedR','Cédula · reverso','La parte de atrás completa.','req')}
+  ${docCard('record','Récord policivo','Certificado de antecedentes penales con menos de 90 días de emitido.','req',{extra:`<div class="grid2">${inp('recFecha','Fecha de emisión',{req:1,type:'date'})}</div>`})}
+  ${docCard('ido','Idoneidad','Certificado o licencia que te habilita para tu oficio.',needsIdo()?'cond':'opt',{condLabel:idoLabel,extra:`<div class="grid2">${inp('idoNum','Número de idoneidad',{req:needsIdo()})}<div class="field"><label for="f-idoEnt">Entidad que la emite</label><select class="input" id="f-idoEnt" data-bind="idoEnt">${['Junta Técnica de Ingeniería y Arquitectura (JTIA)','INADEH','Otra entidad'].map(o=>`<option ${F.idoEnt===o?'selected':''}>${o}</option>`).join('')}</select></div></div>${inp('idoVence','Fecha de vencimiento',{type:'date',hint:'Si no vence, déjalo vacío.'})}${!needsIdo()&&suggestsIdo()?'<span class="hint">Para plomería no es obligatoria, pero los perfiles con idoneidad reciben más solicitudes.</span>':''}`})}
+  ${docCard('dipl','Diplomas y certificaciones','INADEH, cursos de fabricantes, diplomas técnicos. Hasta 5.','opt',{multi:1,max:5})}
+  ${docCard('seguro','Seguro de responsabilidad civil','Si tienes póliza vigente, súbela: aparece como sello en tu perfil.','opt')}
+  ${F.tipo==='empresa'?docCard('aviso','Aviso de operación','Documento de tu empresa emitido por Panamá Emprende.','req'):''}
+</section>`}
+function s3(){
+  return `<section class="card" aria-labelledby="h-s3"><h2 id="h-s3">Trabajos y referencias</h2><p class="lead">Lo que más convence a un cliente: ver tu trabajo y saber que otros te recomiendan.</p>
+  ${docCard('trabajos','Fotos de trabajos','Antes y después funcionan mejor. Evita caras y direcciones visibles. Recomendamos 3 o más, hasta 12.','opt',{multi:1,max:12,img:1})}
+  <div class="field"><span class="lbl">Referencias <span class="req">*</span></span><span class="hint">Mínimo 2: clientes, administradoras de PH o empresas para las que trabajaste. Las llamamos para confirmar antes de publicarlas.</span>${er('refs')}</div>
+  ${F.refs.map((r,k)=>`<div class="ref" id="ref-${k}"><div class="ref-h"><b>Referencia ${k+1}${k<2?' <span class="req">*</span>':''}</b>${k>=2?`<button type="button" class="btn link" data-act="rmref" data-i="${k}">Quitar</button>`:''}</div>
+    <div class="grid2"><div class="field"><label for="r-n-${k}">Nombre</label><input class="input${bad('rn'+k)}" id="r-n-${k}" data-bind="refs.${k}.nombre" value="${esc(r.nombre)}" placeholder="Persona o empresa">${er('rn'+k)}</div>
+    <div class="field"><label for="r-r-${k}">Relación</label><select class="input" id="r-r-${k}" data-bind="refs.${k}.rel">${RELS.map(o=>`<option ${r.rel===o?'selected':''}>${o}</option>`).join('')}</select></div></div>
+    <div class="grid2"><div class="field"><label for="r-t-${k}">Teléfono</label><input class="input${bad('rt'+k)}" id="r-t-${k}" data-bind="refs.${k}.tel" value="${esc(r.tel)}" inputmode="tel" placeholder="6123-4567">${er('rt'+k)}</div>
+    <div class="field"><label for="r-a-${k}">Año del trabajo</label><input class="input" id="r-a-${k}" data-bind="refs.${k}.anio" value="${esc(r.anio)}" inputmode="numeric" placeholder="Ej: 2025"></div></div>
+    <div class="field"><label for="r-w-${k}">¿Qué trabajo le hiciste?</label><input class="input${bad('rw'+k)}" id="r-w-${k}" data-bind="refs.${k}.trabajo" value="${esc(r.trabajo)}" placeholder="Ej: mantenimiento de 6 splits en el PH">${er('rw'+k)}</div>
+  </div>`).join('')}
+  ${F.refs.length<5?`<button type="button" class="btn ghost" data-act="addref">+ Agregar otra referencia</button>`:''}
+  ${docCard('cartas','Cartas de recomendación','Si tienes cartas firmadas, súbelas. Hasta 3.','opt',{multi:1,max:3})}
+  ${inp('redes','Página de Facebook, Instagram o web',{ph:'Opcional',hint:'Si muestras tus trabajos en redes, ayuda a verificar.'})}
+</section>`}
+function strength(){
+  const items=[['Foto de perfil',has('foto')],['Cédula frente y reverso',has('cedF')&&has('cedR')],['Récord policivo vigente',has('record')&&!validate(2).recFecha],['Idoneidad',has('ido')],['3 o más fotos de trabajos',(FILES.trabajos||[]).length>=3],['2 referencias completas',!Object.keys(validate(3)).length],['Diplomas o certificaciones',has('dipl')],['Seguro de responsabilidad civil',has('seguro')]];
+  return items;
+}
+function s4(){
+  const inv=firstInvalid();
+  const st=strength(); const pct=Math.round(st.filter(x=>x[1]).length/st.length*100);
+  const kv=(rows)=>`<div class="kv">${rows.map(([k,v])=>`<span>${k}</span><b>${v||'—'}</b>`).join('')}</div>`;
+  const files=k=>(FILES[k]||[]).length;
+  return `<section class="card" aria-labelledby="h-s4"><h2 id="h-s4">Revisa y envía</h2>
+  ${inv>=0?`<div class="doc" style="border-color:var(--bad);background:var(--bad-soft)"><b>Falta completar "${STEPS[inv]}"</b><button type="button" class="btn sm" data-act="go" data-i="${inv}">Ir a completar</button></div>`:''}
+  <div class="field"><span class="lbl">Fuerza de tu perfil · ${pct}%</span><div class="meter"><em style="width:${pct}%"></em></div>
+  <ul class="checks">${st.map(([l,ok],i)=>`<li class="${ok?'y':i<3||i===5?'n':'o'}"><i>${ok?'✓':i<3||i===5?'!':'+'}</i><span>${l}${!ok&&i>=6?' <span class="hint">· opcional, suma confianza</span>':''}</span></li>`).join('')}</ul></div>
+  <div class="sum">
+    <div class="sum-sec"><div class="sum-h"><b>Tus datos</b><button type="button" class="btn link" data-act="go" data-i="0">Editar</button></div>${kv([['Nombre',esc(F.nombre)],['Cédula',esc(F.cedula)],['Nacimiento',fmtDate(F.nac)],['WhatsApp',esc(fmtWa(F.wa))],['Correo',esc(F.email)],['Tipo',F.tipo==='empresa'?'Empresa · '+esc(F.empresa)+' · RUC '+esc(F.ruc):'Independiente'],['Ubicación',esc(F.barrio)+', '+esc(F.prov)]])}</div>
+    <div class="sum-sec"><div class="sum-h"><b>Tu oficio</b><button type="button" class="btn link" data-act="go" data-i="1">Editar</button></div>${kv([['Oficios',F.cats.map(catName).join(', ')],['Experiencia',F.anos!==''?esc(F.anos)+' años':''],['Zonas',esc(F.zonas.join(', '))],['Disponibilidad',esc(F.dias.join(' · '))+(F.dias.length?' · '+esc(F.horario):'')],['Además',[F.urg&&'Urgencias',F.transp&&'Transporte propio',F.herr&&'Herramientas propias'].filter(Boolean).join(' · ')]])}</div>
+    <div class="sum-sec"><div class="sum-h"><b>Documentos</b><button type="button" class="btn link" data-act="go" data-i="2">Editar</button></div>${kv([['Foto de perfil',files('foto')?'Cargada':''],['Cédula',files('cedF')&&files('cedR')?'Frente y reverso':files('cedF')||files('cedR')?'Incompleta':''],['Récord policivo',files('record')?'Emitido '+fmtDate(F.recFecha):''],['Idoneidad',files('ido')?esc(F.idoNum)+' · '+esc(F.idoEnt)+(F.idoVence?' · vence '+fmtDate(F.idoVence):''):needsIdo()?'<span style="color:var(--bad)">Falta</span>':''],['Diplomas',files('dipl')?files('dipl')+' archivo(s)':''],['Seguro',files('seguro')?'Cargado':'']])}</div>
+    <div class="sum-sec"><div class="sum-h"><b>Trabajos y referencias</b><button type="button" class="btn link" data-act="go" data-i="3">Editar</button></div>${kv([['Fotos de trabajos',files('trabajos')?files('trabajos')+' foto(s)':''],...F.refs.filter(r=>r.nombre).map((r,i)=>['Referencia '+(i+1),esc(r.nombre)+' · '+esc(r.rel)+' · '+esc(fmtWa(r.tel))]),['Redes',esc(F.redes)]])}</div>
+  </div>
+  <div class="field"><span class="lbl">Autorizaciones <span class="req">*</span></span>
+    ${[['c1','Declaro que la información y los documentos que envío son verdaderos y están vigentes.'],['c2','Autorizo a Cuadra a verificar mi identidad, mi récord policivo y mi idoneidad, y a llamar a mis referencias.'],['c3','Acepto el tratamiento de mis datos personales para este proceso, conforme a la Ley 81 de 2019 de Protección de Datos Personales de Panamá. Puedo pedir que los borren en cualquier momento.'],['c4','Conozco las condiciones: inscribirme es gratis; Cuadra cobra 18% del primer trabajo con cada cliente y 8% cuando ese cliente me vuelve a contratar, solo sobre trabajos cobrados por la app.']].map(([k,t])=>`<label class="consent"><input type="checkbox" id="f-${k}" data-bind="${k}" ${F[k]?'checked':''}><span>${t}</span></label>${er(k)}`).join('')}
+  </div>
+</section>`}
+function sDone(){
+  return `<section class="card done-card" aria-labelledby="h-done"><span class="badge b-ok">Solicitud recibida</span><h2 id="h-done">Gracias, ${esc(F.nombre.split(' ')[0])}. Ya estás en la fila.</h2>
+  <div><span class="lbl">Número de solicitud</span><div class="folio" id="folio">${submitted.folio}</div><span class="hint">Guárdalo para cualquier consulta.</span></div>
+  <ol class="tl">
+    <li><i>1</i><span><b>Revisamos tus documentos</b><small>En 24 a 48 horas hábiles. Si algo no se lee, te escribimos por WhatsApp al ${esc(fmtWa(F.wa))}.</small></span></li>
+    <li><i>2</i><span><b>Llamamos a tus referencias</b><small>${F.refs.filter(r=>r.nombre).length} referencias para confirmar.</small></span></li>
+    <li><i>3</i><span><b>Sesión de activación de 30 minutos</b><small>Te mostramos cómo recibir solicitudes, cobrar y subir de nivel.</small></span></li>
+    <li><i>4</i><span><b>Tu perfil sale publicado</b><small>Con tu sello de verificado y tus primeras solicitudes en ${esc(F.zonas.slice(0,3).join(', '))}${F.zonas.length>3?' y más':''}.</small></span></li>
+  </ol>
+  <p class="hint">Prototipo: esta solicitud no se envió a ningún lado. En la versión real llega al equipo de verificación de Cuadra.</p>
+  <button type="button" class="btn ghost" data-act="restart">Empezar otra inscripción</button>
+</section>`}
+const VIEWS=[s0,s1,s2,s3,s4];
+
+function render(scroll){
+  const app=document.getElementById('app');
+  if(submitted){app.innerHTML=sDone();document.getElementById('bar').hidden=true;if(scroll)window.scrollTo(0,0);return}
+  document.getElementById('bar').hidden=false;
+  app.innerHTML=`<nav class="steps" aria-label="Pasos">${STEPS.map((s,i)=>`<button type="button" class="st${i<step||i<=maxStep&&i!==step&&!Object.keys(validate(i)).length?' done':''}${i===step?' cur':''}" data-act="go" data-i="${i}" ${i>maxStep?'disabled':''} aria-current="${i===step?'step':'false'}"><i></i><span>${i+1}. ${s}</span></button>`).join('')}</nav>${VIEWS[step]()}<div class="confirm">${confirmClear?`¿Borrar todo lo que llevas? <button type="button" class="btn sm" data-act="clear-yes" style="background:var(--bad);color:#fff">Sí, borrar</button><button type="button" class="btn sm ghost" data-act="clear-no">No</button>`:`<button type="button" class="btn link" data-act="clear">Borrar formulario</button>`}</div>`;
+  const last=step===4;
+  document.getElementById('bar-in').innerHTML=`${step>0?`<button type="button" class="btn ghost" data-act="prev">Atrás</button>`:''}
+    <div class="grow">Paso ${step+1} de 5</div>
+    <button type="button" class="btn" id="next" data-act="${last?'submit':'next'}">${last?'Enviar solicitud':'Continuar'}</button>`;
+  if(scroll)window.scrollTo(0,0);
+}
+function focusFirstError(){const k=Object.keys(errs)[0];if(!k)return;const el=document.getElementById('f-'+k)||document.getElementById('doc-'+k)||document.getElementById('err-'+k);if(el){el.scrollIntoView({block:'center'});if(el.focus)try{el.focus({preventScroll:true})}catch(e){}}}
+
+/* ---------- files ---------- */
+function addFiles(input){
+  const k=input.dataset.upload, max=+input.dataset.max, onlyImg=input.dataset.img==='1';
+  const list=FILES[k]||[]; const bads=[];
+  for(const f of input.files){
+    if(list.length>=max){bads.push(`Máximo ${max} archivo(s) aquí.`);break}
+    const okType=onlyImg?/^image\//.test(f.type):(/^image\//.test(f.type)||f.type==='application/pdf');
+    if(!okType){bads.push(`"${f.name}" no es ${onlyImg?'una foto':'una foto ni un PDF'}.`);continue}
+    if(f.size>MAX_MB*1024*1024){bads.push(`"${f.name}" pesa más de ${MAX_MB} MB.`);continue}
+    list.push({name:f.name,size:f.size,type:f.type,url:URL.createObjectURL(f)});
+  }
+  FILES[k]=list; input.value='';
+  if(bads.length) errs[k]=bads.join(' '); else delete errs[k];
+  render(false);
+}
+
+/* ---------- demo data ---------- */
+function demo(){
+  F=Object.assign(blank(),{nombre:'Carlos Méndez Ríos',cedula:'8-765-1234',nac:'1988-04-12',wa:'6123-4567',email:'carlos.mendez@ejemplo.com',barrio:'Betania',
+    cats:['aires','electricidad'],espec:'Mantenimiento e instalación de splits inverter, tableros residenciales.',anos:'9',zonas:['Betania','El Cangrejo','San Francisco','Condado del Rey'],dias:['Lun','Mar','Mié','Jue','Vie','Sáb'],urg:true,transp:true,herr:true,
+    recFecha:(()=>{const d=new Date();d.setDate(d.getDate()-20);return d.toISOString().slice(0,10)})(),idoNum:'E-12345',idoVence:(()=>{const d=new Date();d.setFullYear(d.getFullYear()+2);return d.toISOString().slice(0,10)})(),
+    refs:[{nombre:'Administración PH Vista Marina',rel:'Administración de PH',tel:'6612-3344',trabajo:'Mantenimiento trimestral de 24 splits',anio:'2025'},{nombre:'Café La Esquina',rel:'Empresa o comercio',tel:'391-2233',trabajo:'Instalación eléctrica y 3 aires del local',anio:'2024'}],
+    redes:'instagram.com/ejemplo.frio'});
+  const svg=(t,h)=>{const c=document.createElement('canvas');c.width=320;c.height=240;const x=c.getContext('2d');x.fillStyle=`hsl(${h} 55% 45%)`;x.fillRect(0,0,320,240);x.fillStyle='#fff';x.font='bold 22px sans-serif';x.fillText(t,16,220);return new Promise(r=>c.toBlob(b=>r({name:t+'.png',size:b.size,type:'image/png',url:URL.createObjectURL(b)}),'image/png'))};
+  Promise.all([svg('Foto de perfil',220),svg('Cédula frente',200),svg('Cédula reverso',205),svg('Récord policivo',30),svg('Idoneidad',140),svg('INADEH',260),svg('Trabajo 1',190),svg('Trabajo 2',180),svg('Trabajo 3',170)]).then(([a,b,c,d,e,f,g,h,i])=>{
+    FILES={foto:[a],cedF:[b],cedR:[c],record:[d],ido:[e],dipl:[f],trabajos:[g,h,i]};maxStep=4;errs={};save();render(true);
+  });
+}
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]'); if(!el||el.disabled) return;
+  const a=el.dataset.act;
+  if(a==='tg'){const arr=F[el.dataset.k];const v=el.dataset.v;const i=arr.indexOf(v);i>=0?arr.splice(i,1):arr.push(v);delete errs[el.dataset.k];save();render(false)}
+  else if(a==='set'){F[el.dataset.k]=el.dataset.v;save();render(false)}
+  else if(a==='next'){errs=validate(step);if(Object.keys(errs).length){render(false);focusFirstError();return}step++;maxStep=Math.max(maxStep,step);render(true)}
+  else if(a==='prev'){errs={};step=Math.max(0,step-1);render(true)}
+  else if(a==='go'){errs={};step=+el.dataset.i;render(true)}
+  else if(a==='rmf'){const k=el.dataset.k;const f=FILES[k][+el.dataset.i];if(f)URL.revokeObjectURL(f.url);FILES[k].splice(+el.dataset.i,1);render(false)}
+  else if(a==='addref'){F.refs.push({nombre:'',rel:'Cliente residencial',tel:'',trabajo:'',anio:''});save();render(false)}
+  else if(a==='rmref'){F.refs.splice(+el.dataset.i,1);errs={};save();render(false)}
+  else if(a==='submit'){
+    const inv=firstInvalid(); errs=validate(4);
+    if(inv>=0){step=inv;errs=validate(inv);render(true);focusFirstError();return}
+    if(Object.keys(errs).length){render(false);focusFirstError();return}
+    submitted={folio:'CU-'+new Date().getFullYear()+'-'+String(Math.floor(1000+Math.random()*9000))};
+    try{localStorage.removeItem(KEY)}catch(e){}
+    render(true);
+  }
+  else if(a==='restart'){Object.values(FILES).flat().forEach(f=>URL.revokeObjectURL(f.url));F=blank();FILES={};step=0;maxStep=0;errs={};submitted=null;render(true)}
+  else if(a==='clear'){confirmClear=true;render(false)}
+  else if(a==='clear-no'){confirmClear=false;render(false)}
+  else if(a==='clear-yes'){confirmClear=false;Object.values(FILES).flat().forEach(f=>URL.revokeObjectURL(f.url));F=blank();FILES={};step=0;maxStep=0;errs={};try{localStorage.removeItem(KEY)}catch(e){}render(true)}
+  else if(a==='demo'){demo()}
+});
+function bind(el,val){const p=el.dataset.bind.split('.');let o=F;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=val;save()}
+document.addEventListener('input',e=>{const el=e.target;if(el.dataset&&el.dataset.bind&&el.type!=='checkbox'&&el.tagName!=='SELECT'){bind(el,el.value)}});
+document.addEventListener('change',e=>{const el=e.target;
+  if(el.dataset&&el.dataset.upload){addFiles(el);return}
+  if(el.dataset&&el.dataset.bind&&el.isConnected&&(el.type==='checkbox'||el.tagName==='SELECT')){bind(el,el.type==='checkbox'?el.checked:el.value);if(errs[el.dataset.bind]){delete errs[el.dataset.bind];render(false)}}
+});
+render(false);
+window.__insc={get F(){return F},get FILES(){return FILES},get step(){return step},get submitted(){return submitted}};
+})();
+</script>
